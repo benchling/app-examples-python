@@ -1,0 +1,4 @@
+flask~=3.0.0
+flask-executor>=1.0.0
+# TODO Upgrade to stable SDK version once changes are released
+benchling-sdk~=1.10.0a4

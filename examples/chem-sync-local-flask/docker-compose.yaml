@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  benchling-app:
+    build: .
+    ports:
+      - "${APP_PORT:-8000}:5000"
+    volumes:
+      - type: bind
+        source: .
+        target: /src/app
+    environment:
+      # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
+      # You might choose to have two different Apps for dev vs prod, which would have different clients
+      - CLIENT_ID=${CLIENT_ID}
+      # Client secret for the Benchling App, stored somewhere securely in production.
+      # Injected here for convenience. Each Client ID will have its own Client secret
+      - CLIENT_SECRET=${CLIENT_SECRET}
+
+  # FOR LOCAL DEVELOPMENT ONLY!
+  # Free tool for providing a public URL to forward webhooks to our Benchling App running locally
+  # Do not do this in production or use with any sensitive data
+  local-tunnel:
+    build:
+      dockerfile_inline: |
+        FROM node:21-alpine
+        RUN npm install -g localtunnel@2.0.2
+        CMD lt --port 5000 --local-host benchling-app

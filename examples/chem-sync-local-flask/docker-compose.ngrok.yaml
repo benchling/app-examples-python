@@ -1,0 +1,39 @@
+version: "3.8"
+
+# Alternative using ngrok, a popular paid solution for local forwarding with limited free personal use
+services:
+  benchling-app:
+    build: .
+    ports:
+      - "${APP_PORT:-8000}:5000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - type: bind
+        source: .
+        target: /src/app
+    environment:
+      # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
+      # You might choose to have two different Apps for dev vs prod, which would have different clients
+      - CLIENT_ID=${CLIENT_ID}
+      # Client secret for the Benchling App, stored somewhere securely. Injected here for convenience
+      # Each Client ID will have its own Client secret
+      - CLIENT_SECRET=${CLIENT_SECRET}
+  ngrok:
+    image: ngrok/ngrok:3.5.0-alpine
+    restart: unless-stopped
+    command: "http benchling-app:5000"
+    volumes:
+      # For Mac and Linux
+      - type: bind
+        source: /run/host-services/ssh-auth.sock
+        target: /run/host-services/ssh-auth.sock
+    environment:
+      # For Mac and Linux
+      - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+      # Note: You'll need to set NGROK_AUTHTOKEN as an environment variable, for example in .env
+      - NGROK_AUTHTOKEN="${NGROK_AUTHTOKEN}"
+    links:
+      - benchling-app
+    ports:
+      - "${NGROK_PORT:-4040}:4040"
