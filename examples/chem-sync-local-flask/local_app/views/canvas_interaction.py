@@ -61,6 +61,7 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
 
 
 def _create_molecule_from_canvas(app: App, canvas_builder: CanvasBuilder) -> Molecule:
+    # TODO Replace this with canvas.data once available
     # Not a great way at the moment to persist data across Canvases without forcing the app to be stateful
     # So just pull it out of the Markdown where we displayed it. Lets Benchling "store" the "state"
     chemical_preview = canvas_builder.blocks.get_by_id(CHEMICAL_PREVIEW_ID).to_api_model().value
