@@ -1,4 +1,5 @@
 import re
+from urllib.parse import quote
 
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
 from benchling_sdk.apps.framework import App
@@ -32,8 +33,8 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
                 session.attach_canvas(canvas_id)
                 canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
                 canvas_inputs = canvas_builder.inputs_to_dict_single_value()
-                _validate_inputs(canvas_inputs)
-                results = search(canvas_inputs[SEARCH_TEXT_ID])
+                sanitized_inputs = _validate_and_sanitize_inputs(canvas_inputs)
+                results = search(sanitized_inputs[SEARCH_TEXT_ID])
                 show_preview(results, canvas_id, canvas_builder, session)
         elif canvas_interaction.button_id == CANCEL_BUTTON_ID:
             # Set session_id = None to detach and prior state or messages (essentially, reset)
@@ -76,8 +77,13 @@ def _canvas_builder_from_canvas_id(app: App, canvas_id: str) -> CanvasBuilder:
     return CanvasBuilder.from_canvas(current_canvas)
 
 
-def _validate_inputs(inputs: dict[str, str]):
+def _validate_and_sanitize_inputs(inputs: dict[str, str]) -> dict[str, str]:
+    sanitized_inputs = dict()
     if not inputs[SEARCH_TEXT_ID]:
         # AppFacingUserError is a special error that will propagate the error message as-is back to the user
         # via the App's session and end control flow
         raise AppUserFacingError("Please enter a chemical name to search for")
+    elif not re.match("^[a-zA-Z\d\s\-]+$", inputs[SEARCH_TEXT_ID]):
+        raise AppUserFacingError("The chemical name can only contain letters, numbers, spaces, and hyphens")
+    sanitized_inputs[SEARCH_TEXT_ID] = quote(inputs[SEARCH_TEXT_ID])
+    return sanitized_inputs
