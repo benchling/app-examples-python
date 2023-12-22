@@ -24,10 +24,10 @@ docker compose up
 You can verify that Flask is up and running:
 
 ```bash
-curl localhost:8000
+curl localhost:8000/health
 ```
 
-If Flask is running, you should see `Hello, World!` printed.
+If Flask is running, you should see `OK` printed.
 
 Be sure to note the URL created for you by `localtunnel`. The log line should look something like this:
 

@@ -1,3 +1,4 @@
+import logging
 from typing import Any, cast
 
 from benchling_sdk.apps.framework import App
@@ -8,11 +9,12 @@ from benchling_sdk.models import (
     MoleculeStructure,
     MoleculeStructureStructureFormat,
 )
-from flask import current_app
+
+logger = logging.getLogger(__name__)
 
 
 def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:
-    current_app.logger.debug("Chemical to create: %s", chemical_result)
+    logger.debug("Chemical to create: %s", chemical_result)
     molecule_structure = MoleculeStructure(
         structure_format=MoleculeStructureStructureFormat.SMILES,
         value=chemical_result["smiles"],
