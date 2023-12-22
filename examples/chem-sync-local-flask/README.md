@@ -10,6 +10,8 @@ _The App features branching flows and will also validate user inputs._
 
 This app is optimized as a minimal local development experience using [Docker](https://www.docker.com/) for reproducibility.
 
+> ⚠️ **Development Only**: This example is not meant to be copied into production as-is. There are additional deployment, scale, and security concerns that should be addressed before deploying an app based on this example to production.
+
 It relies on a few other tools that will be installed for you within Docker containers:
 * [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and forward the results locally. ⚠️ *Not for production or real data!*
 * [Flask](https://flask.palletsprojects.com/) - A simple Python web application framework
@@ -110,7 +112,7 @@ docker-compose up -d
 
 If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
 
-> ⚠️ In production, store the secret with a secure solution. Avoid placing it in plaintext anywhere in code or configuration.
+> ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
 
 ### Create App Registry Dependencies
 
