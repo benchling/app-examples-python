@@ -66,7 +66,7 @@ def _create_molecule_from_canvas(app: App, canvas_builder: CanvasBuilder) -> Mol
     chemical_preview = canvas_builder.blocks.get_by_id(CHEMICAL_PREVIEW_ID).to_api_model().value
     matches = re.search("CID[^0-9a-zA-Z]*([a-zA-Z0-9]+)", chemical_preview)
     # # Only needed for type safety
-    # assert matches is not None
+    assert matches is not None
     chemical_cid = matches.group(1)
     chemical = get_by_cid(chemical_cid)
     return create_molecule(app, chemical)
