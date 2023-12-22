@@ -14,7 +14,3 @@ optional-dependencies.test = { file = ["requirements-test.txt"] }
 
 [tool.ruff]
 line-length = 110
-
-[[tool.mypy.overrides]]
-module = "flask_executor"
-ignore_missing_imports = true
