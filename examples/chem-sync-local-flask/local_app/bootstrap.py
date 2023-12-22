@@ -18,7 +18,13 @@ def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
 @cache
 def _auth_method() -> ClientCredentialsOAuth2:
     client_id = os.environ["CLIENT_ID"]
-    client_secret = os.environ["CLIENT_SECRET"]
     assert client_id is not None, "Missing CLIENT_ID from environment"
-    assert client_secret is not None, "Missing CLIENT_SECRET from environment"
+    client_secret = _client_secret_from_file()
     return ClientCredentialsOAuth2(client_id, client_secret)
+
+
+def _client_secret_from_file() -> str:
+    file_path = os.environ["CLIENT_SECRET_FILE"]
+    assert file_path is not None, "Missing CLIENT_SECRET_FILE from environment"
+    with open(file_path) as f:
+        return f.read()

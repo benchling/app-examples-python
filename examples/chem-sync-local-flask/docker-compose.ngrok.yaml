@@ -16,9 +16,11 @@ services:
       # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
       # You might choose to have two different Apps for dev vs prod, which would have different clients
       - CLIENT_ID=${CLIENT_ID}
-      # Client secret for the Benchling App, stored somewhere securely. Injected here for convenience
-      # Each Client ID will have its own Client secret
-      - CLIENT_SECRET=${CLIENT_SECRET}
+      # Client secret for the Benchling App, stored somewhere securely in production.
+      # Injected here for convenience. Each Client ID will have its own Client secret
+      - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
+    secrets:
+      - app_client_secret
   ngrok:
     image: ngrok/ngrok:3.5.0-alpine
     restart: unless-stopped
@@ -37,3 +39,7 @@ services:
       - benchling-app
     ports:
       - "${NGROK_PORT:-4040}:4040"
+
+secrets:
+  app_client_secret:
+    file: .client_secret

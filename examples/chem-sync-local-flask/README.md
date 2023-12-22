@@ -18,6 +18,14 @@ It relies on a few other tools that will be installed for you within Docker cont
 
 ## Getting Started
 
+Create an empty placeholder file for Docker secrets. *nix example:
+
+```bash
+touch .client_secret
+```
+
+Start Docker:
+
 ```bash
 docker compose build
 docker compose up
@@ -97,12 +105,25 @@ touch .env
 ```
 
 Open it in an editor of your choice and set the values with the plaintext client ID 
-and secret for your App. For example:
+for your App. For example:
 
 ```
 CLIENT_ID=42a0cd39-0543-4dd2-af02-a866c97f0c4d
-CLIENT_SECRET=cs_****************oOkNhFPnfI7Uq9s
 ```
+
+Since the client secret is sensitive, it's handled a bit differently. It's
+registered as a `secret` in our `docker-compose.yaml` file, which will be looking
+for a file `./client_secret`.
+
+We can create this file and paste in the secret plaintext value if we have the secret in our clipboard.
+On *nix:
+
+```bash
+touch .client_secret
+pbpaste > .client_secret
+```
+
+> ⚠️ **Security Note:** Be sure to avoid committing `.client_secret` to a source code repository.
 
 You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
 

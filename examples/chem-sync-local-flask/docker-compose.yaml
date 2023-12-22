@@ -15,7 +15,9 @@ services:
       - CLIENT_ID=${CLIENT_ID}
       # Client secret for the Benchling App, stored somewhere securely in production.
       # Injected here for convenience. Each Client ID will have its own Client secret
-      - CLIENT_SECRET=${CLIENT_SECRET}
+      - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
+    secrets:
+      - app_client_secret
 
   # FOR LOCAL DEVELOPMENT ONLY!
   # Free tool for providing a public URL to forward webhooks to our Benchling App running locally
@@ -28,3 +30,7 @@ services:
         FROM node:21-alpine
         RUN npm install -g localtunnel@2.0.2
         CMD lt --port 5000 --local-host benchling-app
+
+secrets:
+  app_client_secret:
+    file: .client_secret
