@@ -4,15 +4,17 @@ services:
   benchling-app:
     build: .
     ports:
-      - "${APP_PORT:-8000}:5000"
+      - "8080"
     volumes:
       - type: bind
         source: .
-        target: /src/app
+        target: /src
     environment:
+      # Don't set debug in production!
+      - FLASK_DEBUG=1
       # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
       # You might choose to have two different Apps for dev vs prod, which would have different client IDs
-      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_ID
       # Client secret for the Benchling App, stored somewhere securely in production.
       # Injected here for convenience. Each Client ID will have its own Client secret
       - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
@@ -29,7 +31,7 @@ services:
       dockerfile_inline: |
         FROM node:21-alpine
         RUN npm install -g localtunnel@2.0.2
-        CMD lt --port 5000 --local-host benchling-app
+        CMD lt --port 8080 --local-host benchling-app
 
 secrets:
   app_client_secret:

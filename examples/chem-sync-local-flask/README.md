@@ -48,7 +48,7 @@ app-workshop-local-tunnel-1   | your url is: https://brave-wombats-poke.loca.lt
 On *nix systems, you can easily obtain _just_ the URL via:
 
 ```
-docker compose logs -n 1 local-tunnel | grep -o https://.*
+docker compose logs local-tunnel | grep -o https://.* | tail -n 1
 ```
 
 Example Output:
