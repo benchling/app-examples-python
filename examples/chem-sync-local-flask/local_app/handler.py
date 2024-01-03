@@ -6,7 +6,7 @@ from benchling_sdk.models.webhooks.v0 import (
     CanvasInteractionWebhookV0,
 )
 
-from local_app.bootstrap import init_app_from_webhook
+from local_app.benchling_app_setup import init_app_from_webhook
 from local_app.views.canvas_initialize import show_search
 from local_app.views.canvas_interaction import route_interaction_webhook
 

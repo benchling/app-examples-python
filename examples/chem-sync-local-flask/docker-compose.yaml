@@ -4,7 +4,7 @@ services:
   benchling-app:
     build: .
     ports:
-      - "8080"
+      - "8000:5000"
     volumes:
       - type: bind
         source: .
@@ -31,7 +31,7 @@ services:
       dockerfile_inline: |
         FROM node:21-alpine
         RUN npm install -g localtunnel@2.0.2
-        CMD lt --port 8080 --local-host benchling-app
+        CMD lt --port 8000 --local-host benchling-app
 
 secrets:
   app_client_secret:

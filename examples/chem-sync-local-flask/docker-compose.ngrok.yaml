@@ -5,7 +5,7 @@ services:
   benchling-app:
     build: .
     ports:
-      - "8080"
+      - "8000:5000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
@@ -24,7 +24,7 @@ services:
   ngrok:
     image: ngrok/ngrok:3.5.0-alpine
     restart: unless-stopped
-    command: "http benchling-app:8080"
+    command: "http benchling-app:8000"
     volumes:
       # For Mac and Linux
       - type: bind
