@@ -1,3 +1,4 @@
+import logging
 import re
 from urllib.parse import quote
 
@@ -19,6 +20,8 @@ from local_app.views.constants import (
     SEARCH_TEXT_ID,
     CID_KEY,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class UnsupportedButtonError(Exception):
@@ -64,6 +67,7 @@ def _create_molecule_from_canvas(app: App, canvas_builder: CanvasBuilder) -> Mol
     canvas_data = canvas_builder.data_to_json()
     # Only needed for type safety
     assert canvas_data is not None
+    logger.debug("Canvas data: %s", canvas_data)
     chemical_cid = canvas_data[CID_KEY]
     chemical = get_by_cid(chemical_cid)
     return create_molecule(app, chemical)

@@ -62,8 +62,7 @@ def _preview_blocks(chemical: dict[str, Any]):
             id=CHEMICAL_PREVIEW_ID,
             type=MarkdownUiBlockType.MARKDOWN,
             value=(
-                f"**CID**: {chemical['cid']}\n**Name**: "
-                f"{chemical['name']}\n**Structure**: {chemical['smiles']}"
+                f"**Name**: {chemical['name']}\n\n**Structure**: {chemical['smiles']}"
             ),
         ),
         MarkdownUiBlock(
