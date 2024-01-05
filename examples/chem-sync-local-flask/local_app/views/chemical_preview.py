@@ -39,7 +39,7 @@ def show_preview(
             canvas_id,
             canvas_builder.to_update(),
         )
-    if not results:
+    else:
         session.close_session(
             AppSessionUpdateStatus.SUCCEEDED,
             messages=[

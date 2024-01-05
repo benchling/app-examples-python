@@ -17,7 +17,6 @@ def show_completed(
     canvas_builder: CanvasBuilder,
     session: SessionContextManager,
 ):
-    # Just take the first result, as an example
     canvas_builder = canvas_builder.with_blocks(_completed_blocks())
     session.app.benchling.apps.update_canvas(
         canvas_id,
