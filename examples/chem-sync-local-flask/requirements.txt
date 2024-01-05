@@ -1,4 +1,4 @@
 flask~=3.0.0
 # TODO Upgrade to stable SDK version once changes are released
 # Cryptography extra needed for webhook verification
-benchling-sdk[cryptography]==1.10.0a9
+benchling-sdk[cryptography]==1.10.0a11

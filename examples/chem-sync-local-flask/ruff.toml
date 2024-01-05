@@ -5,3 +5,6 @@ line-length = 110
 
 select = ["ALL"]
 ignore = ["D100", "D101", "D103", "D104", "EM101", "EM102", "S101", "TRY003"]
+
+[per-file-ignores]
+"**/tests/*" = ["ANN001", "ANN101", "D102", "PLR2004"]
