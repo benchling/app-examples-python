@@ -14,9 +14,9 @@ backoff==1.11.1
     # via
     #   benchling-api-client
     #   benchling-sdk
-benchling-api-client==2.0.232
+benchling-api-client==2.0.243
     # via benchling-sdk
-benchling-sdk==1.10.0a5
+benchling-sdk==1.10.0a7
     # via local-app (pyproject.toml)
 blinker==1.7.0
     # via flask

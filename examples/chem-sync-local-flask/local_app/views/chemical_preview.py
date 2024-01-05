@@ -20,6 +20,7 @@ from local_app.views.constants import (
     CHEMICAL_PREVIEW_ID,
     CREATE_BUTTON_ID,
     CANCEL_BUTTON_ID,
+    CID_KEY,
 )
 
 
@@ -31,10 +32,12 @@ def show_preview(
 ) -> None:
     if results:
         # Just take the first result, as an example
-        canvas_builder = canvas_builder.with_blocks(_preview_blocks(results[0]))
+        chemical = results[0]
+        # Add the result to the canvas as data that won't be shown to the user but can be retrieved later
+        canvas_builder = canvas_builder.with_blocks(_preview_blocks(chemical)).with_data({CID_KEY: chemical["cid"]}).with_enabled()
         session.app.benchling.apps.update_canvas(
             canvas_id,
-            canvas_builder.with_enabled().to_update(),
+            canvas_builder.to_update(),
         )
     if not results:
         session.close_session(

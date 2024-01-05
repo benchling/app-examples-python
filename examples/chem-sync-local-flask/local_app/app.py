@@ -16,6 +16,7 @@ def create_app() -> Flask:
 
     @app.route("/1/webhooks/<path:target>", methods=["POST"])
     def receive_webhooks(target: str):
+        raise RuntimeError("We made it")
         # For security, don't do anything else without first verifying the webhook
         app_id = request.json["app"]["id"]  # type: ignore[index]
         verify_app_installation(app_id, request.data.decode("utf-8"), request.headers)

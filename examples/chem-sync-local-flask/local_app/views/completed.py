@@ -1,5 +1,6 @@
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
-from benchling_sdk.apps.status.framework import ref, SessionContextManager
+from benchling_sdk.apps.status.framework import SessionContextManager
+from benchling_sdk.apps.status.helpers import ref
 from benchling_sdk.models import (
     MarkdownUiBlock,
     MarkdownUiBlockType,
