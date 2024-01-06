@@ -38,6 +38,6 @@ def _enqueue_work() -> None:
     # In production, we recommend a more robust queueing system for scale
     thread = Thread(
         target=handle_webhook,
-        args=(request.json,)
+        args=(request.json,),
     )
     thread.start()

@@ -1,5 +1,4 @@
-"""
-Helpers for working with data from PubChem, a free database of chemical information.
+"""Helpers for working with data from PubChem, a free database of chemical information.
 
 https://pubchem.ncbi.nlm.nih.gov/
 """
@@ -18,7 +17,7 @@ def _pubchem_get(url: str) -> dict[str, Any]:
 
 
 def _get_compound_string_prop(
-    compound_json: dict[str, Any], label: str, name: str | None = None
+    compound_json: dict[str, Any], label: str, name: str | None = None,
 ) -> str | None:
     matching_props = [
         p

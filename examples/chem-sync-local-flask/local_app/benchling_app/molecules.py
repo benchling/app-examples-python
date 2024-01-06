@@ -35,7 +35,7 @@ def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:
             {
                 molecular_weight_field: {"value": chemical_result["molecularWeight"]},
                 mono_isotopic_field: {"value": chemical_result["monoisotopic"]},
-            }
+            },
         ),
     )
     return app.benchling.molecules.create(molecule_create)

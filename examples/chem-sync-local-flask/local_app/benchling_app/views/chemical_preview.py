@@ -1,26 +1,27 @@
 from typing import Any
 
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
+from benchling_sdk.apps.canvas.types import UiBlock
 from benchling_sdk.apps.status.framework import SessionContextManager
 from benchling_sdk.models import (
-    AppSessionUpdateStatus,
-    AppSessionMessageStyle,
     AppSessionMessageCreate,
+    AppSessionMessageStyle,
+    AppSessionUpdateStatus,
+    ButtonUiBlock,
+    ButtonUiBlockType,
     MarkdownUiBlock,
     MarkdownUiBlockType,
     SectionUiBlock,
     SectionUiBlockType,
-    ButtonUiBlock,
-    ButtonUiBlockType,
 )
 
-from local_app.lib.pub_chem import image_url
 from local_app.benchling_app.views.constants import (
-    SEARCH_TEXT_ID,
-    CREATE_BUTTON_ID,
     CANCEL_BUTTON_ID,
     CID_KEY,
+    CREATE_BUTTON_ID,
+    SEARCH_TEXT_ID,
 )
+from local_app.lib.pub_chem import image_url
 
 
 def render_preview_canvas(
@@ -48,12 +49,12 @@ def render_preview_canvas(
                 AppSessionMessageCreate(
                     f"Couldn't find any chemicals for '{canvas_builder.inputs_to_dict()[SEARCH_TEXT_ID]}'",
                     style=AppSessionMessageStyle.INFO,
-                )
+                ),
             ],
         )
 
 
-def _preview_blocks(chemical: dict[str, Any]):
+def _preview_blocks(chemical: dict[str, Any]) -> list[UiBlock]:
     return [
         MarkdownUiBlock(
             id="results",

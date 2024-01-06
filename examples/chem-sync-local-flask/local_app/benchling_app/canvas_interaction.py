@@ -5,21 +5,21 @@ from urllib.parse import quote
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
 from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.status.errors import AppUserFacingError
-from benchling_sdk.models import Molecule, AppCanvasUpdate
+from benchling_sdk.models import AppCanvasUpdate, Molecule
 from benchling_sdk.models.webhooks.v0 import CanvasInteractionWebhookV0
 
-from local_app.lib.pub_chem import search, get_by_cid
 from local_app.benchling_app.molecules import create_molecule
 from local_app.benchling_app.views.canvas_initialize import input_blocks
 from local_app.benchling_app.views.chemical_preview import render_preview_canvas
 from local_app.benchling_app.views.completed import render_completed_canvas
 from local_app.benchling_app.views.constants import (
-    SEARCH_BUTTON_ID,
     CANCEL_BUTTON_ID,
-    CREATE_BUTTON_ID,
-    SEARCH_TEXT_ID,
     CID_KEY,
+    CREATE_BUTTON_ID,
+    SEARCH_BUTTON_ID,
+    SEARCH_TEXT_ID,
 )
+from local_app.lib.pub_chem import get_by_cid, search
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +56,7 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
         # Not shown to user by default, for our own logs cause we forgot to handle some button
         # This is developer error
         raise UnsupportedButtonError(
-            f"Whoops, the developer forgot to handle the button {canvas_interaction.button_id}"
+            f"Whoops, the developer forgot to handle the button {canvas_interaction.button_id}",
         )
 
 
@@ -76,12 +76,12 @@ def _canvas_builder_from_canvas_id(app: App, canvas_id: str) -> CanvasBuilder:
 
 
 def _validate_and_sanitize_inputs(inputs: dict[str, str]) -> dict[str, str]:
-    sanitized_inputs = dict()
+    sanitized_inputs = {}
     if not inputs[SEARCH_TEXT_ID]:
         # AppFacingUserError is a special error that will propagate the error message as-is back to the user
         # via the App's session and end control flow
         raise AppUserFacingError("Please enter a chemical name to search for")
-    elif not re.match("^[a-zA-Z\d\s\-]+$", inputs[SEARCH_TEXT_ID]):
+    elif not re.match("^[a-zA-Z\\d\\s\\-]+$", inputs[SEARCH_TEXT_ID]):
         raise AppUserFacingError("The chemical name can only contain letters, numbers, spaces, and hyphens")
     sanitized_inputs[SEARCH_TEXT_ID] = quote(inputs[SEARCH_TEXT_ID])
     return sanitized_inputs

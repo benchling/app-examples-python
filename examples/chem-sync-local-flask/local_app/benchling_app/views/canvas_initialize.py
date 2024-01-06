@@ -1,16 +1,17 @@
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
+from benchling_sdk.apps.canvas.types import UiBlock
 from benchling_sdk.apps.framework import App
 from benchling_sdk.models import (
+    ButtonUiBlock,
+    ButtonUiBlockType,
     MarkdownUiBlock,
     MarkdownUiBlockType,
     TextInputUiBlock,
     TextInputUiBlockType,
-    ButtonUiBlock,
-    ButtonUiBlockType,
 )
 from benchling_sdk.models.webhooks.v0 import CanvasInitializeWebhookV0
 
-from local_app.benchling_app.views.constants import SEARCH_TEXT_ID, SEARCH_BUTTON_ID
+from local_app.benchling_app.views.constants import SEARCH_BUTTON_ID, SEARCH_TEXT_ID
 
 
 def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV0) -> None:
@@ -24,7 +25,7 @@ def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV0
         app.benchling.apps.create_canvas(canvas_builder.to_create())
 
 
-def input_blocks():
+def input_blocks() -> list[UiBlock]:
     return [
         MarkdownUiBlock(
             id="top_instructions",
