@@ -1,3 +1,5 @@
 FROM node:21-alpine
 RUN npm install -g localtunnel@2.0.2
+
+# Note: This might not work with some networks. For instance, random airplane WiFi
 CMD lt --port 5000 --local-host benchling-app --print-requests
