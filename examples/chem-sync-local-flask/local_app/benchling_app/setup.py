@@ -1,5 +1,6 @@
 import os
 from functools import cache
+from pathlib import Path
 
 from benchling_sdk.apps.framework import App
 from benchling_sdk.auth.client_credentials_oauth2 import ClientCredentialsOAuth2
@@ -26,5 +27,5 @@ def _auth_method() -> ClientCredentialsOAuth2:
 def _client_secret_from_file() -> str:
     file_path = os.environ.get("CLIENT_SECRET_FILE")
     assert file_path is not None, "Missing CLIENT_SECRET_FILE from environment"
-    with open(file_path) as f:
+    with Path(file_path).open() as f:
         return f.read()
