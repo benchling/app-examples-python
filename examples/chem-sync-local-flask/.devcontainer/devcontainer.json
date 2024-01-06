@@ -1,0 +1,27 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "nonroot",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.mypy-type-checker",
+        "charliermarsh.ruff"
+      ],
+      "settings": {
+        "python.testing.pytestArgs": [
+          "."
+        ],
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestEnabled": true,
+        "python.editor.defaultFormatter": "charliermarsh.ruff",
+        "python.linting.mypy": true,
+        "python.linting.enabled": true,
+        "explorer.excludeGitIgnore": true
+      }
+    }
+  }
+}
