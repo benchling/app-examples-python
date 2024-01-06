@@ -1,4 +1,3 @@
-import logging
 from typing import Any
 
 from benchling_sdk.models.webhooks.v0 import (
@@ -10,8 +9,9 @@ from benchling_sdk.models.webhooks.v0 import (
 from local_app.benchling_app.canvas_interaction import route_interaction_webhook
 from local_app.benchling_app.setup import init_app_from_webhook
 from local_app.benchling_app.views.canvas_initialize import render_search_canvas
+from local_app.lib.logger import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger()
 
 
 class UnsupportedWebhookError(Exception):

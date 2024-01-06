@@ -1,4 +1,3 @@
-import logging
 from typing import Any
 
 from benchling_sdk.apps.framework import App
@@ -10,7 +9,9 @@ from benchling_sdk.models import (
     MoleculeStructureStructureFormat,
 )
 
-logger = logging.getLogger(__name__)
+from local_app.lib.logger import get_logger
+
+logger = get_logger()
 
 
 def create_molecule(app: App, chemical_result: dict[str, Any]) -> Molecule:

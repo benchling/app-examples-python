@@ -1,4 +1,3 @@
-import logging
 import re
 from typing import cast
 from urllib.parse import quote
@@ -20,9 +19,10 @@ from local_app.benchling_app.views.constants import (
     SEARCH_BUTTON_ID,
     SEARCH_TEXT_ID,
 )
+from local_app.lib.logger import get_logger
 from local_app.lib.pub_chem import get_by_cid, search
 
-logger = logging.getLogger(__name__)
+logger = get_logger()
 
 
 class UnsupportedButtonError(Exception):

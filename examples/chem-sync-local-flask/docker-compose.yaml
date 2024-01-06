@@ -12,6 +12,8 @@ services:
     environment:
       # Don't set debug in production!
       - FLASK_DEBUG=1
+      # Enable debug logging for Python Benchling App. This is not native, specific to this example implementation
+      - BENCHLING_APP_LOG_LEVEL=DEBUG
       # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
       # You might choose to have two different Apps for dev vs prod, which would have different client IDs
       - CLIENT_ID

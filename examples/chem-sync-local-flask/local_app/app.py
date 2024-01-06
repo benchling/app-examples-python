@@ -1,14 +1,12 @@
-import logging
 from threading import Thread
 
 from benchling_sdk.apps.helpers.webhook_helpers import verify_app_installation
 from flask import Flask, request
 
 from local_app.benchling_app.handler import handle_webhook
+from local_app.lib.logger import get_logger
 
-# Enable basic logging for development debugging
-logging.basicConfig(format="%(name)s - %(asctime)s - %(message)s", level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+logger = get_logger()
 
 
 def create_app() -> Flask:
