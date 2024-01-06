@@ -33,7 +33,10 @@ def render_preview_canvas(
         # Just take the first result, as an example
         chemical = results[0]
         # Add the result to the canvas as data that won't be shown to the user but can be retrieved later
-        canvas_builder = canvas_builder.with_blocks(_preview_blocks(chemical)).with_data({CID_KEY: chemical["cid"]}).with_enabled()
+        canvas_builder = canvas_builder\
+            .with_blocks(_preview_blocks(chemical))\
+            .with_data({CID_KEY: chemical["cid"]})\
+            .with_enabled()
         session.app.benchling.apps.update_canvas(
             canvas_id,
             canvas_builder.to_update(),
