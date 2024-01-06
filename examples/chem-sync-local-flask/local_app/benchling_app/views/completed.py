@@ -11,7 +11,7 @@ from benchling_sdk.models import (
 )
 
 
-def show_completed(
+def render_completed_canvas(
     molecule: Molecule,
     canvas_id: str,
     canvas_builder: CanvasBuilder,

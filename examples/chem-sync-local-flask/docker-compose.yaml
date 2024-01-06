@@ -28,10 +28,8 @@ services:
   # Conduct your own due diligence before choosing a tool for production use.
   local-tunnel:
     build:
-      dockerfile_inline: |
-        FROM node:21-alpine
-        RUN npm install -g localtunnel@2.0.2
-        CMD lt --port 5000 --local-host benchling-app --print-requests --debug-logs
+      context: .
+      dockerfile: Dockerfile.localtunnel
 
 secrets:
   app_client_secret:

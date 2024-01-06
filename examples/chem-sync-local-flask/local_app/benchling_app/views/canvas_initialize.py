@@ -10,10 +10,10 @@ from benchling_sdk.models import (
 )
 from benchling_sdk.models.webhooks.v0 import CanvasInitializeWebhookV0
 
-from local_app.views.constants import SEARCH_TEXT_ID, SEARCH_BUTTON_ID
+from local_app.benchling_app.views.constants import SEARCH_TEXT_ID, SEARCH_BUTTON_ID
 
 
-def show_search(app: App, canvas_initialized: CanvasInitializeWebhookV0) -> None:
+def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV0) -> None:
     with app.create_session_context("Show Sync Search", timeout_seconds=20):
         canvas_builder = CanvasBuilder(
             app_id=app.id,

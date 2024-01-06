@@ -1,0 +1,3 @@
+FROM node:21-alpine
+RUN npm install -g localtunnel@2.0.2
+CMD lt --port 5000 --local-host benchling-app --print-requests

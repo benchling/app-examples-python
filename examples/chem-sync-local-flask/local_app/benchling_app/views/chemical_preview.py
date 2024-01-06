@@ -14,17 +14,16 @@ from benchling_sdk.models import (
     ButtonUiBlockType,
 )
 
-from local_app.pub_chem import image_url
-from local_app.views.constants import (
+from local_app.lib.pub_chem import image_url
+from local_app.benchling_app.views.constants import (
     SEARCH_TEXT_ID,
-    CHEMICAL_PREVIEW_ID,
     CREATE_BUTTON_ID,
     CANCEL_BUTTON_ID,
     CID_KEY,
 )
 
 
-def show_preview(
+def render_preview_canvas(
     results: list[dict[str, Any]] | None,
     canvas_id: str,
     canvas_builder: CanvasBuilder,
@@ -59,7 +58,7 @@ def _preview_blocks(chemical: dict[str, Any]):
             value="We found the following chemical based on your search:",
         ),
         MarkdownUiBlock(
-            id=CHEMICAL_PREVIEW_ID,
+            id="chemical_preview",
             type=MarkdownUiBlockType.MARKDOWN,
             value=(
                 f"**Name**: {chemical['name']}\n\n**Structure**: {chemical['smiles']}"

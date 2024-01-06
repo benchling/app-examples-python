@@ -57,6 +57,8 @@ Example Output:
 https://brave-wombats-poke.loca.lt
 ```
 
+> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://brave-wombats-poke.loca.lt/1/webhooks`
+
 ## Setting Up Your App in Benchling
 
 ### Benchling Prerequisites

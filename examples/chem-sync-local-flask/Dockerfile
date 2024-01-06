@@ -1,8 +1,8 @@
 FROM python:3.11
 
-COPY pip_requirements.txt ./
+# Install pre-requirements
+RUN pip install pip~=23.3.2 setuptools~=69.0.3
 
-RUN pip install -r pip_requirements.txt
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 COPY ./local_app /src/local_app
