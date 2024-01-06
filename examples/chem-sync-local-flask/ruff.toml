@@ -1,5 +1,6 @@
 # Run with: ruff check . --fix
 
+target-version = "py311"
 line-length = 110
 
 select = ["ALL"]
