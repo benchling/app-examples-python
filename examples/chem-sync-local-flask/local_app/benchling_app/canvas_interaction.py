@@ -81,7 +81,7 @@ def _validate_and_sanitize_inputs(inputs: dict[str, str]) -> dict[str, str]:
         # AppFacingUserError is a special error that will propagate the error message as-is back to the user
         # via the App's session and end control flow
         raise AppUserFacingError("Please enter a chemical name to search for")
-    elif not re.match("^[a-zA-Z\\d\\s\\-]+$", inputs[SEARCH_TEXT_ID]):
+    if not re.match("^[a-zA-Z\\d\\s\\-]+$", inputs[SEARCH_TEXT_ID]):
         raise AppUserFacingError("The chemical name can only contain letters, numbers, spaces, and hyphens")
     sanitized_inputs[SEARCH_TEXT_ID] = quote(inputs[SEARCH_TEXT_ID])
     return sanitized_inputs
