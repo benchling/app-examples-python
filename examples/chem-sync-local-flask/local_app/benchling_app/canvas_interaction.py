@@ -1,5 +1,6 @@
 import logging
 import re
+from typing import cast
 from urllib.parse import quote
 
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
@@ -40,10 +41,12 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
             render_preview_canvas(results, canvas_id, canvas_builder, session)
     elif canvas_interaction.button_id == CANCEL_BUTTON_ID:
         # Set session_id = None to detach and prior state or messages (essentially, reset)
-        app.benchling.apps.update_canvas(
-            canvas_id,
-            AppCanvasUpdate(enabled=True, session_id=None, blocks=input_blocks()),
-        )
+        canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
+        canvas_update = canvas_builder.with_enabled()\
+            .with_session_id(None)\
+            .with_blocks(input_blocks())\
+            .to_update()
+        app.benchling.apps.update_canvas(canvas_id, canvas_update)
     elif canvas_interaction.button_id == CREATE_BUTTON_ID:
         with app.create_session_context("Create Molecules", timeout_seconds=20) as session:
             session.attach_canvas(canvas_id)
@@ -61,7 +64,8 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
 
 
 def _create_molecule_from_canvas(app: App, canvas_builder: CanvasBuilder) -> Molecule:
-    canvas_data = canvas_builder.data_to_json()
+    # JSON can be almost any type, cast only needed if you care about type safety checks like MyPy
+    canvas_data = cast(dict, canvas_builder.data_to_json())
     # Only needed for type safety
     assert canvas_data is not None
     logger.debug("Canvas data: %s", canvas_data)
