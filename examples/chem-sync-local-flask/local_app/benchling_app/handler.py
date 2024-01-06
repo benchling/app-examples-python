@@ -23,6 +23,8 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
     webhook = WebhookEnvelopeV0.from_dict(webhook_dict)
     app = init_app_from_webhook(webhook)
     # Could also choose to route on webhook.message.type
+    # Note: if your manifest specifies more than one item in `features`,
+    # then `webhook.message.feature_id` may also need to be part of your routing logic
     if isinstance(webhook.message, CanvasInitializeWebhookV0):
         render_search_canvas(app, webhook.message)
     elif isinstance(webhook.message, CanvasInteractionWebhookV0):
