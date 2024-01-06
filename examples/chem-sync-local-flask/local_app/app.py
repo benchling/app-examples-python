@@ -15,12 +15,12 @@ def create_app() -> Flask:
     app = Flask("benchling-app")
 
     @app.route("/health")
-    def health_check():
+    def health_check() -> tuple[str, int]:
         # Just a route allowing us to check that Flask itself is up and running
         return "OK", 200
 
     @app.route("/1/webhooks/<path:target>", methods=["POST"])
-    def receive_webhooks(target: str):
+    def receive_webhooks(target: str) -> tuple[str, int]:  # noqa: ARG001
         # For security, don't do anything else without first verifying the webhook
         app_id = request.json["app"]["id"]  # type: ignore[index]
         verify_app_installation(app_id, request.data.decode("utf-8"), request.headers)
