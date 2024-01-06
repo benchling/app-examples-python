@@ -1,3 +1,5 @@
+# Run with: ruff check . --fix
+
 line-length = 110
 
 select = ["ALL"]
