@@ -15,6 +15,7 @@ from benchling_sdk.models import (
     SectionUiBlockType,
 )
 
+from local_app.benchling_app.views.canvas_initialize import input_blocks
 from local_app.benchling_app.views.constants import (
     CANCEL_BUTTON_ID,
     CID_KEY,
@@ -43,11 +44,18 @@ def render_preview_canvas(
             canvas_builder.to_update(),
         )
     else:
+        user_input = canvas_builder.inputs_to_dict()[SEARCH_TEXT_ID]
+        # Clear the search input and re-enable canvas so user can input a new search
+        canvas_builder = canvas_builder.with_blocks(input_blocks()).with_enabled()
+        session.app.benchling.apps.update_canvas(
+            canvas_id,
+            canvas_builder.to_update(),
+        )
         session.close_session(
             AppSessionUpdateStatus.SUCCEEDED,
             messages=[
                 AppSessionMessageCreate(
-                    f"Couldn't find any chemicals for '{canvas_builder.inputs_to_dict()[SEARCH_TEXT_ID]}'",
+                    f"Couldn't find any chemicals for '{user_input}'",
                     style=AppSessionMessageStyle.INFO,
                 ),
             ],
