@@ -22,8 +22,7 @@
         "python.linting.enabled": true,
         "explorer.excludeGitIgnore": true,
         "python.analysis.packageIndexDepths": [
-          {"name": "benchling_sdk", "depth": 8, "includeAllSymbols": true},
-          {"name": "benchling_api_client", "depth": 6, "includeAllSymbols": true}
+          {"name": "benchling_sdk", "depth": 8, "includeAllSymbols": true}
         ]
       }
     }
