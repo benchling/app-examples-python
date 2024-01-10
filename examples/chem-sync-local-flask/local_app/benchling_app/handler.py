@@ -33,7 +33,7 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
             route_interaction_webhook(app, webhook.message)
         else:
             # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
-            raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")  # noqa: TRY301
+            raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")
         logger.debug("Successfully completed request for webhook: %s", webhook_dict)
     # We want errors shown to the user to end control flow, but we don't want them to propagate
     # and show as errors in our logs.
