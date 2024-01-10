@@ -49,12 +49,12 @@ class TestMolecules:
         # These are generated as random valid values unless manually overridden
         # Since we didn't override them but we're verifying the entire MoleculeCreate stub for correctness,
         # pull the mocked values from the mock_config_store
-        weight_field_config_value = mock_config_store.\
-            config_by_path(["Molecule Schema", "Molecular Weight"]).\
-            required().value_str()
-        mono_isotopic_field_config_value = mock_config_store.\
-            config_by_path(["Molecule Schema", "MonoIsotopic"]).\
-            required().value_str()
+        weight_field_config_value = mock_config_store\
+            .config_by_path(["Molecule Schema", "Molecular Weight"])\
+            .required().value_str()
+        mono_isotopic_field_config_value = mock_config_store\
+            .config_by_path(["Molecule Schema", "MonoIsotopic"])\
+            .required().value_str()
         schema_id = mock_config_store.config_by_path(["Molecule Schema"]).required().value_str()
         expected_argument = MoleculeCreate(
             chemical_structure=molecule_structure,
