@@ -27,9 +27,10 @@ touch .client_secret
 Start Docker:
 
 ```bash
-docker compose build
-docker compose up
+docker compose up --build -d
 ```
+
+Tip: You can omit the `-d` option if you want to run in the foreground. Otherwise, use `docker compose logs -f` to tail logs.
 
 You can verify that Flask is up and running:
 
