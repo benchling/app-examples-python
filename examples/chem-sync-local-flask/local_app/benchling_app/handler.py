@@ -1,5 +1,6 @@
 from typing import Any
 
+from benchling_sdk.apps.status.errors import AppUserFacingError
 from benchling_sdk.models.webhooks.v0 import (
     CanvasInitializeWebhookV0,
     CanvasInteractionWebhookV0,
@@ -25,11 +26,17 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
     # Could also choose to route on webhook.message.type
     # Note: if your manifest specifies more than one item in `features`,
     # then `webhook.message.feature_id` may also need to be part of your routing logic
-    if isinstance(webhook.message, CanvasInitializeWebhookV0):
-        render_search_canvas(app, webhook.message)
-    elif isinstance(webhook.message, CanvasInteractionWebhookV0):
-        route_interaction_webhook(app, webhook.message)
-    else:
-        # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
-        raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")
-    logger.debug("Successfully completed request for webhook: %s", webhook_dict)
+    try:
+        if isinstance(webhook.message, CanvasInitializeWebhookV0):
+            render_search_canvas(app, webhook.message)
+        elif isinstance(webhook.message, CanvasInteractionWebhookV0):
+            route_interaction_webhook(app, webhook.message)
+        else:
+            # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
+            raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")
+        logger.debug("Successfully completed request for webhook: %s", webhook_dict)
+    # We want errors shown to the user to end control flow, but we don't want them to propagate
+    # and show as errors in our logs.
+    # For this example, Flask error handler won't intercept this since we're within a thread
+    except AppUserFacingError as e:
+        logger.debug("Exiting with client error: %s", e)

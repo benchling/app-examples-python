@@ -1,0 +1,37 @@
+name: Chem Sync Local Flask App Tests
+
+# Taken from https://github.com/actions/starter-workflows/blob/main/ci/python-app.yml
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [opened, edited, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+
+    runs-on: ubuntu-20.04
+    name: Quality Checks + Tests
+    defaults:
+      run:
+        working-directory: ./examples/chem-sync-local-flask
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install requirements
+      run: pip install -r requirements.txt
+    - name: Install dev requirements
+      run: pip install -r dev_requirements.txt
+    - name: Lint
+      run: ruff check .
+    - name: Mypy
+      run: mypy .
+    - name: Run Tests
+      run: pytest tests/unit
