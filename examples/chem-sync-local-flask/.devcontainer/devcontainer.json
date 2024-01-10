@@ -20,7 +20,10 @@
         "python.editor.defaultFormatter": "charliermarsh.ruff",
         "python.linting.mypy": true,
         "python.linting.enabled": true,
-        "explorer.excludeGitIgnore": true
+        "explorer.excludeGitIgnore": true,
+        "python.analysis.packageIndexDepths": [
+          {"name": "benchling_sdk", "depth": 8, "includeAllSymbols": true}
+        ]
       }
     }
   }
