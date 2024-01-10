@@ -1,0 +1,11 @@
+.idea
+.vscode
+**/.venv/
+**/*.egg-info
+**/__pycache__
+**/.env
+.DS_Store
+**/.client_secret
+**/.pytest_cache
+.mypy_cache
+.ruff_cache
