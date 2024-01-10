@@ -38,7 +38,7 @@ class TestChemicalPreview:
                 "cid": "test_cid",
             },
         ]
-        mock_image_url.return_value = "https://imaages.benchling.com"
+        mock_image_url.return_value = "https://images.benchling.com"
         mock_expected_canvas = MagicMock(AppCanvas)
         expected_canvas_builder = CanvasBuilder.from_canvas(mock_expected_canvas)\
             .with_enabled()\
@@ -101,7 +101,7 @@ def _expected_preview_blocks() -> list[UiBlock]:
         MarkdownUiBlock(
             id="chemical_image",
             type=MarkdownUiBlockType.MARKDOWN,
-            value="![Test Chemical](https://imaages.benchling.com)",
+            value="![Test Chemical](https://images.benchling.com)",
         ),
         MarkdownUiBlock(
             id="user_prompt",
