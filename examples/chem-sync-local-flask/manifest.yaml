@@ -2,13 +2,9 @@ manifestVersion: 1
 
 info:
   name: Sample Sync App
-  # TODO We can't specify a version while also specifying a webhookUrl
-  # We can't specify a feature without specifying webhookUrl
-  # version: 0.1.0
+  version: 0.1.0
 settings:
   lifecycleManagement: MANUAL
-  # TODO: Just a placeholder, we'll replace with a valid webhook URL in the Benchling UI
-  webhookUrl: https://benchling.com
 features:
   - name: Sync Step
     id: sync_step
