@@ -18,21 +18,25 @@ def render_completed_canvas(
     canvas_builder: CanvasBuilder,
     session: SessionContextManager,
 ) -> None:
-    canvas_builder = canvas_builder.with_blocks(_completed_blocks())
-    session.app.benchling.apps.update_canvas(
-        canvas_id,
-        canvas_builder.with_enabled().to_update(),
-    )
-    session.close_session(
-        AppSessionUpdateStatus.SUCCEEDED,
-        messages=[
-            AppSessionMessageCreate(
-                # ref() will turn supported objects into clickable "chips" in the Benchling UI
-                f"Created the molecule {ref(molecule)} in Benchling!",
-                style=AppSessionMessageStyle.SUCCESS,
-            ),
-        ],
-    )
+    # TODO: Show completed feedback to users with the molecule we created
+    pass
+    # canvas_builder = canvas_builder.with_blocks(_completed_blocks())
+    # session.app.benchling.apps.update_canvas(
+    #     canvas_id,
+    #     canvas_builder.with_enabled().to_update(),
+    # )
+    # session.close_session(
+    #     AppSessionUpdateStatus.SUCCEEDED,
+    #     messages=[
+    #         AppSessionMessageCreate(
+    #             # ref() will turn supported objects into clickable "chips" in the Benchling UI
+    #             f"Created the molecule {ref(molecule)} in Benchling!",
+    #             style=AppSessionMessageStyle.SUCCESS,
+    #         ),
+    #         # TODO: Let's add another bit of affirmation for good measure!
+    #         # Can we retrieve a DNA sequence from Benchling and display it too?
+    #     ],
+    # )
 
 
 def _completed_blocks() -> list[UiBlock]:
