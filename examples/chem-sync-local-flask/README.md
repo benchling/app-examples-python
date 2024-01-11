@@ -24,6 +24,12 @@ Create an empty placeholder file for Docker secrets. *nix example:
 touch .client_secret
 ```
 
+Windows example:
+
+```cmd
+echo.> .client_secret
+```
+
 Start Docker:
 
 ```bash
@@ -31,6 +37,11 @@ docker compose up --build -d
 ```
 
 Tip: You can omit the `-d` option if you want to run in the foreground. Otherwise, use `docker compose logs -f` to tail logs.
+
+> ℹ️ **Windows Note 1:** "Use ContainerD for pulling and storing images" may need to be enabled in `Docker > Settings > Features in development > Beta Features`
+
+> ℹ️ **Windows Note 2**: If running into an error like "ERROR: request returned Bad Gateway for API route and version", [this solution](https://github.com/docker/for-mac/issues/6956#issuecomment-1876444658) may fix the problem.
+
 
 You can verify that Flask is up and running:
 
@@ -101,19 +112,6 @@ Generate a client secret in Benchling and be sure to copy the secret.
 
 ![image info](./docs/generate-secret.gif)
 
-One easy way to set these environment variables for Docker is to add a `.env` file.
-
-```bash
-touch .env
-```
-
-Open it in an editor of your choice and set the values with the plaintext client ID 
-for your App. For example:
-
-```
-CLIENT_ID=42a0cd39-0543-4dd2-af02-a866c97f0c4d
-```
-
 Since the client secret is sensitive, it's handled a bit differently. It's
 registered as a `secret` in our `docker-compose.yaml` file, which will be looking
 for a file `./client_secret`.
@@ -129,6 +127,30 @@ pbpaste > .client_secret
 > ⚠️ **Security Note:** Be sure to avoid committing `.client_secret` to a source code repository.
 
 You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
+
+### Setting Client ID
+
+Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
+App to accept `CLIENT_ID` as an environment variable.
+
+One easy way to set an environment variables for Docker is to add a `.env` file.
+
+```bash
+touch .env
+```
+
+Windows example:
+
+```cmd
+echo.> .env
+```
+
+Open it in an editor of your choice and set the values with the plaintext client ID 
+for your App. For example:
+
+```
+CLIENT_ID=42a0cd39-0543-4dd2-af02-a866c97f0c4d
+```
 
 ```
 docker-compose up -d
