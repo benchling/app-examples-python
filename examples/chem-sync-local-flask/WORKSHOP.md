@@ -59,11 +59,13 @@ Any other IDE:
 1. Once Docker has finished building and composing up:
 `curl localhost:8000/health`
 
+> 🛑 End of prerequisite setup, we will continue live in the workshop!
+
 ## Discuss App Layout
 1. Observe the `benchling-sdk` dependency in `requirements.txt`
 
 ## Setup the App in Benchling
-1. Open `manifest.yaml` and rename the App's `name`` attribute under `info` by suffixing your name to the end
+1. Open `manifest.yaml` and rename the App's `name` attribute under `info` by suffixing your name to the end
     1. Example: `Sample Sync App` -> `Sample Sync App FirstName LastName`
 1. Follow the instructions from the README to setup the App in Benchling:
     1. https://github.com/benchling/app-examples-python/tree/main/examples/chem-sync-local-flask#upload-the-app-manifest
