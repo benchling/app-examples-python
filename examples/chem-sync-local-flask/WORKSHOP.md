@@ -17,8 +17,7 @@ Please come with the following pre-installed and configured on your machine:
 1. Ensure that you have no other processes already running on **port 8000**.
 
 Additionally, please:
-1. Create an account on the dev training workshop site: https://dev-training.benchling.com/signup
-1. Be sure to verify the email used to signup by clicking the link in the response email!
+1. You should received an email inviting you to https://dev-training.benchling.com/. Be sure to verify your account by clicking the link in the response email!
 
 ### Notes on Docker for Windows
 
