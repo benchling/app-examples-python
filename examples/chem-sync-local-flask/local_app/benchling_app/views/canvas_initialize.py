@@ -41,22 +41,22 @@ def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV0
     #     app.benchling.apps.create_canvas(canvas_builder.to_create())
 
 
-# def input_blocks() -> list[UiBlock]:
-#     return [
-#         MarkdownUiBlock(
-#             id="top_instructions",
-#             type=MarkdownUiBlockType.MARKDOWN,
-#             value="Enter a chemical name to search. For example, _'aspirin'_",
-#         ),
-#         TextInputUiBlock(
-#             id=SEARCH_TEXT_ID,
-#             type=TextInputUiBlockType.TEXT_INPUT,
-#             placeholder="Chemical name to search...",
-#             value="",
-#         ),
-#         ButtonUiBlock(
-#             id=SEARCH_BUTTON_ID,
-#             text="Search Chemicals",
-#             type=ButtonUiBlockType.BUTTON,
-#         ),
-#     ]
+def input_blocks() -> list[UiBlock]:
+    return [
+        MarkdownUiBlock(
+            id="top_instructions",
+            type=MarkdownUiBlockType.MARKDOWN,
+            value="Enter a chemical name to search. For example, _'aspirin'_",
+        ),
+        TextInputUiBlock(
+            id=SEARCH_TEXT_ID,
+            type=TextInputUiBlockType.TEXT_INPUT,
+            placeholder="Chemical name to search...",
+            value="",
+        ),
+        ButtonUiBlock(
+            id=SEARCH_BUTTON_ID,
+            text="Search Chemicals",
+            type=ButtonUiBlockType.BUTTON,
+        ),
+    ]

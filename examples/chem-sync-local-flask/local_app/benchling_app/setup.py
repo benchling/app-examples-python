@@ -17,8 +17,9 @@ def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
     return Benchling(webhook.base_url, _auth_method())
 
 
-# @cache
-# def _auth_method() -> ClientCredentialsOAuth2:
+@cache
+def _auth_method() -> ClientCredentialsOAuth2:
+    pass
 #     client_id = os.environ.get("CLIENT_ID")
 #     assert client_id is not None, "Missing CLIENT_ID from environment"
 #     client_secret = _client_secret_from_file()

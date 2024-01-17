@@ -31,6 +31,7 @@ def render_preview_canvas(
     canvas_builder: CanvasBuilder,
     session: SessionContextManager,
 ) -> None:
+    pass
     # TODO: Handle displaying of chemical results
     # if results:
     #     # Just take the first result, as an example
