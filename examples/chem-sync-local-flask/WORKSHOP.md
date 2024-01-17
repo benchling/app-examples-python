@@ -28,6 +28,7 @@ If you encounter an error running any Docker commands that looks like `ERROR: re
 ## Setup Environments
 
 1. Clone the repository: `git clone git@github.com:benchling/app-examples-python.git`
+    1. If you don't have git setup with SSH, you may receive an error. You can clone via HTTPS instead: `git clone https://github.com/benchling/app-examples-python.git`
 1. Checkout the workshop branch: `git checkout jan-2024-workshop`
 1. Navigate to the example directory for **chem-sync-local-flask**:
     1. `cd app-examples-python/examples/chem-sync-local-flask/`
@@ -61,19 +62,100 @@ Any other IDE:
 
 > 🛑 End of prerequisite setup, we will continue live in the workshop!
 
+## 🛑 Stop! We will proceed live in the workshop 🚀
+
 ## Discuss App Layout
 1. Observe the `benchling-sdk` dependency in `requirements.txt`
 
 ## Setup the App in Benchling
+
+1. Navigate to https://dev-training.benchling.com/ and login
 1. Open `manifest.yaml` and rename the App's `name` attribute under `info` by suffixing your name to the end
     1. Example: `Sample Sync App` -> `Sample Sync App FirstName LastName`
-1. Follow the instructions from the README to setup the App in Benchling:
-    1. https://github.com/benchling/app-examples-python/tree/main/examples/chem-sync-local-flask#upload-the-app-manifest
-    1. The workshop tenant URL is: https://dev-training.benchling.com/
-    1. Stop at the section "Create App Registry Dependencies" and skip to: https://github.com/benchling/app-examples-python/tree/main/examples/chem-sync-local-flask#updating-the-apps-configuration
-    1. Skip the "Permission the App" section. Our admins will do that for you.
+
+### Upload the App Manifest
+
+Click the user icon in the bottom left corner to bring up the main menu. Select "Feature Settings" > "Developer Console"
+
+Next, click the "Create app" button and choose "From manifest."
+
+When prompted to upload a file, select `manifest.yaml` and click "Create."
+
+![image info](./docs/create-app.gif)
+
+### Update the Webhook URL
+
+Every time we restart the `local-tunnel` Docker container, it will provision
+a new public webhook URL.
+
+Update the Benchling App's Webhook URL in the UI with the new server and
+append the path our Flask route expects (see `local_app/app.py`).
+
+For example, if our `localtunnel` generated URL is `https://hot-ideas-doubt.loca.lt`,
+the webhook URL in Benchling should be:
+
+```
+https://hot-ideas-doubt.loca.lt/1/webhooks
+```
+
+![image info](./docs/update-webhook-url.gif)
+
+### Generating a Client Secret
+
+Generate a client secret in Benchling and be sure to copy the secret.
+
+![image info](./docs/generate-secret.gif)
+
+Since the client secret is sensitive, it's handled a bit differently. It's
+registered as a `secret` in our `docker-compose.yaml` file, which will be looking
+for a file `./client_secret`.
+
+We can create this file and paste in the secret plaintext value if we have the secret in our clipboard.
+On *nix:
+
+```bash
+touch .client_secret
+pbpaste > .client_secret
+```
+
+> ⚠️ **Security Note:** Be sure to avoid committing `.client_secret` to a source code repository.
+
+You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
+
+### Setting Client ID
+
+Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
+App to accept `CLIENT_ID` as an environment variable.
+
+One easy way to set an environment variables for Docker is to add a `.env` file.
+
+```bash
+touch .env
+```
+
+Windows example:
+
+```cmd
+echo.> .env
+```
+
+Open it in an editor of your choice and set the values with the plaintext client ID 
+for your App. For example:
+
+```
+CLIENT_ID=42a0cd39-0543-4dd2-af02-a866c97f0c4d
+```
+
+```
+docker-compose up -d
+```
+
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+
+> ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
 
 ## Receiving our First Webhook
+
 Test the flow! In Benchling:
 1. Create a new notebook entry
 1. Insert a run of the schema linked in App Config
