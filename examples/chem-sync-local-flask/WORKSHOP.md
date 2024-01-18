@@ -154,6 +154,22 @@ If you restart both containers, be sure to update your App in Benchling with the
 
 > ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
 
+### Updating the App's Configuration
+
+App Configuration gives us a stable code contract for referencing data mapped in a Benchling tenant.
+The values of the data in Benchling can then be changed without updating App code.
+
+Let's update our configuration to:
+1. Specify a folder for syncing sequences
+2. Link a molecule schema and fields for the synced chemicals
+3. Select an assay run schema to associate with our Benchling App
+
+### Permission the App
+
+By default, Benchling Apps do not have permission to any data in Benchling.
+
+In the workshop, your presenter will show this live. We will have an admin authorize your App on your behalf.
+
 ## Receiving our First Webhook
 
 Test the flow! In Benchling:
