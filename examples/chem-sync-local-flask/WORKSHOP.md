@@ -30,6 +30,7 @@ If you encounter an error running any Docker commands that looks like `ERROR: re
 1. Clone the repository: `git clone git@github.com:benchling/app-examples-python.git`
     1. If you don't have git setup with SSH, you may receive an error. You can clone via HTTPS instead: `git clone https://github.com/benchling/app-examples-python.git`
 1. Checkout the workshop branch: `git checkout jan-2024-workshop`
+    1. Pull the latest if you previously checked out: `git pull`
 1. Navigate to the example directory for **chem-sync-local-flask**:
     1. `cd app-examples-python/examples/chem-sync-local-flask/`
 1. Create a `.client_secret` placeholder file required by Docker
