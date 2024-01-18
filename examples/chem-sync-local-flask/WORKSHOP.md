@@ -165,3 +165,31 @@ Test the flow! In Benchling:
 
 ## Rebuild the App!
 1. Start in `local_app/app.py`
+
+## Appendix A: Useful Workshop Commands
+
+### Toggle Commented Code Blocks
+
+VSCode and PyCharm:
+* *nix: `Command + /`
+* Windows: `Ctrl + /`
+
+### Docker Commands
+
+#### Tail Logs
+
+```
+docker compose logs -f
+```
+
+#### Restart individual service (e.g., local-tunnel)
+
+```
+docker compose restart local-tunnel
+```
+
+#### Check Running Services
+
+```
+docker compose ps
+```
