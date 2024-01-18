@@ -87,7 +87,25 @@ When prompted to upload a file, select `manifest.yaml` and click "Create."
 ### Update the Webhook URL
 
 Every time we restart the `local-tunnel` Docker container, it will provision
-a new public webhook URL.
+a new public webhook URL. We can check logs with `docker compose logs local-tunnel` to retrieve it:
+
+```
+app-workshop-local-tunnel-1   | your url is: https://brave-wombats-poke.loca.lt
+```
+
+On *nix systems, you can easily obtain _just_ the URL via:
+
+```
+docker compose logs local-tunnel | grep -o https://.* | tail -n 1
+```
+
+Example Output:
+
+```
+https://brave-wombats-poke.loca.lt
+```
+
+> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://brave-wombats-poke.loca.lt/1/webhooks`
 
 Update the Benchling App's Webhook URL in the UI with the new server and
 append the path our Flask route expects (see `local_app/app.py`).
