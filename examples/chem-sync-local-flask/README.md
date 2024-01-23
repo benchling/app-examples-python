@@ -6,6 +6,9 @@ via [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and create them in Benchling.
 ![image info](./docs/demo-full.gif)
 _The App features branching flows and will also validate user inputs._
 
+**Appendices**:
+* [Architecture Diagram](#architecture-diagram)
+
 ## Technical Prerequisites
 
 This app is optimized as a minimal local development experience using [Docker](https://www.docker.com/) for reproducibility.
@@ -228,3 +231,9 @@ Let's grant some access by adding the Benchling App to an organization.
 7. Click the linked entity to view it in Benchling
 
 ![image info](./docs/demo.gif)
+
+## Appendices
+
+### Architecture Diagram
+
+![image info](./docs/architecture-diagram.png)
