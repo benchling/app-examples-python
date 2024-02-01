@@ -131,6 +131,12 @@ pbpaste > .client_secret
 
 You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
 
+```bash
+docker-compose up -d
+```
+
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+
 ### Setting Client ID
 
 Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
@@ -155,11 +161,11 @@ for your App. For example:
 CLIENT_ID=42a0cd39-0543-4dd2-af02-a866c97f0c4d
 ```
 
-```
+Restart the `benchling-app` Docker container to pick up the environment changes.
+
+```bash
 docker-compose up -d
 ```
-
-If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
 
 > ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
 
