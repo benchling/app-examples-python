@@ -21,7 +21,11 @@ def create_app() -> Flask:
     def receive_webhooks(target: str) -> tuple[str, int]:  # noqa: ARG001
         # For security, don't do anything else without first verifying the webhook
         app_id = request.json["app"]["id"]  # type: ignore[index]
+
+        # Important! To verify webhooks, we need to pass the body as an unmodified string
+        # Flask's request.data is bytes, so decode to string. Passing bytes or JSON won't work
         verify_app_installation(app_id, request.data.decode("utf-8"), request.headers)
+
         logger.debug("Received webhook message: %s", request.json)
         # Dispatch work and ACK webhook as quickly as possible
         _enqueue_work()
