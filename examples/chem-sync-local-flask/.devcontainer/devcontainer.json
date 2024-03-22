@@ -3,6 +3,9 @@
     "dockerfile": "Dockerfile",
     "context": ".."
   },
+  "runArgs": [
+    "--network=host"
+  ],
   "remoteUser": "nonroot",
   "customizations": {
     "vscode": {
