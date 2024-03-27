@@ -28,10 +28,14 @@ def client(app: Flask) -> FlaskClient:
 class TestApp:
 
     @patch("local_app.app._enqueue_work")
-    @patch("local_app.app.verify_app_installation")
-    def test_app_receive_webhook(self, mock_verify_app_installation, mock_enqueue_work, client) -> None:
+    @patch("local_app.app.app_definition_id")
+    @patch("local_app.app.verify")
+    def test_app_receive_webhook(
+            self, mock_verify, mock_app_definition_id, mock_enqueue_work, client,
+    ) -> None:
         webhook = load_webhook_json(_TEST_FILES_PATH / "canvas_initialize_webhook.json")
         response = client.post("1/webhooks/canvas", json=webhook.to_dict())
         assert response.status_code == 200
-        mock_verify_app_installation.assert_called_once()
+        mock_verify.assert_called_once()
+        mock_app_definition_id.assert_called_once()
         mock_enqueue_work.assert_called_once()

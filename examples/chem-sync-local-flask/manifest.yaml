@@ -3,8 +3,6 @@ manifestVersion: 1
 info:
   name: Sample Sync App
   version: 0.1.0
-settings:
-  lifecycleManagement: MANUAL
 features:
   - name: Sync Step
     id: sync_step

@@ -81,6 +81,7 @@ https://brave-wombats-poke.loca.lt
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
 3. This example also requires a [Lab Automation](https://www.benchling.com/resources/benchling-lab-automation) license.
 4. [Molecule entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview) will need to be enabled on your tenant.
+5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
 
 ### Upload the App Manifest
 
@@ -158,14 +159,33 @@ Open it in an editor of your choice and set the values with the plaintext client
 for your App. For example:
 
 ```
-CLIENT_ID=42a0cd39-0543-4dd2-af02-a866c97f0c4d
+CLIENT_ID=Ts7jtwPohM
 ```
+
+### Setting App Definition ID
+
+The App definition ID is available from the Developer Console by selecting the App to view.
+
+![image info](./docs/global-app-definition-id.png)
+
+> ℹ️ **Note:** If you do NOT see this ID, please ensure [Global Apps](https://docs.benchling.com/docs/global-apps-faq) are enabled for your tenant.
+
+Add it to your `.env` file with a variable name `APP_DEFINITION_ID`. The contents of your `.env` file should now look something like:
+
+```
+CLIENT_ID=Ts7jtwPohM
+APP_DEFINITION_ID=appdef_Trow4zbR3o
+```
+
+### Restarting the Container to Reflect Environment Changes
 
 Restart the `benchling-app` Docker container to pick up the environment changes.
 
 ```bash
 docker-compose up -d
 ```
+
+### Security Note: Storing App Secrets in Production
 
 > ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
 
