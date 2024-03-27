@@ -12,6 +12,20 @@ def init_app_from_webhook(webhook: WebhookEnvelopeV0) -> App:
     return App(webhook.app.id, _benchling_from_webhook(webhook))
 
 
+@cache
+def app_definition_id() -> str:
+    # App definition ID is available to "global" apps. It uniquely identifies the Benchling App
+    # above the tenant context.
+    #
+    # Although it is available via the webhook, for security purposes we choose to supply it with
+    # the App's code to avoid reusing elements of the webhook's data payload as part of its verification.
+    # For ease of setup, we retrieve it from an environment variable.
+    # You could choose to simply leave it in code like `return "appdef_SpzX0d5oDA"`.
+    app_def_id = os.environ.get("APP_DEFINITION_ID")
+    assert app_def_id is not None, "Missing APP_DEFINITION_ID from environment"
+    return app_def_id
+
+
 def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
     return Benchling(webhook.base_url, _auth_method())
 

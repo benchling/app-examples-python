@@ -17,6 +17,7 @@ services:
       # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
       # You might choose to have two different Apps for dev vs prod, which would have different client IDs
       - CLIENT_ID
+      - APP_DEFINITION_ID
       # Client secret for the Benchling App, stored somewhere securely in production.
       # Injected here for convenience. Each Client ID will have its own Client secret
       - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
