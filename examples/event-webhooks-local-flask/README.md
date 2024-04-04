@@ -17,6 +17,8 @@ This app is optimized as a minimal local development experience using [Docker](h
 
 > ⚠️ **Development Only**: This example is not meant to be copied into production as-is. There are additional deployment, scale, and security concerns that should be addressed before deploying an app based on this example to production.
 
+> ⚠️ **Scale Note**: This App responds to a single `v2.entity.registered` event. For high throughput, bulk use cases this can easily result in thousands of events delivered simultaneously. Systems will need to take volume into account and ensure that the App is throttling or batching calls appropriately (e.g., via a queue) to avoid overwhelming rate limits.
+
 It relies on a few other tools that will be installed for you within Docker containers:
 * [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and forward the results locally. ⚠️ *Not for production or real data!*
 * [Flask](https://flask.palletsprojects.com/) - A simple Python web application framework
