@@ -38,13 +38,9 @@ echo.> .client_secret
 echo.> .database_password
 ```
 
-A database password can be created now. It can be any valid PostgreSQL password. One way to generate a random password for local development purposes on *nix systems might be:
+A database password can be created now. It can be any valid PostgreSQL password. Generate and store a secure password in `.database_password`. For local development, you could open the file and manually enter any valid password.
 
-```bash
-date +%s | sha256sum | base64 | head -c 16 | cat > .database_password
-```
-
-You can also open the file and manually enter any password for local development. In production, be sure to generate and store passwords securely.
+In production, be sure to generate and store passwords securely. Do not use this file for storing passwords.
 
 > ⚠️ **Security Note:** Be sure to avoid committing `.database_password` to a source code repository.
 
@@ -95,7 +91,7 @@ https://brave-wombats-poke.loca.lt
 1. Access to a Benchling tenant, like `https://my-tenant.benchling.com`
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
 3. This example also requires Events delivered by Webhooks to be enabled on your tenant. Reach out to Benchling support to find out more about participating in early access.
-5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
+4. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
 
 ### Upload the App Manifest
 
