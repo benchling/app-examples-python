@@ -11,7 +11,7 @@ from benchling_sdk.apps.status.errors import AppUserFacingError
 from benchling_sdk.apps.status.framework import SessionContextManager
 from benchling_sdk.apps.types import JsonType
 from benchling_sdk.models import AppCanvas, AppCanvasUpdate, Molecule, TextInputUiBlock
-from benchling_sdk.models.webhooks.v0 import CanvasInteractionWebhookV0
+from benchling_sdk.models.webhooks.v0 import CanvasInteractionWebhookV2
 
 from local_app.benchling_app.canvas_interaction import UnsupportedButtonError, route_interaction_webhook
 from local_app.benchling_app.views.canvas_initialize import input_blocks
@@ -191,8 +191,8 @@ def _mock_canvas(blocks: list[UiBlock] | None = None, data: JsonType | None = No
     return mock_canvas
 
 
-def _mock_interaction_webhook(canvas_id: str, button_id: str) -> CanvasInteractionWebhookV0:
-    interaction_webhook = MagicMock(CanvasInteractionWebhookV0)
+def _mock_interaction_webhook(canvas_id: str, button_id: str) -> CanvasInteractionWebhookV2:
+    interaction_webhook = MagicMock(CanvasInteractionWebhookV2)
     interaction_webhook.button_id = button_id
     interaction_webhook.canvas_id = canvas_id
     return interaction_webhook
