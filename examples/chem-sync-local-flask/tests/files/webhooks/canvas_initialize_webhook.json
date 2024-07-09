@@ -13,7 +13,7 @@
   "message": {
     "featureId": "feat_1234",
     "resourceId": "assayrun_1234",
-    "type": "v0.canvas.initialized",
+    "type": "v2.canvas.initialized",
     "deprecated": false,
     "excludedProperties": []
   }
