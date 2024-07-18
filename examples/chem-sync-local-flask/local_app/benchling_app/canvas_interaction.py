@@ -6,7 +6,7 @@ from benchling_sdk.apps.canvas.framework import CanvasBuilder
 from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.status.errors import AppUserFacingError
 from benchling_sdk.models import AppCanvasUpdate, Molecule
-from benchling_sdk.models.webhooks.v0 import CanvasInteractionWebhookV0
+from benchling_sdk.models.webhooks.v0 import CanvasInteractionWebhookV2
 
 from local_app.benchling_app.molecules import create_molecule
 from local_app.benchling_app.views.canvas_initialize import input_blocks
@@ -29,7 +29,7 @@ class UnsupportedButtonError(Exception):
     pass
 
 
-def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWebhookV0) -> None:
+def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWebhookV2) -> None:
     canvas_id = canvas_interaction.canvas_id
     if canvas_interaction.button_id == SEARCH_BUTTON_ID:
         with app.create_session_context("Search Chemicals", timeout_seconds=20) as session:

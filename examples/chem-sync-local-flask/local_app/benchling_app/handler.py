@@ -2,8 +2,8 @@ from typing import Any
 
 from benchling_sdk.apps.status.errors import AppUserFacingError
 from benchling_sdk.models.webhooks.v0 import (
-    CanvasInitializeWebhookV0,
-    CanvasInteractionWebhookV0,
+    CanvasInitializeWebhookV2,
+    CanvasInteractionWebhookV2,
     WebhookEnvelopeV0,
 )
 
@@ -27,9 +27,9 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
     # Note: if your manifest specifies more than one item in `features`,
     # then `webhook.message.feature_id` may also need to be part of your routing logic
     try:
-        if isinstance(webhook.message, CanvasInitializeWebhookV0):
+        if isinstance(webhook.message, CanvasInitializeWebhookV2):
             render_search_canvas(app, webhook.message)
-        elif isinstance(webhook.message, CanvasInteractionWebhookV0):
+        elif isinstance(webhook.message, CanvasInteractionWebhookV2):
             route_interaction_webhook(app, webhook.message)
         else:
             # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
