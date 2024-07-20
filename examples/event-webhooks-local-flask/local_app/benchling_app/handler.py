@@ -1,14 +1,11 @@
 from typing import Any
 
-from benchling_api_client.webhooks.v0.beta.models.event_created_webhook_v0_beta import (
+from benchling_sdk.models.webhooks.v0 import (
     EventCreatedWebhookV0Beta,
+    V2EntityRegisteredEvent,
+    WebhookEnvelopeV0,
 )
-from benchling_api_client.webhooks.v0.beta.models.v2_entity_registered_event import (
-    V2EntityRegisteredEvent as V2EntityRegisteredEventBeta,
-)
-from benchling_api_client.webhooks.v0.beta.models.webhook_envelope import (
-    WebhookEnvelope as WebhookEnvelopeV0Beta,
-)
+
 from benchling_sdk.apps.framework import App
 
 from local_app.benchling_app.setup import init_app_from_webhook
@@ -24,7 +21,7 @@ class UnsupportedWebhookError(Exception):
 
 def handle_webhook(webhook_dict: dict[str, Any]) -> None:
     logger.debug("Handling webhook with payload: %s", webhook_dict)
-    webhook = WebhookEnvelopeV0Beta.from_dict(webhook_dict)
+    webhook = WebhookEnvelopeV0.from_dict(webhook_dict)
     app = init_app_from_webhook(webhook)
     # Could also choose to route on webhook.message.type
     if isinstance(webhook.message, EventCreatedWebhookV0Beta):
@@ -32,7 +29,7 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
         # work with events that meet our criteria (e.g., specific schema)
         if _is_target_event(app, webhook.message):
             # Type safety for MyPy, can omit if you're not type checking
-            assert isinstance(webhook.message.event, V2EntityRegisteredEventBeta)
+            assert isinstance(webhook.message.event, V2EntityRegisteredEvent)
             sync_event_data(app, webhook.message.event)
         else:
             logger.debug("Discarded event and exiting: %s", webhook.message)
@@ -49,6 +46,6 @@ def _is_target_event(app: App, event_created: EventCreatedWebhookV0Beta) -> bool
     # `app.config_store.config_by_path(["Synced Schema"]).value`
     target_schema_id = app.config_store.config_by_path(["Synced Schema"]).required().value_str()
     return (
-        isinstance(event_created.event, V2EntityRegisteredEventBeta) and
+        isinstance(event_created.event, V2EntityRegisteredEvent) and
         event_created.event.schema.id == target_schema_id
     )
