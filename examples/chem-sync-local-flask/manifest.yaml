@@ -7,7 +7,11 @@ features:
   - name: Sync Step
     id: sync_step
     type: ASSAY_RUN
-
+subscriptions:
+  deliveryMethod: WEBHOOK
+  messages:
+  - type: v2.canvas.initialized
+  - type: v2.canvas.userInteracted
 configuration:
   - name: Sync Folder
     type: folder
