@@ -1,12 +1,11 @@
 from typing import Any
 
+from benchling_sdk.apps.framework import App
 from benchling_sdk.models.webhooks.v0 import (
     EventCreatedWebhookV0Beta,
     V2EntityRegisteredEvent,
     WebhookEnvelopeV0,
 )
-
-from benchling_sdk.apps.framework import App
 
 from local_app.benchling_app.setup import init_app_from_webhook
 from local_app.benchling_app.sync_data import sync_event_data
