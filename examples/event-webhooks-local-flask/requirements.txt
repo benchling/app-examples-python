@@ -1,5 +1,5 @@
 flask~=3.0.2
 # Cryptography extra needed for webhook verification
-benchling-sdk[cryptography]==1.12.0
+benchling-sdk[cryptography]==1.13.0
 # For connecting to PostgreSQL in this example, since we're writing data there
 psycopg2-binary==2.9.9

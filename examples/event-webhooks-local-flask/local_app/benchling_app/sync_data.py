@@ -1,8 +1,5 @@
+from benchling_sdk.models.webhooks.v0 import V2EntityRegisteredEvent
 
-
-from benchling_api_client.webhooks.v0.beta.models.v2_entity_registered_event import (
-    V2EntityRegisteredEvent as V2EntityRegisteredEventBeta,
-)
 from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.status.helpers import ref
 from benchling_sdk.models import (
@@ -15,7 +12,7 @@ from benchling_sdk.models import (
 from local_app.lib.postgresql import write_data
 
 
-def sync_event_data(app: App, entity_registered: V2EntityRegisteredEventBeta) -> None:
+def sync_event_data(app: App, entity_registered: V2EntityRegisteredEvent) -> None:
     with app.create_session_context(
             name=f"Sync entity {entity_registered.resource_id}", timeout_seconds=30,
         ) as session:

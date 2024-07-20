@@ -2,9 +2,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-from benchling_api_client.webhooks.v0.beta.models.event_created_webhook_v0_beta import (
-    EventCreatedWebhookV0Beta,
-)
+from benchling_sdk.models.webhooks.v0 import EventCreatedWebhookV0Beta
 from benchling_sdk.apps.config.mock_config import MockConfigItemStore
 from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.helpers.manifest_helpers import manifest_from_file
