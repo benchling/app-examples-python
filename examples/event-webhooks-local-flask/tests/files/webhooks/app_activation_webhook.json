@@ -12,6 +12,6 @@
   "channel": "app_signals",
   "message": {
     "type": "v2.app.activateRequested",
-    "deprecated": false,
+    "deprecated": false
   }
 }

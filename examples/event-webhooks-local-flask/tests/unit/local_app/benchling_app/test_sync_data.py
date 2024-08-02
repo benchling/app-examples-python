@@ -1,8 +1,8 @@
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from benchling_api_client.webhooks.v0.beta.models.v2_entity_registered_event import (
-    V2EntityRegisteredEvent as V2EntityRegisteredEventBeta,
+from benchling_sdk.models.webhooks.v0 import (
+    EntityRegisteredWebhookV2,
 )
 from benchling_sdk.apps.config.mock_config import MockConfigItemStore
 from benchling_sdk.apps.framework import App
@@ -35,7 +35,7 @@ class TestSyncData:
         app.create_session_context.return_value = mock_session_context_manager
         app.benchling.custom_entities.get_by_id.return_value = entity
         mock_sync_entity.return_value = "database_id"
-        entity_registered = MagicMock(V2EntityRegisteredEventBeta)
+        entity_registered = MagicMock(EntityRegisteredWebhookV2)
         entity_registered.resource_id = "resource_id"
 
         # Test

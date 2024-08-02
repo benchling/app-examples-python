@@ -55,7 +55,8 @@ class TestWebhookHandler:
         webhook = load_beta_webhook_json(_TEST_FILES_PATH / "assay_run_created_webhook.json")
         mock_app = MagicMock(App)
         mock_init_app_from_webhook.return_value = mock_app
-        handle_webhook(webhook.to_dict())
+        with pytest.raises(UnsupportedWebhookError):
+            handle_webhook(webhook.to_dict())
         mock_sync_event_data.assert_not_called()
 
     @patch("local_app.benchling_app.handler.init_app_from_webhook")

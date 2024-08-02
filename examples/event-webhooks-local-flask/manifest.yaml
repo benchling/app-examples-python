@@ -11,8 +11,7 @@ info:
 subscriptions:
   deliveryMethod: WEBHOOK
   messages:
-    - type: v0-beta.event.created
-      eventType: v2.entity.registered
+    - type: v2.entity.registered
 
 configuration:
   - name: Synced Schema
