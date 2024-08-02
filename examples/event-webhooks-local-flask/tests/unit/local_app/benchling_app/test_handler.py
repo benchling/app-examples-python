@@ -46,7 +46,7 @@ class TestWebhookHandler:
 
         # Verify
         assert isinstance(webhook.message, EntityRegisteredWebhookV2)
-        mock_sync_event_data.assert_called_once_with(mock_app, webhook.message.event)
+        mock_sync_event_data.assert_called_once_with(mock_app, webhook.message)
 
     @patch("local_app.benchling_app.handler.sync_event_data")
     @patch("local_app.benchling_app.handler.init_app_from_webhook")

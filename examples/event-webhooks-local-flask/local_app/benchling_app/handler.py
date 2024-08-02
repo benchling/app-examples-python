@@ -41,4 +41,5 @@ def _is_target_event(app: App, webhook: EntityRegisteredWebhookV2) -> bool:
     # If type safety isn't a concern:
     # `app.config_store.config_by_path(["Synced Schema"]).value`
     target_schema_id = app.config_store.config_by_path(["Synced Schema"]).required().value_str()
+    assert webhook.schema
     return webhook.schema.id == target_schema_id
