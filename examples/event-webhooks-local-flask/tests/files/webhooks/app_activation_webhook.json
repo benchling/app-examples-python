@@ -11,8 +11,7 @@
   },
   "channel": "app_signals",
   "message": {
-    "type": "v0.app.activateRequested",
+    "type": "v2.app.activateRequested",
     "deprecated": false,
-    "excludedProperties": []
   }
 }

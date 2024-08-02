@@ -2,8 +2,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-from benchling_api_client.webhooks.v0.beta.models.event_created_webhook_v0_beta import (
-    EventCreatedWebhookV0Beta,
+from benchling_sdk.models.webhooks.v0 import (
+    EntityRegisteredWebhookV2,
 )
 from benchling_sdk.apps.config.mock_config import MockConfigItemStore
 from benchling_sdk.apps.framework import App
@@ -45,7 +45,7 @@ class TestWebhookHandler:
         handle_webhook(webhook.to_dict())
 
         # Verify
-        assert isinstance(webhook.message, EventCreatedWebhookV0Beta)
+        assert isinstance(webhook.message, EntityRegisteredWebhookV2)
         mock_sync_event_data.assert_called_once_with(mock_app, webhook.message.event)
 
     @patch("local_app.benchling_app.handler.sync_event_data")

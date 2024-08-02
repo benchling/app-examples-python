@@ -11,19 +11,14 @@
     },
     "channel": "events",
     "message": {
-      "event": {
-        "id": "evt_MQjr2hnJ7WLS",
-        "createdAt": "2024-04-04T03:48:09.962068+00:00",
-        "eventType": "v2.assayRun.created",
-        "schema": {
-          "id": "assaysch_fFLKmdmG"
-        },
-        "deprecated": false,
-        "resourceId": "77af3205-65af-457f-87f5-75462b85075a",
-        "excludedProperties": []
+      "id": "evt_MQjr2hnJ7WLS",
+      "createdAt": "2024-04-04T03:48:09.962068+00:00",
+      "type": "v2.assayRun.created",
+      "schema": {
+        "id": "assaysch_fFLKmdmG"
       },
-      "type": "v0-beta.event.created",
       "deprecated": false,
+      "resourceId": "77af3205-65af-457f-87f5-75462b85075a",
       "excludedProperties": []
     }
   }

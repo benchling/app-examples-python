@@ -2,15 +2,15 @@ import os
 from functools import cache
 from pathlib import Path
 
-from benchling_api_client.webhooks.v0.beta.models.webhook_envelope import (
-    WebhookEnvelope as WebhookEnvelopeV0Beta,
+from benchling_sdk.models.webhooks.v0 import (
+    WebhookEnvelopeV0,
 )
 from benchling_sdk.apps.framework import App
 from benchling_sdk.auth.client_credentials_oauth2 import ClientCredentialsOAuth2
 from benchling_sdk.benchling import Benchling
 
 
-def init_app_from_webhook(webhook: WebhookEnvelopeV0Beta) -> App:
+def init_app_from_webhook(webhook: WebhookEnvelopeV0) -> App:
     return App(webhook.app.id, _benchling_from_webhook(webhook))
 
 
@@ -28,7 +28,7 @@ def app_definition_id() -> str:
     return app_def_id
 
 
-def _benchling_from_webhook(webhook: WebhookEnvelopeV0Beta) -> Benchling:
+def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
     return Benchling(webhook.base_url, _auth_method())
 
 

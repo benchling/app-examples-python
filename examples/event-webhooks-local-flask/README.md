@@ -6,8 +6,6 @@ to an external database.
 
 ![image info](./docs/demo-full.gif)
 
-> ℹ️ Events delivered by webhooks is in early access and unavailable by default. To use this example, please reach out to Benchling support to enable webhook delivery for events on your tenant.
-
 **Appendices**:
 * [Architecture Diagram](#architecture-diagram)
 
