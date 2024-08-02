@@ -2,12 +2,12 @@ import os
 from functools import cache
 from pathlib import Path
 
-from benchling_sdk.models.webhooks.v0 import (
-    WebhookEnvelopeV0,
-)
 from benchling_sdk.apps.framework import App
 from benchling_sdk.auth.client_credentials_oauth2 import ClientCredentialsOAuth2
 from benchling_sdk.benchling import Benchling
+from benchling_sdk.models.webhooks.v0 import (
+    WebhookEnvelopeV0,
+)
 
 
 def init_app_from_webhook(webhook: WebhookEnvelopeV0) -> App:

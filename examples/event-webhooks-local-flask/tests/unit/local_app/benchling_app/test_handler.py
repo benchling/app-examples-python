@@ -2,13 +2,13 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-from benchling_sdk.models.webhooks.v0 import (
-    EntityRegisteredWebhookV2,
-)
 from benchling_sdk.apps.config.mock_config import MockConfigItemStore
 from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.helpers.manifest_helpers import manifest_from_file
 from benchling_sdk.models import EntitySchemaAppConfigItem, EntitySchemaAppConfigItemType
+from benchling_sdk.models.webhooks.v0 import (
+    EntityRegisteredWebhookV2,
+)
 
 from local_app.benchling_app.handler import UnsupportedWebhookError, handle_webhook
 from tests.helpers import load_beta_webhook_json

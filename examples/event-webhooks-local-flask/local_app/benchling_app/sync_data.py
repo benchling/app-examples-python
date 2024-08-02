@@ -1,6 +1,3 @@
-from benchling_sdk.models.webhooks.v0 import (
-    EntityRegisteredWebhookV2,
-)
 from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.status.helpers import ref
 from benchling_sdk.models import (
@@ -8,6 +5,9 @@ from benchling_sdk.models import (
     AppSessionMessageStyle,
     AppSessionUpdateStatus,
     CustomEntity,
+)
+from benchling_sdk.models.webhooks.v0 import (
+    EntityRegisteredWebhookV2,
 )
 
 from local_app.lib.postgresql import write_data
