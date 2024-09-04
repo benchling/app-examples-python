@@ -110,7 +110,7 @@ https://hot-ideas-doubt.loca.lt/1/webhooks
 
 ![image info](./docs/update-webhook-url.gif)
 
-### Generating a Client Secret
+### Generate a Client Secret
 
 Generate a client secret in Benchling and be sure to copy the secret.
 
@@ -138,7 +138,7 @@ docker-compose up -d
 
 If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
 
-### Setting Client ID
+### Set the Client ID
 
 Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
 App to accept `CLIENT_ID` as an environment variable.

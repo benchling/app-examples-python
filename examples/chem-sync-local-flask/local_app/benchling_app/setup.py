@@ -6,6 +6,9 @@ from benchling_sdk.apps.framework import App
 from benchling_sdk.auth.client_credentials_oauth2 import ClientCredentialsOAuth2
 from benchling_sdk.benchling import Benchling
 from benchling_sdk.models.webhooks.v0 import WebhookEnvelopeV0
+from local_app.lib.logger import get_logger
+
+logger = get_logger()
 
 
 def init_app_from_webhook(webhook: WebhookEnvelopeV0) -> App:
@@ -22,6 +25,7 @@ def app_definition_id() -> str:
     # For ease of setup, we retrieve it from an environment variable.
     # You could choose to simply leave it in code like `return "appdef_SpzX0d5oDA"`.
     app_def_id = os.environ.get("APP_DEFINITION_ID")
+    logger.debug(app_def_id)
     assert app_def_id is not None, "Missing APP_DEFINITION_ID from environment"
     return app_def_id
 

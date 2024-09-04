@@ -21,6 +21,7 @@ def create_app() -> Flask:
     @app.route("/1/webhooks/<path:target>", methods=["POST"])
     def receive_webhooks(target: str) -> tuple[str, int]:  # noqa: ARG001
         # For security, don't do anything else without first verifying the webhook
+        logger.debug("hi")
         app_def_id = app_definition_id()
 
         # Important! To verify webhooks, we need to pass the body as an unmodified string
