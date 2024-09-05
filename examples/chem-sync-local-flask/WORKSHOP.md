@@ -239,12 +239,14 @@ In the workshop, your presenter will show this live. We will have an admin autho
 
 ## Receiving our First Webhook
 
-Test the flow! In Benchling:
-1. Create a new notebook entry
-1. Insert a run of the schema linked in App Config
-1. Create the Run
-1. Observe our debug logging printing the webhook received:
-    1. `docker compose logs benchling-app`
+Let's test our app's ability to receive webhooks! To do this, we can use the `Webhook Testing` tab in the Developer Console. On this page, we can select any available webhook type to test out and send to our app's webhook URL - try it out! In general, this page is a great way to quickly imitate Benchling sending any type of webhook to your app in development.
+
+![image info](./docs/webhook-testing.gif)
+
+Observe our debug logging printing webhooks that our app receives. (If you don't have the logs running already, you can run `docker compose logs -f`.)
+
+For now, from observing the code, our app will simply return a `200 OK` response without doing any work. Over the course of this workshop, we'll build up our app to execute more complex logic in response to webhooks, in order to provide an interactive canvas-based UX for our end users.
+
 
 ## Rebuild the App!
 1. Start in `local_app/app.py`
