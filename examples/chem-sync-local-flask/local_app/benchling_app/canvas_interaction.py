@@ -30,37 +30,39 @@ class UnsupportedButtonError(Exception):
 
 
 def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWebhookV2) -> None:
-    canvas_id = canvas_interaction.canvas_id
-    if canvas_interaction.button_id == SEARCH_BUTTON_ID:
-        with app.create_session_context("Search Chemicals", timeout_seconds=20) as session:
-            session.attach_canvas(canvas_id)
-            canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
-            canvas_inputs = canvas_builder.inputs_to_dict_single_value()
-            sanitized_inputs = _validate_and_sanitize_inputs(canvas_inputs)
-            results = search(sanitized_inputs[SEARCH_TEXT_ID])
-            render_preview_canvas(results, canvas_id, canvas_builder, session)
-    elif canvas_interaction.button_id == CANCEL_BUTTON_ID:
-        # Set session_id = None to detach and prior state or messages (essentially, reset)
-        canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
-        canvas_update = canvas_builder.with_enabled()\
-            .with_session_id(None)\
-            .with_blocks(input_blocks())\
-            .to_update()
-        app.benchling.apps.update_canvas(canvas_id, canvas_update)
-    elif canvas_interaction.button_id == CREATE_BUTTON_ID:
-        with app.create_session_context("Create Molecules", timeout_seconds=20) as session:
-            session.attach_canvas(canvas_id)
-            canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
-            molecule = _create_molecule_from_canvas(app, canvas_builder)
-            render_completed_canvas(molecule, canvas_id, canvas_builder, session)
-    else:
-        # Re-enable the Canvas, or it will stay disabled and the user will be stuck
-        app.benchling.apps.update_canvas(canvas_id, AppCanvasUpdate(enabled=True))
-        # Not shown to user by default, for our own logs cause we forgot to handle some button
-        # This is developer error
-        raise UnsupportedButtonError(
-            f"Whoops, the developer forgot to handle the button {canvas_interaction.button_id}",
-        )
+    logger.debug("Received canvas interaction from Benchling: %s", canvas_interaction)
+    # TODO: Begin to implement canvas interactions (button presses) from the user
+    # canvas_id = canvas_interaction.canvas_id
+    # if canvas_interaction.button_id == SEARCH_BUTTON_ID:
+    #     with app.create_session_context("Search Chemicals", timeout_seconds=20) as session:
+    #         session.attach_canvas(canvas_id)
+    #         canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
+    #         canvas_inputs = canvas_builder.inputs_to_dict_single_value()
+    #         sanitized_inputs = _validate_and_sanitize_inputs(canvas_inputs)
+    #         results = search(sanitized_inputs[SEARCH_TEXT_ID])
+    #         render_preview_canvas(results, canvas_id, canvas_builder, session)
+    # elif canvas_interaction.button_id == CANCEL_BUTTON_ID:
+    #     # Set session_id = None to detach and prior state or messages (essentially, reset)
+    #     canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
+    #     canvas_update = canvas_builder.with_enabled()\
+    #         .with_session_id(None)\
+    #         .with_blocks(input_blocks())\
+    #         .to_update()
+    #     app.benchling.apps.update_canvas(canvas_id, canvas_update)
+    # elif canvas_interaction.button_id == CREATE_BUTTON_ID:
+    #     with app.create_session_context("Create Molecules", timeout_seconds=20) as session:
+    #         session.attach_canvas(canvas_id)
+    #         canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
+    #         molecule = _create_molecule_from_canvas(app, canvas_builder)
+    #         render_completed_canvas(molecule, canvas_id, canvas_builder, session)
+    # else:
+    #     # Re-enable the Canvas, or it will stay disabled and the user will be stuck
+    #     app.benchling.apps.update_canvas(canvas_id, AppCanvasUpdate(enabled=True))
+    #     # Not shown to user by default, for our own logs cause we forgot to handle some button
+    #     # This is developer error
+    #     raise UnsupportedButtonError(
+    #         f"Whoops, the developer forgot to handle the button {canvas_interaction.button_id}",
+    #     )
 
 
 def _create_molecule_from_canvas(app: App, canvas_builder: CanvasBuilder) -> Molecule:

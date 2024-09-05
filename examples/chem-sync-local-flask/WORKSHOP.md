@@ -34,7 +34,7 @@ Please come with the following pre-installed and configured on your machine:
     1. Windows: `echo.> .client_secret`
 1. Start building the Docker containers
 `docker compose up --build -d`
-1. Start the Docker logs `docker compose logs -f`
+1. Optionally start the Docker logs `docker compose logs -f` in a separate terminal window
 
 ## IDE setup
 
@@ -135,6 +135,12 @@ pbpaste > .client_secret
 
 You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
 
+```bash
+docker-compose up -d
+```
+
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+
 ### Set the Client ID
 
 Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
@@ -187,15 +193,43 @@ In order to use our new app on the tenant, we'll first have to install it. Navig
 
 ![image info](./docs/install-app.gif)
 
+### Create Benchling Dependencies for the App
+
+If you examine the `configuration` section of `manifest.yaml`, you'll see our App
+expects a few configuration items:
+1. A folder
+2. A molecule entity schema with two decimal fields
+
+The `features` section of `manifest.yaml` also states that our App will render
+its UI on an `ASSAY_RUN`. So we'll also need:
+1. A Lab Automation run schema
+
+#### Folder
+
+Create a new folder where the molecules created by the App will be placed.
+An existing folder can also be used, if the App has permissions to it.
+
+![image info](./docs/create-folder.gif)
+
+#### Molecule Entity Schema
+
+For this workshop, we've already created a sample entity schema that all participants can use, `Molecule Schema for Syncing`. No new entity schema will need to be created.
+
+#### Lab Automation Run Schema
+
+Because Assay Run objects will host the Canvas UI created by the App, each workshop participant will need to create their own unique lab automation run schema to pair with their app. The schema need not have any fields.
+
+![image info](./docs/create-run-schema.gif)
+
 ### Update the App's Configuration
 
 App Configuration gives us a stable code contract for referencing data mapped in a Benchling tenant.
 The values of the data in Benchling can then be changed without updating App code.
 
-Let's update our configuration to:
-1. Specify a folder for syncing sequences
-2. Link a molecule schema and fields for the synced chemicals
-3. Select an assay run schema to associate with our Benchling App
+Now that we've created the necessary Benchling objects in previous steps, let's update our configuration to:
+1. Specify the folder for syncing sequences
+2. Link the `Molecule Schema for Syncing` entity schema and fields for the synced chemicals
+3. Select our new assay run schema to associate with our Benchling App
 
 ### Permission the App
 

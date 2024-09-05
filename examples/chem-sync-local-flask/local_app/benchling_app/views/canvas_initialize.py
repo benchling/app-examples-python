@@ -15,14 +15,28 @@ from local_app.benchling_app.views.constants import SEARCH_BUTTON_ID, SEARCH_TEX
 
 
 def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV2) -> None:
-    with app.create_session_context("Show Sync Search", timeout_seconds=20):
-        canvas_builder = CanvasBuilder(
-            app_id=app.id,
-            feature_id=canvas_initialized.feature_id,
-            resource_id=canvas_initialized.resource_id,
-        )
-        canvas_builder.blocks.append(input_blocks())
-        app.benchling.apps.create_canvas(canvas_builder.to_create())
+    # TODO: Replace hello world with our search screen!
+    canvas_builder = CanvasBuilder(
+        app_id=app.id,
+        feature_id=canvas_initialized.feature_id,
+        resource_id=canvas_initialized.resource_id,
+        blocks=[
+            MarkdownUiBlock(
+                type=MarkdownUiBlockType.MARKDOWN,
+                value="**Hello world!!**",
+            ),
+            # TODO: Let's add a button to Hello World
+        ],
+    )
+    app.benchling.apps.create_canvas(canvas_builder.to_create())
+    # with app.create_session_context("Show Sync Search", timeout_seconds=20):
+    #     canvas_builder = CanvasBuilder(
+    #         app_id=app.id,
+    #         feature_id=canvas_initialized.feature_id,
+    #         resource_id=canvas_initialized.resource_id,
+    #     )
+    #     canvas_builder.blocks.append(input_blocks())
+    #     app.benchling.apps.create_canvas(canvas_builder.to_create())
 
 
 def input_blocks() -> list[UiBlock]:

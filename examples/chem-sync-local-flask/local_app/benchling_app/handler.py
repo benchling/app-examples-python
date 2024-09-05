@@ -20,8 +20,8 @@ class UnsupportedWebhookError(Exception):
 
 
 def handle_webhook(webhook_dict: dict[str, Any]) -> None:
-    logger.debug("Handling webhook with payload: %s", webhook_dict)
     webhook = WebhookEnvelopeV0.from_dict(webhook_dict)
+    # TODO: Finish implementing intialize the app from webhook
     app = init_app_from_webhook(webhook)
     # Could also choose to route on webhook.message.type
     # Note: if your manifest specifies more than one item in `features`,
@@ -29,11 +29,11 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
     try:
         if isinstance(webhook.message, CanvasInitializeWebhookV2):
             render_search_canvas(app, webhook.message)
-        elif isinstance(webhook.message, CanvasInteractionWebhookV2):
-            route_interaction_webhook(app, webhook.message)
-        else:
-            # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
-            raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")
+        # elif isinstance(webhook.message, CanvasInteractionWebhookV2):
+        #     route_interaction_webhook(app, webhook.message)
+        # else:
+        #     # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
+        #     raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")
         logger.debug("Successfully completed request for webhook: %s", webhook_dict)
     # We want errors shown to the user to end control flow, but we don't want them to propagate
     # and show as errors in our logs.

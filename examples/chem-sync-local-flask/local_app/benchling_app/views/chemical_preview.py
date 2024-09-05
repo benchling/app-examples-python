@@ -31,35 +31,37 @@ def render_preview_canvas(
     canvas_builder: CanvasBuilder,
     session: SessionContextManager,
 ) -> None:
-    if results:
-        # Just take the first result, as an example
-        chemical = results[0]
-        # Add the result to the canvas as data that won't be shown to the user but can be retrieved later
-        canvas_builder = canvas_builder\
-            .with_blocks(_preview_blocks(chemical))\
-            .with_data({CID_KEY: chemical["cid"]})\
-            .with_enabled()
-        session.app.benchling.apps.update_canvas(
-            canvas_id,
-            canvas_builder.to_update(),
-        )
-    else:
-        user_input = canvas_builder.inputs_to_dict()[SEARCH_TEXT_ID]
-        # Clear the search input and re-enable canvas so user can input a new search
-        canvas_builder = canvas_builder.with_blocks(input_blocks()).with_enabled()
-        session.app.benchling.apps.update_canvas(
-            canvas_id,
-            canvas_builder.to_update(),
-        )
-        session.close_session(
-            AppSessionUpdateStatus.SUCCEEDED,
-            messages=[
-                AppSessionMessageCreate(
-                    f"Couldn't find any chemicals for '{user_input}'",
-                    style=AppSessionMessageStyle.INFO,
-                ),
-            ],
-        )
+    pass
+    # TODO: Handle displaying of chemical results
+    # if results:
+    #     # Just take the first result, as an example
+    #     chemical = results[0]
+    #     # Add the result to the canvas as data that won't be shown to the user but can be retrieved later
+    #     canvas_builder = canvas_builder\
+    #         .with_blocks(_preview_blocks(chemical))\
+    #         .with_data({CID_KEY: chemical["cid"]})\
+    #         .with_enabled()
+    #     session.app.benchling.apps.update_canvas(
+    #         canvas_id,
+    #         canvas_builder.to_update(),
+    #     )
+    # else:
+    #     user_input = canvas_builder.inputs_to_dict()[SEARCH_TEXT_ID]
+    #     # Clear the search input and re-enable canvas so user can input a new search
+    #     canvas_builder = canvas_builder.with_blocks(input_blocks()).with_enabled()
+    #     session.app.benchling.apps.update_canvas(
+    #         canvas_id,
+    #         canvas_builder.to_update(),
+    #     )
+    #     session.close_session(
+    #         AppSessionUpdateStatus.SUCCEEDED,
+    #         messages=[
+    #             AppSessionMessageCreate(
+    #                 f"Couldn't find any chemicals for '{user_input}'",
+    #                 style=AppSessionMessageStyle.INFO,
+    #             ),
+    #         ],
+    #     )
 
 
 def _preview_blocks(chemical: dict[str, Any]) -> list[UiBlock]:
@@ -72,9 +74,7 @@ def _preview_blocks(chemical: dict[str, Any]) -> list[UiBlock]:
         MarkdownUiBlock(
             id="chemical_preview",
             type=MarkdownUiBlockType.MARKDOWN,
-            value=(
-                f"**Name**: {chemical['name']}\n\n**Structure**: {chemical['smiles']}"
-            ),
+            value=(f"**Name**: {chemical['name']}\n\n**Structure**: {chemical['smiles']}"),
         ),
         MarkdownUiBlock(
             id="chemical_image",
