@@ -80,35 +80,36 @@ When prompted to upload a file, select `manifest.yaml` and click "Create."
 
 ### Update the Webhook URL
 
-Every time we restart the `local-tunnel` Docker container, it will provision
-a new public webhook URL. We can check logs with `docker compose logs local-tunnel` to retrieve it:
+Every time we restart the `cloudflare-tunnel` Docker container, it will provision
+a new public webhook URL. We can check logs with `docker compose logs cloudflare-tunnel` to retrieve it:
 
 ```
-app-workshop-local-tunnel-1   | your url is: https://brave-wombats-poke.loca.lt
+  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable): 
+  https://processor-identifies-botswana-messaging.trycloudflare.com
 ```
 
 On *nix systems, you can easily obtain _just_ the URL via:
 
 ```
-docker compose logs local-tunnel | grep -o https://.* | tail -n 1
+docker compose logs cloudflare-tunnel | grep -o 'https://[^ ]*trycloudflare.com[^ ]*' | tail -n 1
 ```
 
 Example Output:
 
 ```
-https://brave-wombats-poke.loca.lt
+https://processor-identifies-botswana-messaging.trycloudflare.com
 ```
 
-> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://brave-wombats-poke.loca.lt/1/webhooks`
+> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://processor-identifies-botswana-messaging.trycloudflare.com/1/webhooks`
 
 Update the Benchling App's Webhook URL in the UI with the new server and
 append the path our Flask route expects (see `local_app/app.py`).
 
-For example, if our `localtunnel` generated URL is `https://brave-wombats-poke.loca.lt`,
+For example, if our `cloudflare-tunnel` generated URL is `https://processor-identifies-botswana-messaging.trycloudflare.com`,
 the webhook URL in Benchling should be:
 
 ```
-https://brave-wombats-poke.loca.lt/1/webhooks
+https://processor-identifies-botswana-messaging.trycloudflare.com/1/webhooks
 ```
 
 ![image info](./docs/update-webhook-url.gif)
@@ -139,7 +140,7 @@ You'll then need to restart _just_ the `benchling-app` Docker service to pick up
 docker-compose up -d
 ```
 
-If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from cloudflare-tunnel.
 
 ### Set the Client ID
 
@@ -169,7 +170,7 @@ CLIENT_ID=42a0cd39-0543-4dd2-af02-a866c97f0c4d
 docker-compose up -d
 ```
 
-If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from cloudflare-tunnel.
 
 > ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
 
@@ -267,10 +268,10 @@ VSCode and PyCharm:
 docker compose logs -f
 ```
 
-#### Restart individual service (e.g., local-tunnel)
+#### Restart individual service (e.g., cloudlfare-tunnel)
 
 ```
-docker compose restart local-tunnel
+docker compose restart cloudflare-tunnel
 ```
 
 #### Check Running Services
