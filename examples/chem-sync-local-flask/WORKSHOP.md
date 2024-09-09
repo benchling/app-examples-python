@@ -268,7 +268,7 @@ VSCode and PyCharm:
 docker compose logs -f
 ```
 
-#### Restart individual service (e.g., cloudlfare-tunnel)
+#### Restart individual service (e.g., cloudflare-tunnel)
 
 ```
 docker compose restart cloudflare-tunnel

@@ -18,7 +18,7 @@ def create_app() -> Flask:
         # Just a route allowing us to check that Flask itself is up and running
         return "OK", 200
 
-    @app.route("/1/webhooks/<path:target>", methods=["POST"])
+    @app.route("/<path:target>", methods=["POST"])
     def receive_webhooks(target: str) -> tuple[str, int]:  # noqa: ARG001
         # TODO: Verify webhook from Benchling and dispatch the work
         # For security, don't do anything else without first verifying the webhook

@@ -33,20 +33,30 @@ def render_preview_canvas(
 ) -> None:
     pass
     # TODO: Handle displaying of chemical results
+    # user_input = canvas_builder.inputs_to_dict()[SEARCH_TEXT_ID]
     # if results:
     #     # Just take the first result, as an example
     #     chemical = results[0]
     #     # Add the result to the canvas as data that won't be shown to the user but can be retrieved later
-    #     canvas_builder = canvas_builder\
-    #         .with_blocks(_preview_blocks(chemical))\
-    #         .with_data({CID_KEY: chemical["cid"]})\
+    #     canvas_builder = (
+    #         canvas_builder.with_blocks(_preview_blocks(chemical))
+    #         .with_data({CID_KEY: chemical["cid"]})
     #         .with_enabled()
+    #     )
     #     session.app.benchling.apps.update_canvas(
     #         canvas_id,
     #         canvas_builder.to_update(),
     #     )
+    #     session.close_session(
+    #         AppSessionUpdateStatus.SUCCEEDED,
+    #         messages=[
+    #             AppSessionMessageCreate(
+    #                 f"Retrieved '{user_input}' from PubChem",
+    #                 style=AppSessionMessageStyle.SUCCESS,
+    #             ),
+    #         ],
+    #     )
     # else:
-    #     user_input = canvas_builder.inputs_to_dict()[SEARCH_TEXT_ID]
     #     # Clear the search input and re-enable canvas so user can input a new search
     #     canvas_builder = canvas_builder.with_blocks(input_blocks()).with_enabled()
     #     session.app.benchling.apps.update_canvas(
