@@ -1,4 +1,19 @@
-# App Workshop - Building Live
+# App Workshop - Chemical Sync for Local Development
+
+In this workshop, we'll build an example Benchling App written in Python which allows users to search for chemicals 
+via [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and create them in Benchling. Check out the [Architecture Diagram](#architecture-diagram) for a more technical overview of how the app is structured to communicate with Benchling.
+
+![image info](./docs/demo-full.gif)
+_The App features branching flows and will also validate user inputs._
+
+This app is optimized as a minimal local development experience using [Docker](https://www.docker.com/) for reproducibility.
+
+> ⚠️ **Development Only**: This example is not meant to be copied into production as-is. There are additional deployment, scale, and security concerns that should be addressed before deploying an app based on this example to production.
+
+It relies on a few other tools that will be installed for you within Docker containers:
+* [Cloudflare-tunnel](https://www.cloudflare.com/products/tunnel/) - expose a public webhook URL and forward the results locally. ⚠️ *Not for production or real data!*
+* [Flask](https://flask.palletsprojects.com/) - A simple Python web application framework
+
 
 ## Prerequisites
 
@@ -29,9 +44,12 @@ Please come with the following pre-installed and configured on your machine:
     1. Pull the latest if you previously checked out: `git pull`
 1. Navigate to the example directory for **chem-sync-local-flask**:
     1. `cd app-examples-python/examples/chem-sync-local-flask/`
-1. Create a `.client_secret` placeholder file required by Docker
+1. Create a `.client_secret` placeholder file that we'll use to hold our app's client secret
     1. *nix: `touch .client_secret`
     1. Windows: `echo.> .client_secret`
+1. Create a `.env` placeholder file that we'll use to hold environment variables for our app
+    1. *nix: `touch .env`
+    1. Windows: `echo.> .env`
 1. Start building the Docker containers
 `docker compose up --build -d`
 1. Optionally start the Docker logs `docker compose logs -f` in a separate terminal window
@@ -58,6 +76,11 @@ Any other IDE:
 1. Once Docker has finished building and composing up:
 `curl localhost:8000/health`
 
+## Architecture Diagram
+
+### What's running on my computer?
+
+![image info](./docs/architecture-diagram.png)
 
 ## Discuss App Layout
 1. Observe the `benchling-sdk` dependency in `requirements.txt`
@@ -122,13 +145,20 @@ Generate a client secret in Benchling and be sure to copy the secret.
 
 Since the client secret is sensitive, it's handled a bit differently. It's
 registered as a `secret` in our `docker-compose.yaml` file, which will be looking
-for a file `./client_secret`.
+for a file `./client_secret`, which we should have already created.
 
-We can create this file and paste in the secret plaintext value if we have the secret in our clipboard.
-On *nix:
+If the file has not yet been created, you can create it from a terminal as follows, or just create the file from within your IDE.
+```bash
+# On *nix systems
+touch .client_secret
+
+# On Windows
+echo.> .client_secret
+```
+
+Then, paste in the secret plaintext value. If we have the secret in our clipboard, on *nix:
 
 ```bash
-touch .client_secret
 pbpaste > .client_secret
 ```
 
@@ -140,22 +170,21 @@ You'll then need to restart _just_ the `benchling-app` Docker service to pick up
 docker-compose up -d
 ```
 
-If you restart both containers, be sure to update your App in Benchling with the new webhook URL from cloudflare-tunnel.
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from `cloudflare-tunnel`.
 
 ### Set the Client ID
 
 Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
 App to accept `CLIENT_ID` as an environment variable.
 
-One easy way to set an environment variables for Docker is to add a `.env` file.
+One easy way to set an environment variables for Docker is to add a `.env` file, which we should have already created.
 
+If the file has not yet been created, you can again create it from a terminal as follows, or just create the file from within your IDE.
 ```bash
+# On *nix systems
 touch .env
-```
 
-Windows example:
-
-```cmd
+# On Windows
 echo.> .env
 ```
 
@@ -249,10 +278,26 @@ Observe our debug logging printing webhooks that our app receives. (If you don't
 For now, from observing the code, our app will simply return a `200 OK` response without doing any work. Over the course of this workshop, we'll build up our app to execute more complex logic in response to webhooks, in order to provide an interactive canvas-based UX for our end users.
 
 
-## Rebuild the App!
+## Rebuild the App
+Now, we'll rebuild the app piece by piece together! Your workshop presenter will talk through slides outlining this process. 
+
 1. Start in `local_app/app.py`
 
-## Appendix A: Useful Workshop Commands
+## Running the App - Syncing a Chemical
+
+Once the app has been fully rebuilt, here's how to use it:
+
+1. Create a new notebook entry
+2. Insert a run of the schema linked in App Config
+3. Create the Run
+4. Enter a valid chemical name to search for, such as `acetaminophen`
+5. Click "Search Chemicals"
+6. After reviewing the preview, click "Create Molecule"
+7. Click the linked entity to view it in Benchling
+
+![image info](./docs/demo.gif)
+
+## Appendix: Useful workshop commands
 
 ### Toggle Commented Code Blocks
 

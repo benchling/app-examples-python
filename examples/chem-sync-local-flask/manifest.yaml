@@ -1,6 +1,6 @@
 manifestVersion: 1
 info:
-  name: Reb Sample Sync App
+  name: Sample Sync App
   version: 0.0.1
 features:
   - name: Sync Step
