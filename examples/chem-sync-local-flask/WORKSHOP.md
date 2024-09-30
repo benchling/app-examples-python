@@ -73,6 +73,8 @@ For this workshop, we'll need the following tools to be installed and configured
 1. Start building the Docker containers
 `docker compose up --build -d`
 1. Optionally start the Docker logs `docker compose logs -f` in a separate terminal window
+1. Once Docker has finished building and composing up:
+`curl localhost:8000/health`
 
 ### Notes on Docker for Windows
 
@@ -97,9 +99,6 @@ Any other IDE:
 1. In `app-examples-python/examples/chem-sync-local-flask/`
 1. Create a **Python 3.11** virtual environment, activate it, and install requirements (e.g., `pip install -r requirements.txt`)
 
-### Check Existing Docker Setup
-1. Once Docker has finished building and composing up:
-`curl localhost:8000/health`
 
 ## Architecture diagram
 
@@ -136,6 +135,11 @@ When prompted to upload a file, select `manifest.yaml` and click "Create."
 
 ### Update the webhook URL
 
+First, let's get a fresh webhook URL from our `cloudflare-tunnel` container by restarting the service:
+```
+docker compose restart cloudflare-tunnel
+```
+
 Every time we restart the `cloudflare-tunnel` Docker container, it will provision
 a new public webhook URL. We can check logs with `docker compose logs cloudflare-tunnel` to retrieve it:
 
@@ -156,14 +160,13 @@ Example Output:
 https://processor-identifies-botswana-messaging.trycloudflare.com
 ```
 
-Update the Benchling App's Webhook URL in the UI with the new server and
-append the path our Flask route expects (see `local_app/app.py`).
+Update the Benchling App's Webhook URL in the UI with our `cloudflare-tunnel` URL.
 
 ![image info](./docs/update-webhook-url.gif)
 
 ### Generate a Client Secret
 
-Generate a client secret in Benchling and be sure to copy the secret.
+Generate a client secret in Benchling and be sure to copy the secret - it will only be displayed once! (If you do happen to lose the secret, no problem - you can just regenerate it and grab the new one instead.)
 
 ![image info](./docs/generate-secret.gif)
 
@@ -299,9 +302,9 @@ Now, we'll rebuild the app piece by piece together! Your workshop presenter will
 ### 1. Set up our app with credentials and handle our first real canvas webhook
 💡 After completing step 1, you should be able to create an assay run (of your app's specific run schema) in a notebook entry, and have a basic "Hello world!" canvas show up.
 ```
-local_app/app.py
-- Verify webhook
-- Enqueue work, targeting function handle_webhook
+In file local_app/app.py
+- [L25-26] Uncomment to verify webhook
+- [L30] Enqueue work, targeting function handle_webhook
 
 local_app/benchling_app/handler.py
 - Examine handler function handle_webhook
@@ -397,10 +400,22 @@ VSCode and PyCharm:
 
 ### Docker Commands
 
+#### Rebuild containers
+
+```
+docker compose up --build -d
+```
+
 #### Tail Logs
 
 ```
 docker compose logs -f
+```
+
+#### Restart services
+
+```
+docker compose restart
 ```
 
 #### Restart individual service (e.g., cloudflare-tunnel)
