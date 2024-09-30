@@ -87,7 +87,7 @@ Any other IDE:
 
 ## Setting up the App in Benchling
 
-1. Navigate to https://dev-training.benchling.com/ and login
+1. Navigate to https://benchling-app-workshops.benchling.com/ and login
 1. Open `manifest.yaml` and rename the App's `name` attribute under `info` by suffixing your name to the end
     1. Example: `Sample Sync App` -> `Sample Sync App FirstName LastName`
 
