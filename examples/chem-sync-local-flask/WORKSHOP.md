@@ -107,6 +107,9 @@ Any other IDE:
 
 ![image info](./docs/architecture-diagram.png)
 
+## 🛑 Stop here! We will proceed live in the workshop 🚀
+Feel free to read through some of the document if you want to sneak preview some of the workshop content, but please don't do any work in the tenant. We've created some data for each participant already, and want to avoid duplicate data in the tenant!
+
 ## Setting up the app in Benchling
 
 ### Log in to the tenant
