@@ -121,6 +121,8 @@ Navigate to https://benchling-app-workshops.benchling.com/ and log in.
 
 ### Upload the app manifest
 
+> ✅ This step has already been completed for you prior to the workshop.
+
 Open `manifest.yaml` and rename the App's `name` attribute under `info` by suffixing your name to the end.
 
 Example: `Sample Sync App` -> `Sample Sync App - FirstName LastName`
@@ -242,11 +244,15 @@ If you restart both containers, be sure to update your App in Benchling with the
 
 ### Install the App on the tenant
 
+> ✅ This step has already been completed for you prior to the workshop.
+
 In order to use our new app on the tenant, we'll first have to install it. Navigate to the `Version History` tab on the developer console, and click `Install` on our app version (there should only be a single version for now).
 
 ![image info](./docs/install-app.gif)
 
 ### Create Benchling Dependencies for the App
+
+> ✅ This step has already been completed for you prior to the workshop.
 
 If you examine the `configuration` section of `manifest.yaml`, you'll see our App
 expects a few configuration items:
@@ -281,6 +287,8 @@ Now that we have the necessary Benchling objects from previous steps, let's upda
 3. Select our assay run schema to associate with our Benchling app
 
 ### Permission the App
+
+> ✅ This step has already been completed for you prior to the workshop.
 
 By default, Benchling apps do not have permission to any data in Benchling.
 
