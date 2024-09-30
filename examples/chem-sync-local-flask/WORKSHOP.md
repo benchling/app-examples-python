@@ -300,81 +300,82 @@ For now, from observing the code, our app will simply return a `200 OK` response
 Now, we'll rebuild the app piece by piece together! Your workshop presenter will talk through slides outlining this process, and then show the code changes live. We've also included an outline below as a reference.
 
 ### 1. Set up our app with credentials and handle our first real canvas webhook
-💡 After completing step 1, you should be able to create an assay run (of your app's specific run schema) in a notebook entry, and have a basic "Hello world!" canvas show up.
 ```
 In file local_app/app.py
 - [L25-26] Uncomment to verify webhook
 - [L30] Enqueue work, targeting function handle_webhook
 
-local_app/benchling_app/handler.py
-- Examine handler function handle_webhook
-- Click into init_app_from_webhook
+In file local_app/benchling_app/handler.py
+- [L22] Examine handler function handle_webhook
+- [L25] Click into init_app_from_webhook
 
-local_app/benchling_app/setup.py
-- Finish implementing init_app_from_webhook
-- _auth_method
-- _client_secret_from_file
+In file local_app/benchling_app/setup.py
+- [L14] Finish implementation of init_app_from_webhook via helper methods below
+- [L39-44] Uncomment _auth_method function body
+- [L47-51] Uncomment _client_secret_from_file function body
 
-local_app/benchling_app/handler.py
-- Observe the way we handle canvas initialization webhooks
-- Click into render_search_canvas
+In file local_app/benchling_app/handler.py
+- [L30-31] Observe the way we handle canvas initialization webhooks
+- [L31] Click into render_search_canvas
 
-local_app/benchling_app/views/canvas_initialize.py
-- Observe how to initialize a canvas in render_search_canvas
+In file local_app/benchling_app/views/canvas_initialize.py
+- [L17-31] Observe how to initialize a canvas in render_search_canvas
 ```
+💡 After completing this step, you should be able to create an assay run (of your app's specific run schema) in a notebook entry, and have a basic "Hello world!" canvas show up.
 
 ### 2. Handle Canvas initialization, learn about and use App Sessions
-💡 After completing step 2, initializing the canvas via assay run should show the initial chemical search UI. Additionally, app activity will begin to be recorded under the "Activity" tab of the app's installation page.
-
 ```
-local_app/benchling_app/views/canvas_initialize.py
-- In render_search_canvas, replace the basic Hello World canvas logic with the initial sync search screen
-- Learn about the create_session_context context manager
+In file local_app/benchling_app/views/canvas_initialize.py
+- [L32-39] In render_search_canvas, comment out the previous Hello World canvas logic and uncomment the initial sync search screen
+- [L32] Learn about the create_session_context context manager
 ```
+💡 After completing this step, initializing the canvas via assay run should show the initial chemical search UI. Additionally, app activity will begin to be recorded under the "Activity" tab of the app's installation page.
 
 ### 3. Handle user interactions and create a responsive user experience
-💡 After completing step 3, you should have a fully functional canvas-based app experience built out that will enable the user to sync chemicals from PubChem into Benchling.
 ```
-local_app/benchling_app/handler.py
-- Modify handle_webhook to properly handle interaction webhooks
-- Click through to route_interaction_webhook 
+In file local_app/benchling_app/handler.py
+- [L32-33] Uncomment the lines in handle_webhook to properly handle interaction webhooks
+- [L33] Click through to route_interaction_webhook 
 
-local_app/benchling_app/canvas_interaction.py
-- Modify the conditional block to handle SEARCH_BUTTON_ID
-- Observe the session and canvas builder creation
-- Observe the way user inputs are retrieved from the canvas and sanitized
-- Click into the search function
+In file local_app/benchling_app/canvas_interaction.py
+- [L36-43] Uncomment the conditional block to handle SEARCH_BUTTON_ID
+- [L37-39] Observe the session and canvas builder creation
+- [L40-41] Observe the way user inputs are retrieved from the canvas and sanitized
+- [L42] Click into the search function
 
-local_app/lib/pub_chem.py
+In file local_app/lib/pub_chem.py
 - Observe how we use PubChem's search API to retrieve the chemical
 
-local_app/benchling_app/views/chemical_preview.py
-- Click through from route_interaction_webhook to render_preview_canvas
-- First handle displaying results
-- Then handle the case where there are no results
+In file local_app/benchling_app/canvas_interaction.py
+- [L43] Click through from route_interaction_webhook to render_preview_canvas
+
+In file local_app/benchling_app/views/chemical_preview.py
+- [L34-58] Uncomment the "if" block to handle displaying results
+- [L59-74] Then, uncomment "else" block to the handle the case when there are no results
 ```
 At this point, let's check in with our app's behavior in the UI.
 - If we type in an invalid search string, we should see an error communicated back to us from the app
 - We should be able to type in a chemical and have the canvas successfully show it
 - If we press cancel, note that the canvas become stuck because we don't properly handle this button yet
 ```
-local_app/benchling_app/canvas_interaction.py
-- Handle the else case for catching unsupported button types
+In file local_app/benchling_app/canvas_interaction.py
+- [L58-65] Uncomment and observe the else case for catching unsupported button types
 
-local_app/benchling_app/canvas_interaction.py
-- Handle the CANCEL_BUTTON_ID case
+In file local_app/benchling_app/canvas_interaction.py
+- [L44-51] Uncomment and observe the CANCEL_BUTTON_ID case
 
-local_app/benchling_app/canvas_interaction.py
-- Our last button - handle the CREATE_BUTTON_ID case
-- Inspect _create_molecule_from_canvas
-- Click into create_molecule
+In file local_app/benchling_app/canvas_interaction.py
+- [L52-57] Our last button - uncomment the CREATE_BUTTON_ID case
+- [L56] Click into _create_molecule_from_canvas and observe the usage of canvas data
+- [L76] Click into create_molecule
 
-local_app/benchling_app/molecules.py
-- Modify create_molecule to create the selected molecule in Benchling using the app's selected configuration (folder, molecule schema and fields)
+In file local_app/benchling_app/molecules.py
+- [L17-44] Uncomment the create_molecule function body to create the selected molecule in Benchling using the app's selected configuration (folder, molecule schema and fields)
 
-local_app/benchling_app/views/completed.py
-- Finally, finish implementing render_completed_canvas to show the final canvas success screen
+In file local_app/benchling_app/views/completed.py
+- [L15-37] Finally, uncomment the render_completed_canvas function body to show the final canvas success screen
 ```
+💡 After completing this step, you should have a fully functional canvas-based app experience built out that will enable the user to sync chemicals from PubChem into Benchling.
 
 ## Running the App - Syncing a Chemical
 
