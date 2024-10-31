@@ -18,6 +18,7 @@ def _canvas_builder_from_canvas_id(app: App, canvas_id: str) -> CanvasBuilder:
     current_canvas = app.benchling.apps.get_canvas_by_id(canvas_id)
     return CanvasBuilder.from_canvas(current_canvas)
 
+
 def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV2) -> None:
     with app.create_session_context("Show Sync Search", timeout_seconds=20):
         canvas_builder = CanvasBuilder(
@@ -27,6 +28,7 @@ def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV2
         )
         canvas_builder.blocks.append(input_blocks())
         app.benchling.apps.create_canvas(canvas_builder.to_create())
+
 
 def render_search_canvas_for_created_canvas(app: App, canvas_id: str) -> None:
     with app.create_session_context("Show Sync Search", timeout_seconds=20):
