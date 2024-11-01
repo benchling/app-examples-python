@@ -1,8 +1,8 @@
 from typing import Any
 
-from benchling_api_client.v2.extensions import UnknownType
 from benchling_sdk.apps.status.errors import AppUserFacingError
 from benchling_sdk.models.webhooks.v0 import (
+    CanvasCreatedWebhookV2Beta,
     CanvasInitializeWebhookV2,
     CanvasInteractionWebhookV2,
     WebhookEnvelopeV0,
@@ -35,8 +35,7 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
             render_search_canvas(app, webhook.message)
         elif isinstance(webhook.message, CanvasInteractionWebhookV2):
             route_interaction_webhook(app, webhook.message)
-        elif isinstance(webhook.message, UnknownType):
-            logger.debug("Received an unknown message type: %s", webhook.message)
+        elif isinstance(webhook.message, CanvasCreatedWebhookV2Beta):
             canvas_id = webhook_dict["message"]["canvasId"]
             render_search_canvas_for_created_canvas(app, canvas_id)
         else:
