@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
 from benchling_sdk.apps.framework import App
-from benchling_sdk.models.webhooks.v0 import CanvasInitializeWebhookV0
+from benchling_sdk.models.webhooks.v0 import CanvasInitializeWebhookV2
 
 from local_app.benchling_app.views.canvas_initialize import input_blocks, render_search_canvas
 
@@ -10,7 +10,7 @@ from local_app.benchling_app.views.canvas_initialize import input_blocks, render
 class TestCanvasInitialize:
 
     def test_render_search_canvas(self) -> None:
-        initialize_webhook = MagicMock(CanvasInitializeWebhookV0)
+        initialize_webhook = MagicMock(CanvasInitializeWebhookV2)
         initialize_webhook.feature_id = "feature_id"
         initialize_webhook.resource_id = "resource_id"
         app = MagicMock(App)
