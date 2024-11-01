@@ -2,6 +2,7 @@ from typing import Any
 
 from benchling_sdk.apps.status.errors import AppUserFacingError
 from benchling_sdk.models.webhooks.v0 import (
+    CanvasCreatedWebhookV2Beta,
     CanvasInitializeWebhookV2,
     CanvasInteractionWebhookV2,
     WebhookEnvelopeV0,
@@ -9,7 +10,10 @@ from benchling_sdk.models.webhooks.v0 import (
 
 from local_app.benchling_app.canvas_interaction import route_interaction_webhook
 from local_app.benchling_app.setup import init_app_from_webhook
-from local_app.benchling_app.views.canvas_initialize import render_search_canvas
+from local_app.benchling_app.views.canvas_initialize import (
+    render_search_canvas,
+    render_search_canvas_for_created_canvas,
+)
 from local_app.lib.logger import get_logger
 
 logger = get_logger()
@@ -31,6 +35,8 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
             render_search_canvas(app, webhook.message)
         elif isinstance(webhook.message, CanvasInteractionWebhookV2):
             route_interaction_webhook(app, webhook.message)
+        elif isinstance(webhook.message, CanvasCreatedWebhookV2Beta):
+            render_search_canvas_for_created_canvas(app, webhook.message.canvas_id)
         else:
             # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
             raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")

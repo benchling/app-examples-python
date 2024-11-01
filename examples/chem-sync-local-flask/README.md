@@ -79,7 +79,7 @@ https://brave-wombats-poke.loca.lt
 ### Benchling Prerequisites
 1. Access to a Benchling tenant, like `https://my-tenant.benchling.com`
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
-3. This example also requires a [Lab Automation](https://www.benchling.com/resources/benchling-lab-automation) license.
+3. [Optional] If you'd like to render the App's UI in a Run, you'll need a [Benchling Connect](https://www.benchling.com/connect) license.
 4. [Molecule entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview) will need to be enabled on your tenant.
 5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
 
@@ -196,8 +196,8 @@ expects a few configuration items:
 1. A folder
 2. A molecule entity schema with two decimal fields
 
-The `features` section of `manifest.yaml` also states that our App will render
-its UI on an `ASSAY_RUN`. So we'll also need:
+We declare two `features` in the `manifest.yaml` so that our App can render
+its UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd like to use a Run, we'll also need:
 1. An Lab Automation run schema
 
 #### Folder
@@ -221,9 +221,9 @@ The created molecule schema should look something like this:
 _Note: The names can be different, and the schema is allowed to have additional fields.
 As long as it's for a `Molecule` entity, and has at least two `Decimal` fields._
 
-#### Lab Automation Run Schema
+#### [Optional] Lab Automation Run Schema
 
-Create a new lab automation run schema in the registry.
+If using a Run, create a new lab automation run schema in the registry.
 
 ![image info](./docs/create-run-schema.gif)
 
@@ -235,7 +235,7 @@ The values of the data in Benchling can then be changed without updating App cod
 Let's update our configuration to:
 1. Specify a folder for syncing sequences
 2. Link a molecule schema and fields for the synced chemicals
-3. Select an assay run schema to associate with our Benchling App
+3. [Optional] If using a Run, select an assay run schema to associate with our Benchling App
 
 ![image info](./docs/update-app-config.gif)
 
@@ -249,12 +249,19 @@ Let's grant some access by adding the Benchling App to an organization.
 ## Running the App - Syncing a Chemical
 
 1. Create a new notebook entry
-2. Insert a run of the schema linked in App Config
-3. Create the Run
-4. Enter a valid chemical name to search for, such as `acetaminophen`
-5. Click "Search Chemicals"
-6. After reviewing the preview, click "Create Molecule"
-7. Click the linked entity to view it in Benchling
+2. Insert a Canvas  
+3. Enter a valid chemical name to search for, such as `acetaminophen`
+4. Click "Search Chemicals"
+5. After reviewing the preview, click "Create Molecule"
+6. Click the linked entity to view it in Benchling
+
+![image info](./docs/demo-notebook.gif)
+
+## [Optional] Running the App - via a Run
+
+1. Insert a Run of the schema linked in App Config
+2. Create the Run
+3. Continue with steps 3-6 above
 
 ![image info](./docs/demo.gif)
 
