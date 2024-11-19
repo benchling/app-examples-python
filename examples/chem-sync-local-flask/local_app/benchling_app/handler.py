@@ -36,7 +36,7 @@ def handle_webhook(webhook_dict: dict[str, Any]) -> None:
         elif isinstance(webhook.message, CanvasInteractionWebhookV2):
             route_interaction_webhook(app, webhook.message)
         elif isinstance(webhook.message, CanvasCreatedWebhookV2Beta):
-            render_search_canvas_for_created_canvas(app, webhook.message.canvas_id)
+            render_search_canvas_for_created_canvas(app, webhook.message)
         else:
             # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths
             raise UnsupportedWebhookError(f"Received an unsupported webhook type: {webhook}")

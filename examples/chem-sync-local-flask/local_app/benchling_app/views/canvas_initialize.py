@@ -9,14 +9,13 @@ from benchling_sdk.models import (
     TextInputUiBlock,
     TextInputUiBlockType,
 )
-from benchling_sdk.models.webhooks.v0 import CanvasInitializeWebhookV2
+from benchling_sdk.models.webhooks.v0 import (
+    CanvasCreatedWebhookV2Beta,
+    CanvasInitializeWebhookV2,
+)
 
 from local_app.benchling_app.views.constants import SEARCH_BUTTON_ID, SEARCH_TEXT_ID
 
-
-def _canvas_builder_from_canvas_id(app: App, canvas_id: str) -> CanvasBuilder:
-    current_canvas = app.benchling.apps.get_canvas_by_id(canvas_id)
-    return CanvasBuilder.from_canvas(current_canvas)
 
 def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV2) -> None:
     with app.create_session_context("Show Sync Search", timeout_seconds=20):
@@ -29,11 +28,11 @@ def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV2
         app.benchling.apps.create_canvas(canvas_builder.to_create())
 
 
-def render_search_canvas_for_created_canvas(app: App, canvas_id: str) -> None:
+def render_search_canvas_for_created_canvas(app: App, canvas_created: CanvasCreatedWebhookV2Beta) -> None:
     with app.create_session_context("Show Sync Search", timeout_seconds=20):
-        canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
+        canvas_builder = CanvasBuilder(app_id=app.id, feature_id=canvas_created.feature_id)
         canvas_builder.blocks.append(input_blocks())
-        app.benchling.apps.update_canvas(canvas_id, canvas_builder.to_update())
+        app.benchling.apps.update_canvas(canvas_created.canvas_id, canvas_builder.to_update())
 
 
 def input_blocks() -> list[UiBlock]:
