@@ -29,10 +29,10 @@ services:
   # Do not do this in production or use with any sensitive data.
   # Benchling has not vetted this tool for use in production or in sensitive systems.
   # Conduct your own due diligence before choosing a tool for production use.
-  local-tunnel:
-    build:
-      context: .
-      dockerfile: Dockerfile.localtunnel
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel --url http://benchling-app:5000
 
 secrets:
   app_client_secret:
