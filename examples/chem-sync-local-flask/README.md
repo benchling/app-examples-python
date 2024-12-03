@@ -66,7 +66,7 @@ cloudflare-tunnel-1  | +--------------------------------------------------------
 On *nix systems, you can easily obtain _just_ the URL via:
 
 ```
-docker compose logs cloudflare-tunnel | grep -o https://.* | tail -n 1
+docker compose logs cloudflare-tunnel | grep -o 'https://[^ ]*trycloudflare.com[^ ]*' | tail -n 1 
 ```
 
 Example Output:
@@ -139,7 +139,7 @@ You'll then need to restart _just_ the `benchling-app` Docker service to pick up
 docker-compose up -d
 ```
 
-If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from cloudflare-tunnel.
 
 ### Setting Client ID
 
