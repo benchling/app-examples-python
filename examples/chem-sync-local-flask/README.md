@@ -1,12 +1,13 @@
 # Benchling App Example: Chemical Sync for Local Development
 
-An example Benchling App written in Python which allows users to search for chemicals 
+An example Benchling App written in Python which allows users to search for chemicals
 via [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and create them in Benchling.
 
 ![image info](./docs/demo-full.gif)
 _The App features branching flows and will also validate user inputs._
 
 **Appendices**:
+
 * [Architecture Diagram](#architecture-diagram)
 
 ## Technical Prerequisites
@@ -16,7 +17,8 @@ This app is optimized as a minimal local development experience using [Docker](h
 > ⚠️ **Development Only**: This example is not meant to be copied into production as-is. There are additional deployment, scale, and security concerns that should be addressed before deploying an app based on this example to production.
 
 It relies on a few other tools that will be installed for you within Docker containers:
-* [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and forward the results locally. ⚠️ *Not for production or real data!*
+
+* [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and forward the results locally. ⚠️ _Not for production or real data!_
 * [Flask](https://flask.palletsprojects.com/) - A simple Python web application framework
 
 ## Getting Started
@@ -42,9 +44,8 @@ docker compose up --build -d
 Tip: You can omit the `-d` option if you want to run in the foreground. Otherwise, use `docker compose logs -f` to tail logs.
 
 > ℹ️ **Windows Note 1:** "Use ContainerD for pulling and storing images" may need to be enabled in `Docker > Settings > Features in development > Beta Features`
-
+>
 > ℹ️ **Windows Note 2**: If running into an error like "ERROR: request returned Bad Gateway for API route and version", [this solution](https://github.com/docker/for-mac/issues/6956#issuecomment-1876444658) may fix the problem.
-
 
 You can verify that Flask is up and running:
 
@@ -56,19 +57,19 @@ If Flask is running, you should see `OK` printed.
 
 Be sure to note the URL created for you by `localtunnel`. The log line should look something like this:
 
-```
+```bash
 app-workshop-local-tunnel-1   | your url is: https://brave-wombats-poke.loca.lt
 ```
 
 On *nix systems, you can easily obtain _just_ the URL via:
 
-```
+```bash
 docker compose logs local-tunnel | grep -o https://.* | tail -n 1
 ```
 
 Example Output:
 
-```
+```bash
 https://brave-wombats-poke.loca.lt
 ```
 
@@ -77,6 +78,7 @@ https://brave-wombats-poke.loca.lt
 ## Setting Up Your App in Benchling
 
 ### Benchling Prerequisites
+
 1. Access to a Benchling tenant, like `https://my-tenant.benchling.com`
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
 3. [Optional] If you'd like to render the App's UI in a Run, you'll need a [Benchling Connect](https://www.benchling.com/connect) license.
@@ -104,7 +106,7 @@ append the path our Flask route expects (see `local_app/app.py`).
 For example, if our `localtunnel` generated URL is `https://hot-ideas-doubt.loca.lt`,
 the webhook URL in Benchling should be:
 
-```
+```string
 https://hot-ideas-doubt.loca.lt/1/webhooks
 ```
 
@@ -140,7 +142,7 @@ If you restart both containers, be sure to update your App in Benchling with the
 
 ### Setting Client ID
 
-Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
+Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our
 App to accept `CLIENT_ID` as an environment variable.
 
 One easy way to set an environment variables for Docker is to add a `.env` file.
@@ -155,10 +157,10 @@ Windows example:
 echo.> .env
 ```
 
-Open it in an editor of your choice and set the values with the plaintext client ID 
+Open it in an editor of your choice and set the values with the plaintext client ID
 for your App. For example:
 
-```
+```bash
 CLIENT_ID=Ts7jtwPohM
 ```
 
@@ -172,7 +174,7 @@ The App definition ID is available from the Developer Console by selecting the A
 
 Add it to your `.env` file with a variable name `APP_DEFINITION_ID`. The contents of your `.env` file should now look something like:
 
-```
+```bash
 CLIENT_ID=Ts7jtwPohM
 APP_DEFINITION_ID=appdef_Trow4zbR3o
 ```
@@ -193,11 +195,13 @@ docker-compose up -d
 
 If you examine the `configuration` section of `manifest.yaml`, you'll see our App
 expects a few configuration items:
+
 1. A folder
 2. A molecule entity schema with two decimal fields
 
 We declare two `features` in the `manifest.yaml` so that our App can render
 its UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd like to use a Run, we'll also need:
+
 1. An Lab Automation run schema
 
 #### Folder
@@ -233,6 +237,7 @@ App Configuration gives us a stable code contract for referencing data mapped in
 The values of the data in Benchling can then be changed without updating App code.
 
 Let's update our configuration to:
+
 1. Specify a folder for syncing sequences
 2. Link a molecule schema and fields for the synced chemicals
 3. [Optional] If using a Run, select an assay run schema to associate with our Benchling App
