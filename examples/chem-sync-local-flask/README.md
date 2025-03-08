@@ -1,7 +1,8 @@
 # Benchling App Example: Chemical Sync for Local Development
 
-An example Benchling App written in Python which allows users to search for chemicals
-via [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and create them in Benchling.
+An example Benchling App written in Python which allows users to search for
+chemicals via [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and create them in
+Benchling.
 
 ![image info](./docs/demo-full.gif)
 _The App features branching flows and will also validate user inputs._
@@ -12,7 +13,8 @@ _The App features branching flows and will also validate user inputs._
 
 ## Technical Prerequisites
 
-This app is optimized as a minimal local development experience using [Docker](https://www.docker.com/) for reproducibility.
+This app is optimized as a minimal local development experience using
+[Docker](https://www.docker.com/) for reproducibility.
 
 > ⚠️ **Development Only**: This example is not meant to be copied into production as-is. There are additional deployment, scale, and security concerns that should be addressed before deploying an app based on this example to production.
 
@@ -21,7 +23,12 @@ It relies on a few other tools that will be installed for you within Docker cont
 * [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and forward the results locally. ⚠️ _Not for production or real data!_
 * [Flask](https://flask.palletsprojects.com/) - A simple Python web application framework
 
+
 ## Getting Started
+
+TODO: Create the app and set the envars first
+TODO: Cannot use Molecule entity schema in default install.
+Use 'mixture' instead.
 
 Create an empty placeholder file for Docker secrets. *nix example:
 
@@ -64,7 +71,7 @@ app-workshop-local-tunnel-1   | your url is: https://brave-wombats-poke.loca.lt
 On *nix systems, you can easily obtain _just_ the URL via:
 
 ```bash
-docker compose logs local-tunnel | grep -o https://.* | tail -n 1
+docker compose logs local-tunnel | grep -o "https://.*"
 ```
 
 Example Output:

@@ -2,7 +2,7 @@ manifestVersion: 1
 
 info:
   name: Sample Sync App
-  version: 0.1.0
+  version: 0.1.1
 features:
   - name: Sync Step
     id: sync_step
@@ -23,7 +23,7 @@ configuration:
     requiredConfig: true
   - name: Molecule Schema
     type: entity_schema
-    subtype: molecule
+    subtype: mixture
     description: A chemical schema for molecules synced from PubChem.
     requiredConfig: true
     fieldDefinitions:
