@@ -66,7 +66,7 @@ cloudflare-tunnel-1  | 2025-03-11T18:45:24Z INF +-------------------------------
 On *nix systems, you can easily obtain _just_ the URL via:
 
 ```
-docker compose logs cloudflare-tunnel | grep -o https://.* | tail -n 1
+docker compose logs cloudflare-tunnel | grep -o 'https://[^ ]*trycloudflare.com[^ ]*' | tail -n 1
 ```
 
 Example Output:

@@ -7,7 +7,7 @@ The `examples/` directory contains Benchling App samples written by Benchling.
 Demonstrates creating a custom UI in Benchling allowing users to search for 
 molecules from [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and sync them into Benchling.
 
-Uses [localtunnel](https://localtunnel.me/) and [Docker](https://www.docker.com/) to receive webhooks 
+Uses [Cloudflare-tunnel](https://www.cloudflare.com/products/tunnel/) and [Docker](https://www.docker.com/) to receive webhooks 
 in a local development environment running [Flask](https://flask.palletsprojects.com/) with the 
 [Benchling SDK](https://docs.benchling.com/docs/getting-started-with-the-sdk).
 
