@@ -27,8 +27,6 @@ It relies on a few other tools that will be installed for you within Docker cont
 ## Getting Started
 
 TODO: Create the app and set the envars first
-TODO: Cannot use Molecule entity schema in default install.
-Use 'mixture' instead.
 
 Create an empty placeholder file for Docker secrets. *nix example:
 

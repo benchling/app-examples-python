@@ -23,7 +23,7 @@ configuration:
     requiredConfig: true
   - name: Molecule Schema
     type: entity_schema
-    subtype: mixture
+    subtype: molecule
     description: A chemical schema for molecules synced from PubChem.
     requiredConfig: true
     fieldDefinitions:
