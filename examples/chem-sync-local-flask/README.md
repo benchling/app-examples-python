@@ -16,13 +16,18 @@ _The App features branching flows and will also validate user inputs._
 This app is optimized as a minimal local development experience using
 [Docker](https://www.docker.com/) for reproducibility.
 
-> ⚠️ **Development Only**: This example is not meant to be copied into production as-is. There are additional deployment, scale, and security concerns that should be addressed before deploying an app based on this example to production.
+> ⚠️ **Development Only**: This example is not meant to be copied into
+> production as-is. There are additional deployment, scale, and security
+> concerns that should be addressed before deploying an app based on this
+> example to production.
 
-It relies on a few other tools that will be installed for you within Docker containers:
+It relies on a few other tools that will be installed for you within Docker
+containers:
 
-* [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and forward the results locally. ⚠️ _Not for production or real data!_
-* [Flask](https://flask.palletsprojects.com/) - A simple Python web application framework
-
+* [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and
+  forward the results locally. ⚠️ _Not for production or real data!_
+* [Flask](https://flask.palletsprojects.com/) - A simple Python web application
+  framework
 
 ## Getting Started
 
@@ -46,11 +51,17 @@ Start Docker:
 docker compose up --build -d
 ```
 
-Tip: You can omit the `-d` option if you want to run in the foreground. Otherwise, use `docker compose logs -f` to tail logs.
+Tip: You can omit the `-d` option if you want to run in the foreground.
+Otherwise, use `docker compose logs -f` to tail logs.
 
-> ℹ️ **Windows Note 1:** "Use ContainerD for pulling and storing images" may need to be enabled in `Docker > Settings > Features in development > Beta Features`
->
-> ℹ️ **Windows Note 2**: If running into an error like "ERROR: request returned Bad Gateway for API route and version", [this solution](https://github.com/docker/for-mac/issues/6956#issuecomment-1876444658) may fix the problem.
+> ℹ️ **Windows Note 1:** "Use ContainerD for pulling and storing images" may
+> need to be enabled in `Docker > Settings > Features in development > Beta
+> Features`
+
+> ℹ️ **Windows Note 2**: If running into an error like "ERROR: request returned
+> Bad Gateway for API route and version", [this
+> solution](https://github.com/docker/for-mac/issues/6956#issuecomment-1876444658)
+> may fix the problem.
 
 You can verify that Flask is up and running:
 
@@ -60,7 +71,8 @@ curl localhost:8000/health
 
 If Flask is running, you should see `OK` printed.
 
-Be sure to note the URL created for you by `localtunnel`. The log line should look something like this:
+Be sure to note the URL created for you by `localtunnel`. The log line should
+look something like this:
 
 ```bash
 app-workshop-local-tunnel-1   | your url is: https://brave-wombats-poke.loca.lt
@@ -78,21 +90,28 @@ Example Output:
 https://brave-wombats-poke.loca.lt
 ```
 
-> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://brave-wombats-poke.loca.lt/1/webhooks`
+> 💡 Don't forget to append `/1/webhooks`, making the full URL given to
+> Benchling `https://brave-wombats-poke.loca.lt/1/webhooks`
 
 ## Setting Up Your App in Benchling
 
 ### Benchling Prerequisites
 
 1. Access to a Benchling tenant, like `https://my-tenant.benchling.com`
-2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
-3. [Optional] If you'd like to render the App's UI in a Run, you'll need a [Benchling Connect](https://www.benchling.com/connect) license.
-4. [Molecule entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview) will need to be enabled on your tenant.
-5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
+2. Ensure you've been granted access to the [Benchling Developer Platform
+   Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
+3. [Optional] If you'd like to render the App's UI in a Run, you'll need a
+   [Benchling Connect](https://www.benchling.com/connect) license.
+4. [Molecule
+   entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview)
+   will need to be enabled on your tenant.
+5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to
+   be enabled on your tenant.
 
 ### Upload the App Manifest
 
-Click the user icon in the bottom left corner to bring up the main menu. Select "Feature Settings" > "Developer Console"
+Click the user icon in the bottom left corner to bring up the main menu. Select
+"Feature Settings" > "Developer Console"
 
 Next, click the "Create app" button and choose "From manifest."
 
@@ -108,8 +127,8 @@ a new public webhook URL.
 Update the Benchling App's Webhook URL in the UI with the new server and
 append the path our Flask route expects (see `local_app/app.py`).
 
-For example, if our `localtunnel` generated URL is `https://hot-ideas-doubt.loca.lt`,
-the webhook URL in Benchling should be:
+For example, if our `localtunnel` generated URL is
+`https://hot-ideas-doubt.loca.lt`, the webhook URL in Benchling should be:
 
 ```string
 https://hot-ideas-doubt.loca.lt/1/webhooks
@@ -124,31 +143,35 @@ Generate a client secret in Benchling and be sure to copy the secret.
 ![image info](./docs/generate-secret.gif)
 
 Since the client secret is sensitive, it's handled a bit differently. It's
-registered as a `secret` in our `docker-compose.yaml` file, which will be looking
-for a file `./client_secret`.
+registered as a `secret` in our `docker-compose.yaml` file, which will be
+looking for a file `./client_secret`.
 
-We can create this file and paste in the secret plaintext value if we have the secret in our clipboard.
-On *nix:
+We can create this file and paste in the secret plaintext value if we have the
+secret in our clipboard. On *nix:
 
 ```bash
 touch .client_secret
 pbpaste > .client_secret
 ```
 
-> ⚠️ **Security Note:** Be sure to avoid committing `.client_secret` to a source code repository.
+> ⚠️ **Security Note:** Be sure to avoid committing `.client_secret` to a source
+> code repository.
 
-You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
+You'll then need to restart _just_ the `benchling-app` Docker service to pick up
+the changes:
 
 ```bash
 docker-compose up -d
 ```
 
-If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+If you restart both containers, be sure to update your App in Benchling with the
+new webhook URL from localtunnel.
 
 ### Setting Client ID
 
-Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our
-App to accept `CLIENT_ID` as an environment variable.
+Our App needs a Client ID to pair with the Client Secret for authentication to
+Benchling. In this case, we've created our App to accept `CLIENT_ID` as an
+environment variable.
 
 One easy way to set an environment variables for Docker is to add a `.env` file.
 
@@ -162,8 +185,8 @@ Windows example:
 echo.> .env
 ```
 
-Open it in an editor of your choice and set the values with the plaintext client ID
-for your App. For example:
+Open it in an editor of your choice and set the values with the plaintext client
+ID for your App. For example:
 
 ```bash
 CLIENT_ID=Ts7jtwPohM
@@ -171,13 +194,17 @@ CLIENT_ID=Ts7jtwPohM
 
 ### Setting App Definition ID
 
-The App definition ID is available from the Developer Console by selecting the App to view.
+The App definition ID is available from the Developer Console by selecting the
+App to view.
 
 ![image info](./docs/global-app-definition-id.png)
 
-> ℹ️ **Note:** If you do NOT see this ID, please ensure [Global Apps](https://docs.benchling.com/docs/global-apps-faq) are enabled for your tenant.
+> ℹ️ **Note:** If you do NOT see this ID, please ensure [Global
+> Apps](https://docs.benchling.com/docs/global-apps-faq) are enabled for your
+> tenant.
 
-Add it to your `.env` file with a variable name `APP_DEFINITION_ID`. The contents of your `.env` file should now look something like:
+Add it to your `.env` file with a variable name `APP_DEFINITION_ID`. The
+contents of your `.env` file should now look something like:
 
 ```bash
 CLIENT_ID=Ts7jtwPohM
@@ -194,18 +221,22 @@ docker-compose up -d
 
 ### Security Note: Storing App Secrets in Production
 
-> ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
+> ⚠️ **Security Note:** In production, store the secret with a secure solution
+> such as a secrets store (AWS Secrets Manager, as an example) or, if storing
+> programmatically, encrypted using app-layer encryption. Avoid placing it in
+> plaintext anywhere in code or configuration.
 
 ### Create App Registry Dependencies
 
-If you examine the `configuration` section of `manifest.yaml`, you'll see our App
-expects a few configuration items:
+If you examine the `configuration` section of `manifest.yaml`, you'll see our
+App expects a few configuration items:
 
 1. A folder
 2. A molecule entity schema with two decimal fields
 
-We declare two `features` in the `manifest.yaml` so that our App can render
-its UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd like to use a Run, we'll also need:
+We declare two `features` in the `manifest.yaml` so that our App can render its
+UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd like
+to use a Run, we'll also need:
 
 1. An Lab Automation run schema
 
@@ -227,8 +258,9 @@ The created molecule schema should look something like this:
 
 ![image info](./docs/schema-example.png)
 
-_Note: The names can be different, and the schema is allowed to have additional fields.
-As long as it's for a `Molecule` entity, and has at least two `Decimal` fields._
+_Note: The names can be different, and the schema is allowed to have additional
+fields. As long as it's for a `Molecule` entity, and has at least two `Decimal`
+fields._
 
 #### [Optional] Lab Automation Run Schema
 
@@ -238,14 +270,16 @@ If using a Run, create a new lab automation run schema in the registry.
 
 ### Updating the App's Configuration
 
-App Configuration gives us a stable code contract for referencing data mapped in a Benchling tenant.
-The values of the data in Benchling can then be changed without updating App code.
+App Configuration gives us a stable code contract for referencing data mapped in
+a Benchling tenant. The values of the data in Benchling can then be changed
+without updating App code.
 
 Let's update our configuration to:
 
 1. Specify a folder for syncing sequences
 2. Link a molecule schema and fields for the synced chemicals
-3. [Optional] If using a Run, select an assay run schema to associate with our Benchling App
+3. [Optional] If using a Run, select an assay run schema to associate with our
+   Benchling App
 
 ![image info](./docs/update-app-config.gif)
 
