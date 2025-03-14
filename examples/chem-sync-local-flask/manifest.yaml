@@ -2,7 +2,7 @@ manifestVersion: 1
 
 info:
   name: Sample Sync App
-  version: 0.1.0
+  version: 0.1.1
 features:
   - name: Sync Step
     id: sync_step
