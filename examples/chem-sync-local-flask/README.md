@@ -16,7 +16,7 @@ This app is optimized as a minimal local development experience using [Docker](h
 > ⚠️ **Development Only**: This example is not meant to be copied into production as-is. There are additional deployment, scale, and security concerns that should be addressed before deploying an app based on this example to production.
 
 It relies on a few other tools that will be installed for you within Docker containers:
-* [Localtunnel](https://localtunnel.me/) - expose a public webhook URL and forward the results locally. ⚠️ *Not for production or real data!*
+* [Cloudflare-tunnel](https://www.cloudflare.com/products/tunnel/) - expose a public webhook URL and forward the results locally. ⚠️ *Not for production or real data!*
 * [Flask](https://flask.palletsprojects.com/) - A simple Python web application framework
 
 ## Getting Started
@@ -54,25 +54,28 @@ curl localhost:8000/health
 
 If Flask is running, you should see `OK` printed.
 
-Be sure to note the URL created for you by `localtunnel`. The log line should look something like this:
+Be sure to note the URL created for you by `cloudflare-tunnel`. The log line should look something like this:
 
 ```
-app-workshop-local-tunnel-1   | your url is: https://brave-wombats-poke.loca.lt
+cloudflare-tunnel-1  | 2025-03-11T18:45:24Z INF +--------------------------------------------------------------------------------------------+
+cloudflare-tunnel-1  | 2025-03-11T18:45:24Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+cloudflare-tunnel-1  | 2025-03-11T18:45:24Z INF |  https://pioneer-rights-hardly-disorder.trycloudflare.com                                  |
+cloudflare-tunnel-1  | 2025-03-11T18:45:24Z INF +--------------------------------------------------------------------------------------------+
 ```
 
 On *nix systems, you can easily obtain _just_ the URL via:
 
 ```
-docker compose logs local-tunnel | grep -o https://.* | tail -n 1
+docker compose logs cloudflare-tunnel | grep -o 'https://[^ ]*trycloudflare.com[^ ]*' | tail -n 1
 ```
 
 Example Output:
 
 ```
-https://brave-wombats-poke.loca.lt
+https://pioneer-rights-hardly-disorder.trycloudflare.com
 ```
 
-> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://brave-wombats-poke.loca.lt/1/webhooks`
+> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://pioneer-rights-hardly-disorder.trycloudflare.com/1/webhooks`
 
 ## Setting Up Your App in Benchling
 
@@ -95,17 +98,17 @@ When prompted to upload a file, select `manifest.yaml` and click "Create."
 
 ### Update the Webhook URL
 
-Every time we restart the `local-tunnel` Docker container, it will provision
+Every time we restart the `cloudflare-tunnel` Docker container, it will provision
 a new public webhook URL.
 
 Update the Benchling App's Webhook URL in the UI with the new server and
 append the path our Flask route expects (see `local_app/app.py`).
 
-For example, if our `localtunnel` generated URL is `https://hot-ideas-doubt.loca.lt`,
+For example, if our `cloudflare-tunnel` generated URL is `https://pioneer-rights-hardly-disorder.trycloudflare.com`,
 the webhook URL in Benchling should be:
 
 ```
-https://hot-ideas-doubt.loca.lt/1/webhooks
+https://https://pioneer-rights-hardly-disorder.trycloudflare.com/1/webhooks
 ```
 
 ![image info](./docs/update-webhook-url.gif)
@@ -136,7 +139,7 @@ You'll then need to restart _just_ the `benchling-app` Docker service to pick up
 docker-compose up -d
 ```
 
-If you restart both containers, be sure to update your App in Benchling with the new webhook URL from localtunnel.
+If you restart both containers, be sure to update your App in Benchling with the new webhook URL from cloudflare-tunnel.
 
 ### Setting Client ID
 
