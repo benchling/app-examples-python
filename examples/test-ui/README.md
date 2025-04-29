@@ -1,7 +1,6 @@
-# Benchling App Example: Chemical Sync for Local Development
+# Benchling App Example: Minimal UI Testing
 
-An example Benchling App written in Python which allows users to search for chemicals 
-via [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and create them in Benchling.
+An example Benchling App written in Python to test canvas session and user interactions.
 
 ![image info](./docs/demo-full.gif)
 _The App features branching flows and will also validate user inputs._
@@ -83,7 +82,6 @@ https://pioneer-rights-hardly-disorder.trycloudflare.com
 1. Access to a Benchling tenant, like `https://my-tenant.benchling.com`
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
 3. [Optional] If you'd like to render the App's UI in a Run, you'll need a [Benchling Connect](https://www.benchling.com/connect) license.
-4. [Molecule entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview) will need to be enabled on your tenant.
 5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
 
 ### Upload the App Manifest
@@ -192,13 +190,6 @@ docker-compose up -d
 
 > ⚠️ **Security Note:** In production, store the secret with a secure solution such as a secrets store (AWS Secrets Manager, as an example) or, if storing programmatically, encrypted using app-layer encryption. Avoid placing it in plaintext anywhere in code or configuration.
 
-### Create App Registry Dependencies
-
-If you examine the `configuration` section of `manifest.yaml`, you'll see our App
-expects a few configuration items:
-1. A folder
-2. A molecule entity schema with two decimal fields
-
 We declare two `features` in the `manifest.yaml` so that our App can render
 its UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd like to use a Run, we'll also need:
 1. An Lab Automation run schema
@@ -207,13 +198,6 @@ its UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd l
 
 App Configuration gives us a stable code contract for referencing data mapped in a Benchling tenant.
 The values of the data in Benchling can then be changed without updating App code.
-
-Let's update our configuration to:
-1. Specify a folder for syncing sequences
-2. Link a molecule schema and fields for the synced chemicals
-3. [Optional] If using a Run, select an assay run schema to associate with our Benchling App
-
-![image info](./docs/update-app-config.gif)
 
 ### Permission the App
 
