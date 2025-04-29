@@ -203,33 +203,6 @@ We declare two `features` in the `manifest.yaml` so that our App can render
 its UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd like to use a Run, we'll also need:
 1. An Lab Automation run schema
 
-#### Folder
-
-Create a new folder where the molecules created by the App will be placed.
-An existing folder can also be used, if the App has permissions to it.
-
-![image info](./docs/create-folder.gif)
-
-#### Molecule Entity Schema
-
-Create the entity schema in the tenant's registry. If you do not have access to
-the registry, you can ask your tenant administrator to do this for you.
-
-![image info](./docs/create-molecule-schema.gif)
-
-The created molecule schema should look something like this:
-
-![image info](./docs/schema-example.png)
-
-_Note: The names can be different, and the schema is allowed to have additional fields.
-As long as it's for a `Molecule` entity, and has at least two `Decimal` fields._
-
-#### [Optional] Lab Automation Run Schema
-
-If using a Run, create a new lab automation run schema in the registry.
-
-![image info](./docs/create-run-schema.gif)
-
 ### Updating the App's Configuration
 
 App Configuration gives us a stable code contract for referencing data mapped in a Benchling tenant.
@@ -248,17 +221,6 @@ By default, Benchling Apps do not have permission to any data in Benchling.
 Let's grant some access by adding the Benchling App to an organization.
 
 ![image info](./docs/permission-app.gif)
-
-## Running the App - Syncing a Chemical
-
-1. Create a new notebook entry
-2. Insert a Canvas  
-3. Enter a valid chemical name to search for, such as `acetaminophen`
-4. Click "Search Chemicals"
-5. After reviewing the preview, click "Create Molecule"
-6. Click the linked entity to view it in Benchling
-
-![image info](./docs/demo-notebook.gif)
 
 ## [Optional] Running the App - via a Run
 
