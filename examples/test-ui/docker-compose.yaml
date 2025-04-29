@@ -1,0 +1,37 @@
+services:
+  benchling-app:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - type: bind
+        source: .
+        target: /src
+    environment:
+      # Don't set debug in production!
+      - FLASK_DEBUG=1
+      # Enable debug logging for Python Benchling App. This is not native, specific to this example implementation
+      - BENCHLING_APP_LOG_LEVEL=DEBUG
+      # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
+      # You might choose to have two different Apps for dev vs prod, which would have different client IDs
+      - CLIENT_ID
+      - APP_DEFINITION_ID
+      # Client secret for the Benchling App, stored somewhere securely in production.
+      # Injected here for convenience. Each Client ID will have its own Client secret
+      - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
+    secrets:
+      - app_client_secret
+
+  # FOR LOCAL DEVELOPMENT ONLY!
+  # Free tool for providing a public URL to forward webhooks to our Benchling App running locally
+  # Do not do this in production or use with any sensitive data.
+  # Benchling has not vetted this tool for use in production or in sensitive systems.
+  # Conduct your own due diligence before choosing a tool for production use.
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel --url http://benchling-app:5000
+
+secrets:
+  app_client_secret:
+    file: .client_secret
