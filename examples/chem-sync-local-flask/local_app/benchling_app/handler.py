@@ -25,17 +25,25 @@ class UnsupportedWebhookError(Exception):
 
 def handle_webhook(webhook_dict: dict[str, Any]) -> None:
     logger.debug("Handling webhook with payload: %s", webhook_dict)
+
+    # Receive the webhook and initialize the app
     webhook = WebhookEnvelopeV0.from_dict(webhook_dict)
     app = init_app_from_webhook(webhook)
+
+    # Route the webhook to the appropriate handler
     # Could also choose to route on webhook.message.type
+
     # Note: if your manifest specifies more than one item in `features`,
     # then `webhook.message.feature_id` may also need to be part of your routing logic
     try:
         if isinstance(webhook.message, CanvasInitializeWebhookV2):
+            # This webhook is triggered when a canvas is initialized as a part of a run
             render_search_canvas(app, webhook.message)
         elif isinstance(webhook.message, CanvasInteractionWebhookV2):
+            # This webhook is triggered when a user clicks a button on the canvas
             route_interaction_webhook(app, webhook.message)
         elif isinstance(webhook.message, CanvasCreatedWebhookV2Beta):
+            # This webhook is triggered when a canvas is created in an entry
             render_search_canvas_for_created_canvas(app, webhook.message)
         else:
             # Should only happen if the app's manifest requests webhooks that aren't handled in its code paths

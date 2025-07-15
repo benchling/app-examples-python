@@ -16,6 +16,17 @@ from benchling_sdk.models.webhooks.v0 import (
 
 from local_app.benchling_app.views.constants import SEARCH_BUTTON_ID, SEARCH_TEXT_ID
 
+"""
+This file contains examples of how create a canvas at initialization
+For examples of updates, check out canvas_interaction.py
+
+Use a CanvasBuilder to create or update a canvas associated with your app 
+This sdk tool can be used for easy creation and updates
+
+Check out https://benchling.com/sdk-docs/1.22.0/benchling_sdk.apps.canvas.framework.html
+for more details on the CanvasBuilder class
+"""
+
 
 def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV2) -> None:
     with app.create_session_context("Show Sync Search", timeout_seconds=20):
@@ -24,7 +35,11 @@ def render_search_canvas(app: App, canvas_initialized: CanvasInitializeWebhookV2
             feature_id=canvas_initialized.feature_id,
             resource_id=canvas_initialized.resource_id,
         )
+
+        # Add the input blocks to the canvas 
         canvas_builder.blocks.append(input_blocks())
+
+        # Create the canvas
         app.benchling.apps.create_canvas(canvas_builder.to_create())
 
 
@@ -36,6 +51,13 @@ def render_search_canvas_for_created_canvas(app: App, canvas_created: CanvasCrea
 
 
 def input_blocks() -> list[UiBlock]:
+    """
+    Create 3 blocks to populate the canvas: 
+
+    Markdown block to display text 
+    TextInput block to capture user input 
+    Button block to trigger the search 
+    """
     return [
         MarkdownUiBlock(
             id="top_instructions",
