@@ -28,16 +28,30 @@ logger = get_logger()
 class UnsupportedButtonError(Exception):
     pass
 
+"""
+This file contains examples of how to handle a user clicking a button on a canvas
+For examples of initialization, check out canvas_initialize.py
+"""
 
 def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWebhookV2) -> None:
     canvas_id = canvas_interaction.canvas_id
+
+    # Access the different actions by checking which button was clicked
     if canvas_interaction.button_id == SEARCH_BUTTON_ID:
         with app.create_session_context("Search Chemicals", timeout_seconds=20) as session:
             session.attach_canvas(canvas_id)
+
+            # Use a CanvasBuilder to update an existing canvas 
             canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
             canvas_inputs = canvas_builder.inputs_to_dict_single_value()
+
+            # Validate and sanitize the user's search input
             sanitized_inputs = _validate_and_sanitize_inputs(canvas_inputs)
+
+            # Search for the chemical
             results = search(sanitized_inputs[SEARCH_TEXT_ID])
+
+            # Render the preview canvas
             render_preview_canvas(results, canvas_id, canvas_builder, session)
     elif canvas_interaction.button_id == CANCEL_BUTTON_ID:
         # Set session_id = None to detach and prior state or messages (essentially, reset)
@@ -46,12 +60,17 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
             .with_session_id(None)\
             .with_blocks(input_blocks())\
             .to_update()
+
+        # Update the canvas
         app.benchling.apps.update_canvas(canvas_id, canvas_update)
     elif canvas_interaction.button_id == CREATE_BUTTON_ID:
         with app.create_session_context("Create Molecules", timeout_seconds=20) as session:
             session.attach_canvas(canvas_id)
+
+            # Use a CanvasBuilder to create a new molecule
             canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
             molecule = _create_molecule_from_canvas(app, canvas_builder)
+
             render_completed_canvas(molecule, canvas_id, canvas_builder, session)
     else:
         # Re-enable the Canvas, or it will stay disabled and the user will be stuck

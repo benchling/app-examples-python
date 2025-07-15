@@ -17,7 +17,8 @@ from benchling_sdk.models.webhooks.v0 import (
 from local_app.benchling_app.views.constants import SEARCH_BUTTON_ID, SEARCH_TEXT_ID
 
 """
-This file contains examples of how to handle different Canvas Webhooks
+This file contains examples of how create a canvas at initialization
+For examples of updates, check out canvas_interaction.py
 
 Use a CanvasBuilder to create or update a canvas associated with your app 
 This sdk tool can be used for easy creation and updates
