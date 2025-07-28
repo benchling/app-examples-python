@@ -15,7 +15,7 @@ subscriptions:
   messages:
   - type: v2.canvas.initialized
   - type: v2.canvas.userInteracted
-  - type: v2-beta.canvas.created
+  - type: v2.canvas.created
 configuration:
   - name: Sync Folder
     type: folder
