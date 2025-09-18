@@ -27,11 +27,13 @@ def app_definition_id() -> str:
 
 
 def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
-    return Benchling(webhook.base_url, _auth_method())
+    # Pass webhook.base_url into _auth_method so each tenant has a unique cached object
+    return Benchling(webhook.base_url, _auth_method(webhook.base_url))
 
 
 @cache
-def _auth_method() -> ClientCredentialsOAuth2:
+def _auth_method(base_url: str) -> ClientCredentialsOAuth2:
+    # base_url is only used to make the cache key tenant-specific
     client_id = os.environ.get("CLIENT_ID")
     assert client_id is not None, "Missing CLIENT_ID from environment"
     client_secret = _client_secret_from_file()
