@@ -158,7 +158,7 @@
           "conformers": [
             {
               "x": [
-                3.732,
+                3.7321,
                 6.3301,
                 4.5981,
                 2.866,
@@ -240,7 +240,7 @@
             "label": "Compound",
             "name": "Canonicalized",
             "datatype": 5,
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "ival": 1
@@ -254,7 +254,7 @@
             "version": "3.4.8.18",
             "software": "Cactvs",
             "source": "Xemistry GmbH",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "fval": 212
@@ -269,7 +269,7 @@
             "version": "3.4.8.18",
             "software": "Cactvs",
             "source": "Xemistry GmbH",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "ival": 4
@@ -284,7 +284,7 @@
             "version": "3.4.8.18",
             "software": "Cactvs",
             "source": "Xemistry GmbH",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "ival": 1
@@ -299,7 +299,7 @@
             "version": "3.4.8.18",
             "software": "Cactvs",
             "source": "Xemistry GmbH",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "ival": 3
@@ -315,7 +315,7 @@
             "version": "3.4.8.18",
             "software": "Cactvs",
             "source": "Xemistry GmbH",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "binary": "00000371C0703800000000000000000000000000000000000000300000000000000000010000001A00000800000C04809800320E80000600880220D208000208002420000888010608C80C273684351A827B60A5E01108B98788C8208E00000000000800000000000000100000000000000000"
@@ -329,7 +329,7 @@
             "version": "2.7.0",
             "software": "Lexichem TK",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "2-acetoxybenzoic acid"
@@ -343,7 +343,7 @@
             "version": "2.7.0",
             "software": "Lexichem TK",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "2-acetyloxybenzoic acid"
@@ -357,7 +357,7 @@
             "version": "2.7.0",
             "software": "Lexichem TK",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "2-acetyloxybenzoic acid"
@@ -371,7 +371,7 @@
             "version": "2.7.0",
             "software": "Lexichem TK",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "2-acetyloxybenzoic acid"
@@ -385,7 +385,7 @@
             "version": "2.7.0",
             "software": "Lexichem TK",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "2-acetyloxybenzoic acid"
@@ -399,7 +399,7 @@
             "version": "2.7.0",
             "software": "Lexichem TK",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "2-acetoxybenzoic acid"
@@ -410,10 +410,10 @@
             "label": "InChI",
             "name": "Standard",
             "datatype": 1,
-            "version": "1.0.6",
+            "version": "1.07.2",
             "software": "InChI",
             "source": "iupac.org",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)"
@@ -424,10 +424,10 @@
             "label": "InChIKey",
             "name": "Standard",
             "datatype": 1,
-            "version": "1.0.6",
+            "version": "1.07.2",
             "software": "InChI",
             "source": "iupac.org",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "BSYNRYMUTXBXSQ-UHFFFAOYSA-N"
@@ -440,7 +440,7 @@
             "datatype": 7,
             "version": "3.0",
             "source": "sioc-ccbg.ac.cn",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "fval": 1.2
@@ -454,7 +454,7 @@
             "version": "2.2",
             "software": "PubChem",
             "source": "ncbi.nlm.nih.gov",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "180.04225873"
@@ -467,7 +467,7 @@
             "version": "2.2",
             "software": "PubChem",
             "source": "ncbi.nlm.nih.gov",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "C9H8O4"
@@ -480,7 +480,7 @@
             "version": "2.2",
             "software": "PubChem",
             "source": "ncbi.nlm.nih.gov",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "180.16"
@@ -489,12 +489,12 @@
         {
           "urn": {
             "label": "SMILES",
-            "name": "Canonical",
+            "name": "Absolute",
             "datatype": 1,
             "version": "2.3.0",
             "software": "OEChem",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "CC(=O)OC1=CC=CC=C1C(=O)O"
@@ -503,12 +503,12 @@
         {
           "urn": {
             "label": "SMILES",
-            "name": "Isomeric",
+            "name": "Connectivity",
             "datatype": 1,
             "version": "2.3.0",
             "software": "OEChem",
             "source": "OpenEye Scientific Software",
-            "release": "2021.10.14"
+            "release": "2025.06.30"
           },
           "value": {
             "sval": "CC(=O)OC1=CC=CC=C1C(=O)O"
@@ -523,7 +523,7 @@
             "version": "3.4.8.18",
             "software": "Cactvs",
             "source": "Xemistry GmbH",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "fval": 63.6
@@ -537,7 +537,7 @@
             "version": "2.2",
             "software": "PubChem",
             "source": "ncbi.nlm.nih.gov",
-            "release": "2021.10.14"
+            "release": "2025.04.14"
           },
           "value": {
             "sval": "180.04225873"
