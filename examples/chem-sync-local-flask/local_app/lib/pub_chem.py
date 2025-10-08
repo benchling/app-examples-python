@@ -45,7 +45,7 @@ def get_by_cid(cid: str) -> dict[str, Any]:
     synonyms_json = _pubchem_get(f"cid/{cid}/synonyms/JSON")
     compound_json = result_json["PC_Compounds"][0]
     name = synonyms_json["InformationList"]["Information"][0]["Synonym"][0]
-    smiles = _get_compound_string_prop(compound_json, label="SMILES", name="Canonical")
+    smiles = _get_compound_string_prop(compound_json, label="SMILES", name="Absolute")
     mono_isotopic_weight = _get_compound_string_prop(compound_json, label="Weight", name="MonoIsotopic")
     molecular_weight = _get_compound_string_prop(compound_json, label="Molecular Weight")
     return {
