@@ -1,0 +1,25 @@
+manifestVersion: 1
+
+info:
+  name: Webhook Events App
+  description: |
+    Example App receiving entity registered events from Benchling and syncing
+    them into an external database.
+  version: 0.1.0
+
+# Subscribe to entity registered events
+subscriptions:
+  deliveryMethod: WEBHOOK
+  messages:
+    - type: v2.entity.registered
+
+configuration:
+  - name: Synced Schema
+    type: entity_schema
+    subtype: custom_entity
+    description: The entity schema we want to sync into an external database
+    requiredConfig: true
+    fieldDefinitions:
+      - name: Synced Field Data
+        type: text
+        requiredConfig: true

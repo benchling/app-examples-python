@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  benchling-app:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - type: bind
+        source: .
+        target: /src
+    environment:
+      # Don't set debug in production!
+      - FLASK_DEBUG=1
+      # Enable debug logging for Python Benchling App. This is not native, specific to this example implementation
+      - BENCHLING_APP_LOG_LEVEL=DEBUG
+      # Client ID is not sensitive and is the same across all tenants, so could be hard-coded
+      # You might choose to have two different Apps for dev vs prod, which would have different client IDs
+      - CLIENT_ID
+      - APP_DEFINITION_ID
+      # Client secret for the Benchling App, stored somewhere securely in production.
+      # Injected here for convenience. Each Client ID will have its own Client secret
+      - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
+      # Similarly, the App needs to know the external database password to connect
+      - POSTGRES_PASSWORD_FILE=/run/secrets/database_password
+    secrets:
+      - app_client_secret
+      - database_password
+
+  # FOR LOCAL DEVELOPMENT ONLY!
+  # Free tool for providing a public URL to forward webhooks to our Benchling App running locally
+  # Do not do this in production or use with any sensitive data.
+  # Benchling has not vetted this tool for use in production or in sensitive systems.
+  # Conduct your own due diligence before choosing a tool for production use.
+  local-tunnel:
+    build:
+      context: .
+      dockerfile: Dockerfile.localtunnel
+
+  # Not required for Benchling use, just using PostgreSQL as an example data store
+  # for syncing Benchling data to an external source
+  external-database:
+    image: postgres:16.2
+    restart: always
+    # Map port to avoid conflict with common default on developer machines
+    ports:
+      - "5438:5432"
+    volumes: 
+      # SQL script to create tables
+      - ./scripts/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    environment:
+      - POSTGRES_DB=benchling
+      - POSTGRES_PASSWORD_FILE=/run/secrets/database_password
+    secrets:
+      - database_password
+
+secrets:
+  app_client_secret:
+    file: .client_secret
+  database_password:
+    file: .database_password

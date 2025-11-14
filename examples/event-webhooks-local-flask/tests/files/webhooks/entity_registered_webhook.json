@@ -1,0 +1,24 @@
+{
+    "version": "0",
+    "baseURL": "https://non-existent.benchling.com",
+    "tenantId": "ten_pkyu4s98as",
+    "app": {
+      "id": "app_KNz7HTHIu7TSOSA3"
+    },
+    "appDefinition": {
+      "id": "appdef_UG0XibU4eW",
+      "versionNumber": "0.1.0"
+    },
+    "channel": "events",
+    "message": {
+      "id": "evt_MQjr2hnJ7WLS",
+      "createdAt": "2024-04-04T03:48:09.962068+00:00",
+      "type": "v2.entity.registered",
+      "schema": {
+        "id": "ts_X3i4k1M0"
+      },
+      "deprecated": false,
+      "resourceId": "bfi_J81Hy0ih",
+      "excludedProperties": []
+    }
+  }
