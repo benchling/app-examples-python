@@ -1,8 +1,6 @@
 services:
   benchling-app:
     build: .
-    ports:
-      - "8000:5000"
     volumes:
       - type: bind
         source: .
@@ -21,16 +19,29 @@ services:
       - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
     secrets:
       - app_client_secret
+    network_mode: host
+
 
   # FOR LOCAL DEVELOPMENT ONLY!
   # Free tool for providing a public URL to forward webhooks to our Benchling App running locally
   # Do not do this in production or use with any sensitive data.
   # Benchling has not vetted this tool for use in production or in sensitive systems.
   # Conduct your own due diligence before choosing a tool for production use.
-  cloudflare-tunnel:
-    image: cloudflare/cloudflared
+  tunnel:
+    image: ngrok/ngrok:3.7.0-alpine
     restart: unless-stopped
-    command: tunnel --url http://benchling-app:5000
+    command: "http localhost:5004"
+    volumes:
+      # For Mac and Linux
+      - type: bind
+        source: /run/host-services/ssh-auth.sock
+        target: /run/host-services/ssh-auth.sock
+    environment:
+      # For Mac and Linux
+      - SSH_AUTH_SOCK=/run/host-services/ssh-auth.sock
+      # Note: You'll need to set NGROK_AUTHTOKEN as an environment variable, for example in .env
+      - NGROK_AUTHTOKEN
+    network_mode: host
 
 secrets:
   app_client_secret:

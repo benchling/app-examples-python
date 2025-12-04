@@ -7,4 +7,4 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 COPY ./local_app /src/local_app
 WORKDIR /src/local_app
-CMD ["flask", "run", "--host", "0.0.0.0"]
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5004"]
