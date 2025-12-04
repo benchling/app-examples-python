@@ -6,25 +6,19 @@ from benchling_sdk.models import (
     AppSessionMessageCreate,
     AppSessionMessageStyle,
     AppSessionUpdateStatus,
-    ButtonUiBlock,
-    ButtonUiBlockType,
     MarkdownUiBlock,
     MarkdownUiBlockType,
     Molecule,
-    SectionUiBlock,
-    SectionUiBlockType,
 )
 
-from local_app.benchling_app.views.constants import ARCHIVE_BUTTON_ID
 
-
-def render_completed_canvas(
+def render_archived_canvas(
     molecule: Molecule,
     canvas_id: str,
     canvas_builder: CanvasBuilder,
     session: SessionContextManager,
 ) -> None:
-    canvas_builder = canvas_builder.with_blocks(_completed_blocks())
+    canvas_builder = canvas_builder.with_blocks(_archived_blocks())
     session.app.benchling.apps.update_canvas(
         canvas_id,
         canvas_builder.with_enabled().to_update(),
@@ -34,32 +28,22 @@ def render_completed_canvas(
         messages=[
             AppSessionMessageCreate(
                 # ref() will turn supported objects into clickable "chips" in the Benchling UI
-                f"Created the molecule {ref(molecule)} in Benchling!",
+                f"Chemical has been archived successfully!",
                 style=AppSessionMessageStyle.SUCCESS,
+            ),
+            AppSessionMessageCreate(
+                f"You can still view archived entities: {ref(molecule)}",
+                style=AppSessionMessageStyle.INFO,
             ),
         ],
     )
 
 
-def _completed_blocks() -> list[UiBlock]:
+def _archived_blocks() -> list[UiBlock]:
     return [
         MarkdownUiBlock(
-            id="completed",
+            id="archived",
             type=MarkdownUiBlockType.MARKDOWN,
-            value="The chemical has been synced into Benchling! Please follow procedures for next steps.",
-        ),
-        SectionUiBlock(
-            id="completed_buttons",
-            type=SectionUiBlockType.SECTION,
-            children=[
-                ButtonUiBlock(
-                    id=ARCHIVE_BUTTON_ID,
-                    text="Archive Molecule",
-                    type=ButtonUiBlockType.BUTTON,
-                ),
-            ],
+            value="The chemical has been archived.",
         ),
     ]
-
-
-

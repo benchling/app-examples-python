@@ -25,7 +25,10 @@ def _get_compound_string_prop(
         if p["urn"]["label"] == label and (not name or (p["urn"]["name"] == name))
     ]
     if matching_props:
-        return matching_props[0]["value"]["sval"]
+        value = matching_props[0]["value"]
+        if "sval" in value:
+            return value["sval"]
+        return str(value["fval"])
     return None
 
 
@@ -48,12 +51,14 @@ def get_by_cid(cid: str) -> dict[str, Any]:
     smiles = _get_compound_string_prop(compound_json, label="SMILES", name="Absolute")
     mono_isotopic_weight = _get_compound_string_prop(compound_json, label="Weight", name="MonoIsotopic")
     molecular_weight = _get_compound_string_prop(compound_json, label="Molecular Weight")
+    compound_complexity = _get_compound_string_prop(compound_json, label="Compound Complexity")
     return {
         "cid": cid,
         "name": name,
         "smiles": smiles,
         "molecularWeight": molecular_weight,
         "monoisotopic": mono_isotopic_weight,
+        "compoundComplexity": compound_complexity,
     }
 
 

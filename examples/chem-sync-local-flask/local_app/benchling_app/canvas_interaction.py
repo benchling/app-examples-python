@@ -5,14 +5,16 @@ from urllib.parse import quote
 from benchling_sdk.apps.canvas.framework import CanvasBuilder
 from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.status.errors import AppUserFacingError
-from benchling_sdk.models import AppCanvasUpdate, Molecule
+from benchling_sdk.models import AppCanvasUpdate, Molecule, MoleculesArchiveReason
 from benchling_sdk.models.webhooks.v0 import CanvasInteractionWebhookV2
 
 from local_app.benchling_app.molecules import create_molecule
+from local_app.benchling_app.views.archived import render_archived_canvas
 from local_app.benchling_app.views.canvas_initialize import input_blocks
 from local_app.benchling_app.views.chemical_preview import render_preview_canvas
 from local_app.benchling_app.views.completed import render_completed_canvas
 from local_app.benchling_app.views.constants import (
+    ARCHIVE_BUTTON_ID,
     CANCEL_BUTTON_ID,
     CID_KEY,
     CREATE_BUTTON_ID,
@@ -53,6 +55,13 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
             canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
             molecule = _create_molecule_from_canvas(app, canvas_builder)
             render_completed_canvas(molecule, canvas_id, canvas_builder, session)
+    elif canvas_interaction.button_id == ARCHIVE_BUTTON_ID:
+        with app.create_session_context("Archive Molecules", timeout_seconds=20) as session:
+            session.attach_canvas(canvas_id)
+            canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
+            molecule = _create_molecule_from_canvas(app, canvas_builder)
+            app.benchling.molecules.archive(molecule_ids=[molecule.id], reason=MoleculesArchiveReason.RETIRED)
+            render_archived_canvas(molecule, canvas_id, canvas_builder, session)
     else:
         # Re-enable the Canvas, or it will stay disabled and the user will be stuck
         app.benchling.apps.update_canvas(canvas_id, AppCanvasUpdate(enabled=True))

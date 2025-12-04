@@ -25,7 +25,8 @@ def create_app() -> Flask:
 
         # Important! To verify webhooks, we need to pass the body as an unmodified string
         # Flask's request.data is bytes, so decode to string. Passing bytes or JSON won't work
-        verify(app_def_id, request.data.decode("utf-8"), request.headers)
+        # Disable when using local instance of Benchling Monolith
+        # verify(app_def_id, request.data.decode("utf-8"), request.headers)
 
         logger.debug("Received webhook message: %s", request.json)
         # Dispatch work and ACK webhook as quickly as possible

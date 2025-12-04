@@ -1,6 +1,7 @@
 # Button IDs for routing actions
 SEARCH_BUTTON_ID = "search_button"
 CREATE_BUTTON_ID = "create_button"
+ARCHIVE_BUTTON_ID = "archive_button"
 CANCEL_BUTTON_ID = "cancel_button"
 
 # Inputs we want to gather data from, submitted by the user
