@@ -1,0 +1,35 @@
+manifestVersion: 1
+
+info:
+  name: Sample Sync App
+  version: 0.1.0
+features:
+  - name: Sync Step
+    id: sync_step
+    type: ASSAY_RUN
+  - name: Sync Step
+    id: canvas_sync_step
+    type: CANVAS
+subscriptions:
+  deliveryMethod: WEBHOOK
+  messages:
+  - type: v2.canvas.initialized
+  - type: v2.canvas.userInteracted
+  - type: v2.canvas.created
+configuration:
+  - name: Sync Folder
+    type: folder
+    description: The folder where synced chemical entities will be stored.
+    requiredConfig: true
+  - name: Molecule Schema
+    type: entity_schema
+    subtype: molecule
+    description: A chemical schema for molecules synced from PubChem.
+    requiredConfig: true
+    fieldDefinitions:
+      - name: Molecular Weight
+        type: float
+        requiredConfig: true
+      - name: MonoIsotopic
+        type: float
+        requiredConfig: true

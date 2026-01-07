@@ -1,0 +1,4 @@
+# Only for maintainers
+ruff~=0.1.11
+pytest~=7.4.4
+mypy~=1.8.0

@@ -18,7 +18,7 @@ jobs:
     name: Quality Checks + Tests
     defaults:
       run:
-        working-directory: ./examples/chem-sync-local-flask
+        working-directory: ./examples/benchling-apps/chem-sync-local-flask
 
     steps:
     - uses: actions/checkout@v3

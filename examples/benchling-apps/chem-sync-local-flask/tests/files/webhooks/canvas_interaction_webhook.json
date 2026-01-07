@@ -1,0 +1,20 @@
+{
+  "version": "0",
+  "baseURL": "https://non-existent.benchling.com",
+  "tenantId": "ten_bcvxj2yf7q",
+  "app": {
+    "id": "app_DRBigxGEyr2BzW4T"
+  },
+  "appDefinition": {
+    "id": "appdef_PRhebXCvtw",
+    "versionNumber": "0.0.1"
+  },
+  "channel": "app_signals",
+  "message": {
+    "type": "v2.canvas.userInteracted",
+    "buttonId": "button_1",
+    "canvasId": "cnvs_1234",
+    "deprecated": false,
+    "excludedProperties": []
+  }
+}
