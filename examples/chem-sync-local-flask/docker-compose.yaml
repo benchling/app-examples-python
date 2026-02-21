@@ -28,7 +28,7 @@ services:
   # Benchling has not vetted this tool for use in production or in sensitive systems.
   # Conduct your own due diligence before choosing a tool for production use.
   tunnel:
-    image: ngrok/ngrok:3.7.0-alpine
+    image: ngrok/ngrok:latest
     restart: unless-stopped
     command: "http localhost:5004"
     volumes:
