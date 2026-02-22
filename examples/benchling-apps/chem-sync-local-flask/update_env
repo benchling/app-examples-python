@@ -1,0 +1,22 @@
+#!/bin/bash
+
+echo "Enter your App Definition ID (APP_DEFINITION_ID):"
+read -r APP_DEFINITION_ID
+
+echo "Enter your Client Secret:"
+read -rs CLIENT_SECRET
+
+echo "Enter your Client ID:"
+read -r CLIENT_ID
+
+echo "$CLIENT_SECRET" > .client_secret
+
+cat > .env << EOF
+CLIENT_ID=$CLIENT_ID
+APP_DEFINITION_ID=$APP_DEFINITION_ID
+EOF
+
+echo
+echo "Configuration files updated successfully!"
+echo
+

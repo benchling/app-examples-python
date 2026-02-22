@@ -1,13 +1,11 @@
 # Benchling App Example: Chemical Sync for Local Development
 
-An example Benchling App written in Python which allows users to search for chemicals 
+An example Benchling App written in Python which allows users to search for chemicals
 via [PubChem](https://pubchem.ncbi.nlm.nih.gov/) and create them in Benchling.
 
 ![image info](./docs/demo-full.gif)
 _The App features branching flows and will also validate user inputs._
 
-**Appendices**:
-* [Architecture Diagram](#architecture-diagram)
 
 ## Technical Prerequisites
 
@@ -75,12 +73,11 @@ Example Output:
 https://pioneer-rights-hardly-disorder.trycloudflare.com
 ```
 
-> 💡 Don't forget to append `/1/webhooks`, making the full URL given to Benchling `https://pioneer-rights-hardly-disorder.trycloudflare.com/1/webhooks`
-
 ## Setting Up Your App in Benchling
 
 ### Benchling Prerequisites
 1. Access to a Benchling tenant, like `https://my-tenant.benchling.com`
+>💡 for CKO Workshop: You should have been invited to `https://pilarsterne.bnchdev.org/` with below steps already setup for you. Skip to **Upload the App Manifest**
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
 3. [Optional] If you'd like to render the App's UI in a Run, you'll need a [Benchling Connect](https://www.benchling.com/connect) license.
 4. [Molecule entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview) will need to be enabled on your tenant.
@@ -98,7 +95,7 @@ When prompted to upload a file, select `manifest.yaml` and click "Create."
 
 ### Update the Webhook URL
 
-Every time we restart the `cloudflare-tunnel` Docker container, it will provision
+> Every time we restart the `cloudflare-tunnel` Docker container, it will provision
 a new public webhook URL.
 
 Update the Benchling App's Webhook URL in the UI with the new server and
@@ -110,6 +107,7 @@ the webhook URL in Benchling should be:
 ```
 https://https://pioneer-rights-hardly-disorder.trycloudflare.com/1/webhooks
 ```
+> 💡 Don't forget to append `/1/webhooks`
 
 ![image info](./docs/update-webhook-url.gif)
 
@@ -127,23 +125,16 @@ We can create this file and paste in the secret plaintext value if we have the s
 On *nix:
 
 ```bash
-touch .client_secret
 pbpaste > .client_secret
 ```
 
 > ⚠️ **Security Note:** Be sure to avoid committing `.client_secret` to a source code repository.
 
-You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
-
-```bash
-docker-compose up -d
-```
-
 If you restart both containers, be sure to update your App in Benchling with the new webhook URL from cloudflare-tunnel.
 
 ### Setting Client ID
 
-Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
+Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our
 App to accept `CLIENT_ID` as an environment variable.
 
 One easy way to set an environment variables for Docker is to add a `.env` file.
@@ -158,7 +149,7 @@ Windows example:
 echo.> .env
 ```
 
-Open it in an editor of your choice and set the values with the plaintext client ID 
+Open it in an editor of your choice and set the values with the plaintext client ID
 for your App. For example:
 
 ```
@@ -201,7 +192,7 @@ expects a few configuration items:
 
 We declare two `features` in the `manifest.yaml` so that our App can render
 its UI as a `CANVAS` (e.g. within the Notebook) or on an `ASSAY_RUN`. If you'd like to use a Run, we'll also need:
-1. An Lab Automation run schema
+1. A Lab Automation run schema
 
 #### Folder
 
@@ -224,11 +215,6 @@ The created molecule schema should look something like this:
 _Note: The names can be different, and the schema is allowed to have additional fields.
 As long as it's for a `Molecule` entity, and has at least two `Decimal` fields._
 
-#### [Optional] Lab Automation Run Schema
-
-If using a Run, create a new lab automation run schema in the registry.
-
-![image info](./docs/create-run-schema.gif)
 
 ### Updating the App's Configuration
 
@@ -252,7 +238,7 @@ Let's grant some access by adding the Benchling App to an organization.
 ## Running the App - Syncing a Chemical
 
 1. Create a new notebook entry
-2. Insert a Canvas  
+2. Insert a Canvas
 3. Enter a valid chemical name to search for, such as `acetaminophen`
 4. Click "Search Chemicals"
 5. After reviewing the preview, click "Create Molecule"
@@ -260,16 +246,31 @@ Let's grant some access by adding the Benchling App to an organization.
 
 ![image info](./docs/demo-notebook.gif)
 
-## [Optional] Running the App - via a Run
 
-1. Insert a Run of the schema linked in App Config
-2. Create the Run
-3. Continue with steps 3-6 above
+## Expedited Setup for Workshop Participants
 
-![image info](./docs/demo.gif)
+### Quick Start with Automated Environment Configuration
+
+For workshop participants operating under time constraints, an automated setup script is available to streamline the local development environment configuration process.
+
+Execute the following script from the project root:
+
+```bash
+./update_env
+```
+
+This interactive script will:
+- Prompt for your App Definition ID (`APP_DEFINITION_ID`)
+- Request your Client Secret (will be securely written to `.client_secret` file)
+- Collect your Client ID (`CLIENT_ID`)
+- Automatically display your public-facing webhook URL
+
+
+
+> ⚠️ **Important Note:** This automated configuration script is provided solely to expedite the workshop setup process and reduce manual configuration overhead. This approach is **not recommended for production deployments**. Production environments require proper secrets management, environment isolation, and security hardening practices.
 
 ## Appendices
 
 ### Architecture Diagram
 
-![image info](./docs/architecture-diagram.png)
+![image info](./docs/architecture-diagram.png)%
