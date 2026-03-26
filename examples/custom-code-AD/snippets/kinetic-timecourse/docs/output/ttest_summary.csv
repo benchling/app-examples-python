@@ -1,0 +1,2 @@
+Comparison,Timepoint_hr,Timepoint_basis,t_statistic,p_value,Significance
+Compound_A vs Compound_B,12.0,1/kobs inflection (target=14.2h),3.8992,0.01755,*

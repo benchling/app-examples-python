@@ -1,0 +1,11 @@
+Group1,Group2,Mean_Diff,p_adj,CI_Lower,CI_Upper,Reject_H0,Significance
+Positive_Control,Treatment_10mg,-3.4175,2.00e-04,-5.4115,-1.4235,True,***
+Positive_Control,Treatment_1mg,-11.4104,<0.0001,-13.4044,-9.4163,True,****
+Positive_Control,Treatment_5mg,-6.8008,<0.0001,-8.7948,-4.8067,True,****
+Positive_Control,Vehicle_Control,-16.1684,<0.0001,-18.1624,-14.1743,True,****
+Treatment_10mg,Treatment_1mg,-7.9929,<0.0001,-9.9869,-5.9988,True,****
+Treatment_10mg,Treatment_5mg,-3.3833,2.00e-04,-5.3773,-1.3892,True,***
+Treatment_10mg,Vehicle_Control,-12.7509,<0.0001,-14.7449,-10.7568,True,****
+Treatment_1mg,Treatment_5mg,4.6096,<0.0001,2.6156,6.6037,True,****
+Treatment_1mg,Vehicle_Control,-4.758,<0.0001,-6.752,-2.764,True,****
+Treatment_5mg,Vehicle_Control,-9.3676,<0.0001,-11.3617,-7.3736,True,****
