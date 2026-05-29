@@ -1,0 +1,4 @@
+Compound,Emax_AU,kobs_1_hr,t_half_hr,AUC_AU_hr,R2
+Compound_A,19.949,0.10149,6.83,1222.58,0.9985
+Compound_B,19.867,0.05363,12.92,1049.56,0.9994
+Vehicle,7.749,0.0001,6931.36,-7.33,-0.0248

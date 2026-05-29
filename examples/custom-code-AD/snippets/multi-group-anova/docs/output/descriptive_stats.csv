@@ -1,0 +1,6 @@
+Group,N,Mean,SD,SEM
+Vehicle_Control,8,9.46,1.275,0.451
+Treatment_1mg,8,14.218,1.134,0.401
+Treatment_5mg,8,18.828,1.768,0.625
+Treatment_10mg,8,22.211,1.616,0.571
+Positive_Control,8,25.628,0.986,0.349
