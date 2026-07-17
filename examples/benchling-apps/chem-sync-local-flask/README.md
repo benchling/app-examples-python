@@ -84,7 +84,6 @@ https://pioneer-rights-hardly-disorder.trycloudflare.com
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
 3. [Optional] If you'd like to render the App's UI in a Run, you'll need a [Benchling Connect](https://www.benchling.com/connect) license.
 4. [Molecule entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview) will need to be enabled on your tenant.
-5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
 
 ### Upload the App Manifest
 
@@ -171,7 +170,7 @@ CLIENT_ID=Ts7jtwPohM
 
 The App definition ID is available from the Developer Console by selecting the App to view.
 
-![image info](./docs/global-app-definition-id.png)
+![image info](./docs/app-definition-id.png)
 
 > ℹ️ **Note:** If you do NOT see this ID, please ensure [Global Apps](https://docs.benchling.com/docs/global-apps-faq) are enabled for your tenant.
 
