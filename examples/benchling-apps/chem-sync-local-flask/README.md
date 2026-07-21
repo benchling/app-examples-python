@@ -84,7 +84,6 @@ https://pioneer-rights-hardly-disorder.trycloudflare.com
 2. Ensure you've been granted access to the [Benchling Developer Platform Capability](https://help.benchling.com/hc/en-us/articles/9714802977805-Access-the-Benchling-Developer-Platform).
 3. [Optional] If you'd like to render the App's UI in a Run, you'll need a [Benchling Connect](https://www.benchling.com/connect) license.
 4. [Molecule entities](https://help.benchling.com/hc/en-us/articles/9684254682893-Molecule-entity-overview) will need to be enabled on your tenant.
-5. [Global Apps](https://docs.benchling.com/docs/global-apps-faq) will need to be enabled on your tenant.
 
 ### Upload the App Manifest
 
@@ -111,6 +110,8 @@ the webhook URL in Benchling should be:
 https://https://pioneer-rights-hardly-disorder.trycloudflare.com/1/webhooks
 ```
 
+Use the "Suffixed" setting.
+
 ![image info](./docs/update-webhook-url.gif)
 
 ### Generating a Client Secret
@@ -121,7 +122,7 @@ Generate a client secret in Benchling and be sure to copy the secret.
 
 Since the client secret is sensitive, it's handled a bit differently. It's
 registered as a `secret` in our `docker-compose.yaml` file, which will be looking
-for a file `./client_secret`.
+for a file `./.client_secret`.
 
 We can create this file and paste in the secret plaintext value if we have the secret in our clipboard.
 On *nix:
@@ -136,7 +137,7 @@ pbpaste > .client_secret
 You'll then need to restart _just_ the `benchling-app` Docker service to pick up the changes:
 
 ```bash
-docker-compose up -d
+docker compose restart benchling-app
 ```
 
 If you restart both containers, be sure to update your App in Benchling with the new webhook URL from cloudflare-tunnel.
@@ -146,7 +147,7 @@ If you restart both containers, be sure to update your App in Benchling with the
 Our App needs a Client ID to pair with the Client Secret for authentication to Benchling. In this case, we've created our 
 App to accept `CLIENT_ID` as an environment variable.
 
-One easy way to set an environment variables for Docker is to add a `.env` file.
+One easy way to set environment variables for Docker is to add a `.env` file.
 
 ```bash
 touch .env
@@ -158,7 +159,7 @@ Windows example:
 echo.> .env
 ```
 
-Open it in an editor of your choice and set the values with the plaintext client ID 
+Open it in an editor of your choice and set the value with the plaintext client ID
 for your App. For example:
 
 ```
@@ -169,7 +170,7 @@ CLIENT_ID=Ts7jtwPohM
 
 The App definition ID is available from the Developer Console by selecting the App to view.
 
-![image info](./docs/global-app-definition-id.png)
+![image info](./docs/app-definition-id.png)
 
 > ℹ️ **Note:** If you do NOT see this ID, please ensure [Global Apps](https://docs.benchling.com/docs/global-apps-faq) are enabled for your tenant.
 
@@ -185,7 +186,7 @@ APP_DEFINITION_ID=appdef_Trow4zbR3o
 Restart the `benchling-app` Docker container to pick up the environment changes.
 
 ```bash
-docker-compose up -d
+docker compose restart benchling-app
 ```
 
 ### Security Note: Storing App Secrets in Production
@@ -235,8 +236,10 @@ If using a Run, create a new lab automation run schema in the registry.
 App Configuration gives us a stable code contract for referencing data mapped in a Benchling tenant.
 The values of the data in Benchling can then be changed without updating App code.
 
+> ℹ️ Before updating the configuration, the app needs to be installed. This can be done on the Version History tab.
+
 Let's update our configuration to:
-1. Specify a folder for syncing sequences
+1. Specify a folder for syncing chemicals
 2. Link a molecule schema and fields for the synced chemicals
 3. [Optional] If using a Run, select an assay run schema to associate with our Benchling App
 
