@@ -1,0 +1,26 @@
+manifestVersion: 1
+
+info:
+  name: Test UI
+  version: 0.1.6
+features:
+  - name: App Homepage canvas
+    id: test_app_homepage_feature
+    type: APP_HOMEPAGE
+  - name: Submit Step
+    id: submit_step
+    type: ASSAY_RUN
+  - name: Submit Step
+    id: canvas_submit_step
+    type: CANVAS
+    locations: 
+      - ENTRY
+      - ENTRY_TEMPLATE
+subscriptions:
+  deliveryMethod: WEBHOOK
+  endpoint: /1/webhooks/canvas
+  messages:
+  - type: v2.canvas.initialized
+  - type: v2.canvas.userInteracted
+  - type: v2-beta.canvas.created
+# configuration:

@@ -1,0 +1,10 @@
+# Run with: ruff check . --fix
+
+target-version = "py311"
+line-length = 110
+
+select = ["ALL"]
+ignore = ["D100", "D101", "D103", "D104", "EM101", "EM102", "S101", "TRY003", "TRY301"]
+
+[per-file-ignores]
+"**/tests/*" = ["ANN001", "ANN101", "D102", "PLR2004"]
